@@ -1,0 +1,51 @@
+
+POST http://localhost:3001/auth/login
+Content-Type: application/json
+
+{
+    "email": "hoanganh1410tb@gmail.com",
+    "password": "111111111",
+    "staff":1
+}
+
+###
+
+POST http://localhost:3001/auth/signup
+Content-Type: application/json
+
+{
+    "email":"hoanganh1410tb@gmail.com",
+    "password":"dang123",
+    "phone":"0397530256",
+    "firstName":"Anh",
+    "lastName":"Nguyen",
+    "gender":"F",
+    "dob":"2001-10-06",
+    "start_date":"2023-01-01",
+    "status":"1",
+    "position":3,
+    "city_id":1,
+    "district_id":1,
+    "ward_id":1,
+    "cinema_id": 1
+}
+
+###
+
+POST http://localhost:3001/auth/forgot-password
+Content-Type: application/json
+
+{
+    "email": "hoanganh1410tb@gmail.com"
+}
+
+###
+
+POST http://localhost:3001/auth/reset-password
+Content-Type: application/json
+
+{
+    "email": "hoanganh1410tb@gmail.com",
+    "token": "$2b$10$ZDc.I/dwWPhzU6sB7JouGey.VUDzWUVJRLXU.Q9sbZPTq3cdA6/ii",
+    "password": "12345689"
+}
