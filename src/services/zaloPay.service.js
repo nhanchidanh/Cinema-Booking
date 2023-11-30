@@ -18,7 +18,6 @@ const embed_data = {
 const items = [{}];
 class ZaloPayService {
   async payment({ amount }) {
-    console.log("amount", amount);
     const transID = Math.floor(Math.random() * 1000000);
     const order = {
       app_id: config.app_id,
@@ -51,7 +50,6 @@ class ZaloPayService {
 
     try {
       const res = await axios.post(config.endpoint, null, { params: order });
-      console.log("res.data", res.data);
       return {
         result: res.data,
         appTransId: order.app_trans_id,
@@ -71,7 +69,6 @@ class ZaloPayService {
     const data =
       config.app_id + "|" + playload.app_trans_id + "|" + config.key1;
     playload.mac = CryptoJS.HmacSHA256(data, config.key1).toString();
-    console.log("playload", playload);
 
     const postConfig = {
       method: "post",
@@ -83,10 +80,6 @@ class ZaloPayService {
     };
 
     try {
-      // setInterval( async() => {
-      //     const check = await axios(postConfig);
-      //     console.log("check.data", check.data);
-      // }, 7000)
       const check = await axios(postConfig);
       return {
         status: check.data.return_code,

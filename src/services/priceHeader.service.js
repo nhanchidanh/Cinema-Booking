@@ -18,10 +18,12 @@ class PriceHeaderService {
   }
 
   async createPriceHeader(priceHeader) {
-    priceHeader.priceCode = `PRI${priceHeader.priceCode}`
-    const priceCodeIsExist = await PriceHeaderRepository.getPriceHeaderByCode(priceHeader.priceCode);
-    if(priceCodeIsExist){
-      throw new Error('Price code is exist');
+    priceHeader.priceCode = `PRI${priceHeader.priceCode}`;
+    const priceCodeIsExist = await PriceHeaderRepository.getPriceHeaderByCode(
+      priceHeader.priceCode
+    );
+    if (priceCodeIsExist) {
+      throw new Error("Price code is exist");
     }
     return await PriceHeaderRepository.createPriceHeader(priceHeader);
   }
@@ -33,7 +35,6 @@ class PriceHeaderService {
       return item.Product.id;
     });
     for (let i = 0; i < listIdProduct.length; i++) {
-      console.log("id", listIdProduct[i]);
       const check = await PriceLineRepository.checkPriceLine({
         idProduct: listIdProduct[i],
         startDate: startDate,
@@ -53,8 +54,7 @@ class PriceHeaderService {
       return await PriceHeaderRepository.updatePriceHeader(id, priceHeader);
     } else {
       const check = await this.checkPriceHeader(id);
-      console.log("check", check);
-      if ( check && check.length > 0) {
+      if (check && check.length > 0) {
         return {
           message: "Price line is exist",
           data: check,

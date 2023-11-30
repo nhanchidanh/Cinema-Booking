@@ -262,9 +262,7 @@ class ApplicableCustomerRepository {
       ],
       attributes: [],
     });
-    // console.log("idProductBuy", idProductBuy);
-    // console.log("qtyBuy", qtyBuy);
-    // console.log('RS',rs)
+
     return rs;
   }
 }

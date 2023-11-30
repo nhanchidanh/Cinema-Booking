@@ -56,17 +56,15 @@ class ShowController {
   //[POST] /show
   async createShow(req, res) {
     try {
-      console.log("p");
       const rs = await ShowService.createShow(req.body);
-      if(rs.length > 0)
+      if (rs.length > 0)
         return res.status(409).json({
           message: "Trùng lịch chiếu",
         });
       res.status(200).json({
         message: "Create show successfully",
       });
-
-    } catch (err) { 
+    } catch (err) {
       res.status(500).json({
         status: 500,
         message: err.message,
@@ -100,16 +98,16 @@ class ShowController {
     }
   }
 
-  async checkIsExist(req,res) {
+  async checkIsExist(req, res) {
     try {
       const rs = await ShowService.checkIsExist(req.body);
-      if(rs.length > 0)
+      if (rs.length > 0)
         return res.status(409).json({
           message: "Trùng lịch chiếu",
-          data: rs
+          data: rs,
         });
       res.status(200).json(rs);
-    } catch (err) { 
+    } catch (err) {
       res.status(500).json({
         status: 500,
         message: err.message,
@@ -117,7 +115,7 @@ class ShowController {
     }
   }
 
-  async checkShowTimeIsPassed(req,res) {
+  async checkShowTimeIsPassed(req, res) {
     try {
       const rs = await ShowService.checkShowTimeIsPassed(req.params.id);
       res.status(200).json(rs);
@@ -129,7 +127,7 @@ class ShowController {
     }
   }
 
-  async getListShowTimeIsPass(req,res) {
+  async getListShowTimeIsPass(req, res) {
     try {
       const rs = await ShowService.getListShowTimeIsPass(req.query);
       res.status(200).json(rs);
@@ -141,7 +139,7 @@ class ShowController {
     }
   }
 
-  async updateStatusShow(req,res) {
+  async updateStatusShow(req, res) {
     try {
       const rs = await ShowService.updateStatusShow(req.params.id, req.body);
       res.status(200).json(rs);

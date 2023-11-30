@@ -52,7 +52,6 @@ class showTimesMovieController {
         message: err.message,
       });
     }
-    
   }
 
   async getByShowIdAndDate(req, res) {
@@ -66,7 +65,6 @@ class showTimesMovieController {
   }
 
   async getShowMovieShowAndMovie(req, res) {
-    console.log('getShowMovieShowAndMovie');
     const showTimesMovie = await showTimesMovieService.getShowMovieShowAndMovie(
       req.query
     );

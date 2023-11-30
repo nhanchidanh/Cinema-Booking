@@ -61,12 +61,9 @@ class showMovieService {
     if (datequery === currentDate) {
       data.map(async (item, index) => {
         const time = item.ShowTime.showTime;
-        console.log("time", time);
         const showTime = moment(time, "HH:mm").format("HH:mm");
-        console.log("time", showTime);
-        console.log("cr", currentTime);
+
         if (currentTime > showTime) {
-          console.log("ok");
           item.status = 0;
           await showMovieRepository.updateShowMovie(item.id, {
             status: 0,
@@ -118,7 +115,6 @@ class showMovieService {
     if (!rs) return [];
 
     for (let i = 0; i < rs.length; i++) {
-      console.log("rs", rs[i]);
       const time = await showTimeRepository.getTime(rs[i].idShowTime);
       const { duration } = await movieRepository.getMovieById(
         rs[0].Show.idMovie

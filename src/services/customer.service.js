@@ -52,10 +52,8 @@ class CustomerService {
   async createCustomer(req) {
     const customer = req.body;
     const image = req.file;
-    console.log("image sv", image);
     if (image) {
       const result = await s3Service.uploadFile(image);
-      console.log(result);
       customer.image = result;
     }
     const password = generate({
@@ -66,7 +64,6 @@ class CustomerService {
       symbols: true,
       excludeSimilarCharacters: true,
     });
-    console.log("password", password);
     const salt = await GenerateSalt();
     const passwordHash = await GeneratePassword(password, salt);
     customer.password = passwordHash;
@@ -100,7 +97,6 @@ class CustomerService {
       lowercase: true,
       excludeSimilarCharacters: true,
     });
-    console.log("password", password);
     const salt = await GenerateSalt();
     const passwordHash = await GeneratePassword(password, salt);
     body.password = passwordHash;
@@ -151,11 +147,9 @@ class CustomerService {
         throw new Error("Email đã tồn tại");
       }
     }
-    console.log("id", id);
     try {
       if (image) {
         const result = await s3Service.uploadFile(image);
-        console.log(result);
         customer.image = result;
       }
       return await CustomerRepository.UpdateCustomer(id, customer);
@@ -184,7 +178,6 @@ class CustomerService {
         throw new Error("Email đã tồn tại");
       }
     }
-    console.log("id", id);
     try {
       return await CustomerRepository.UpdateCustomer(id, customer);
     } catch (err) {
@@ -210,7 +203,6 @@ class CustomerService {
 
   async getInfoMemberShip(id) {
     const total_spent = await StatisticsService.getRevenueByCustomerInMonth(id);
-    console.log(total_spent[0].dataValues);
     const data = await MemberShipRepository.GetInfoCustomer(id);
     data.dataValues.total_spent = total_spent[0].dataValues.total;
     return data;
@@ -218,7 +210,6 @@ class CustomerService {
 
   async getCustomers() {
     const data = await MemberShipRepository.GetCustomers();
-    console.log("data", data);
     return data;
   }
 
@@ -232,9 +223,6 @@ class CustomerService {
       };
     } else {
       bcrypt.hash(user.email, parseInt(10)).then(async (hashedEmail) => {
-        console.log(
-          `${process.env.APP_URL}/auth/reset-password?email=${user.email}&token=${hashedEmail}&isCustomer=true`
-        );
         const mailTemplate = await renderEjs(
           `${process.cwd()}/src/resources/views/reset-password.ejs`,
           {

@@ -25,10 +25,8 @@ class ProductService {
   async createProduct(req) {
     const product = req.body;
     const image = req.file;
-    console.log(image);
     if (image) {
       const result = await s3Service.uploadFile(image);
-      console.log(result);
       product.image = result;
     }
     product.productCode = `PRD${product.productCode}`;
@@ -44,7 +42,6 @@ class ProductService {
     const image = req.file;
     if (image) {
       const result = await s3Service.uploadFile(image);
-      console.log(result);
       product.image = result;
     }
     await ProductRepository.updateProduct(id, product);

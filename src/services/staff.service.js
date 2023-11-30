@@ -29,9 +29,7 @@ class StaffService {
     staff.isActivated = false;
     staff.start_date = new Date();
     const image = req.file;
-    console.log(image);
     const result = await s3Service.uploadFile(image);
-    console.log(result);
     staff.image = result;
     return await StaffRepository.CreateStaff(staff);
   }
@@ -74,7 +72,6 @@ class StaffService {
     const image = req.file;
     if (image) {
       const result = await s3Service.uploadFile(image);
-      console.log(result);
       staff.image = result;
     }
     return await StaffRepository.CreateStaff(staff);
@@ -104,7 +101,6 @@ class StaffService {
     }
     if (image) {
       const result = await s3Service.uploadFile(image);
-      console.log(result);
       staff.image = result;
     }
 

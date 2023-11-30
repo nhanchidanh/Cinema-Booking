@@ -24,14 +24,13 @@ const port = process.env.PORT;
 const db = require("./src/config/database");
 
 app.set("view engine", "ejs");
-console.log("url ", __dirname);
 app.set("views", path.join(__dirname, "src/resources", "views"));
 
 db.sync({ alter: true });
 // db.sync();
 
 app.use(bodyParser.json({ limit: "50mb" }));
-app.use(cors({ origin: true, credentials: true }))
+app.use(cors({ origin: true, credentials: true }));
 app.use(useragent.express());
 app.use(express.urlencoded({ extended: true }));
 // routes

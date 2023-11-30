@@ -47,7 +47,6 @@ class PromotionDetailController {
 
   // [POST] /promotionDetails
   async createPromotionDetail(req, res) {
-    console.log("a")
     try {
       const promotionDetail =
         await PromotionDetailService.createPromotionDetail(req.body);

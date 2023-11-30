@@ -22,7 +22,6 @@ class PromotionLineService {
   }
 
   async createPromotionLine(req) {
-    console.log(req.body);
     const promotionLine = req.body;
     const newPromotionLine = await PromotionLineRepository.createPromotionLine(
       promotionLine
@@ -30,7 +29,7 @@ class PromotionLineService {
     return newPromotionLine;
   }
 
-  async updatePromotionLine(id,payloadLine, payloadDetail) {
+  async updatePromotionLine(id, payloadLine, payloadDetail) {
     await PromotionLineRepository.updatePromotionLine(id, payloadLine);
     if (payloadDetail) {
       await PromotionDetailService.updatePromotionDetailByPromotionLineId(

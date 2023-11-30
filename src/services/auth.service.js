@@ -103,9 +103,6 @@ class CustomerService {
       const existingStaff = await StaffRepository.CreateStaff(newStaff);
       if (existingStaff?.email) {
         bcrypt.hash(newStaff.email, parseInt(10)).then(async (hashedEmail) => {
-          console.log(
-            `${process.env.APP_URL}/auth/verify?email=${existingStaff.email}&token=${hashedEmail}`
-          );
           const mailTemplate = await renderEjs(
             `${process.cwd()}/src/resources/views/invite-non-user.ejs`,
             {
@@ -154,7 +151,7 @@ class CustomerService {
         street,
         salt,
         dob,
-        rank_id: 1,
+        rank_id: 2,
       };
 
       const existingCustomer = await CustomerRepository.CreateCustomer(
@@ -165,9 +162,6 @@ class CustomerService {
         bcrypt
           .hash(newCustomer.email, parseInt(10))
           .then(async (hashedEmail) => {
-            console.log(
-              `${process.env.APP_URL}/auth/verify-customer?email=${existingCustomer.email}&token=${hashedEmail}`
-            );
             const mailTemplate = await renderEjs(
               `${process.cwd()}/src/resources/views/invite-non-user.ejs`,
               {
@@ -221,73 +215,6 @@ class CustomerService {
       },
     };
   }
-  // rm sms
-  // async sendOTP(id, phone) {
-  //   console.log("phone::" + phone);
-  //   // const otp = GenerateOTP(6);
-  //   // const otpTime = new Date();
-  //   // otpTime.setMinutes(otpTime.getMinutes() + 1);
-  //   // await CustomerRepository.UpdateCustomer(id, { phoneOtp: otp, otpTime: otpTime });
-  //   // // send otp to phone
-
-  //   twilio.verify.v2
-  //     .services(process.env.TWILIO_VERIFY_SID)
-  //     .verifications.create({
-  //       to: "+84" + phone,
-  //       channel: "sms",
-  //     })
-  //     .then((verification) => console.log(verification))
-  //     .catch((err) => console.log(err));
-  // }
-
-  // async checkOTP(sendOtp, dbOtp, otpTime) {
-  //   if (!dbOtp) {
-  //     return {
-  //       status: 400,
-  //       message: "OTP is not valid",
-  //     };
-  //   }
-
-  //   if (new Date() > otpTime) {
-  //     return {
-  //       status: 400,
-  //       message: "OTP is expired",
-  //     };
-  //   }
-
-  //   if (sendOtp !== dbOtp) {
-  //     return {
-  //       status: 400,
-  //       message: "OTP is not valid",
-  //     };
-  //   }
-  // }
-
-  // async VerifyOTP(userInputs) {
-  //   const { id, otp, phone } = userInputs;
-  //   // const { id,otp } = userInputs;
-  //   // const existingCustomer = await CustomerRepository.GetById(id);
-  //   // const { phoneOtp,otpTime } = existingCustomer;
-  //   // const checkOTP = await this.checkOTP(otp,phoneOtp,otpTime);
-  //   // if(checkOTP) {
-  //   //     return checkOTP;
-  //   // }
-  //   // await CustomerRepository.UpdateCustomer(id, { isActivated: true });
-
-  //   twilio.verify.v2
-  //     .services(process.env.TWILIO_VERIFY_SID)
-  //     .verificationChecks.create({ to: "+84" + phone, code: otp })
-  //     .then((verification) => console.log(verification.status))
-  //     .catch((err) => console.log(err));
-
-  //   await CustomerRepository.UpdateCustomer(id, { isActivated: true });
-  //   // await Redis.del("otp_" + phone);
-
-  //   return {
-  //     status: 200,
-  //     message: "Account is activated",
-  //   };
-  // }
 
   async Login(userInputs) {
     const { phone, password, staff, email } = userInputs;
@@ -305,7 +232,6 @@ class CustomerService {
           message: "Tài khoản hoặc mật khẩu sai.",
         };
       }
-      console.log(existingStaff);
       if (!existingStaff.isVerify) {
         return {
           status: 403,
@@ -532,7 +458,6 @@ class CustomerService {
   }
 
   async handleVerifyUser(req, res) {
-    console.log("staringg.....");
     bcrypt.compare(
       req.query.email,
       req.query.token,
@@ -566,7 +491,6 @@ class CustomerService {
     );
   }
   async handleVerifyCustomer(req, res) {
-    console.log("staringg.....");
     bcrypt.compare(
       req.query.email,
       req.query.token,
@@ -610,10 +534,6 @@ class CustomerService {
       };
     } else {
       bcrypt.hash(user.email, parseInt(10)).then(async (hashedEmail) => {
-        console.log(
-          `${process.env.APP_URL}/auth/reset-password?email=${user.email}&token=${hashedEmail}`
-        );
-
         // mailer.sendMail(
         //   user.email,
         //   "Reset Password",

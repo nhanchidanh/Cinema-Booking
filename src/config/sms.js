@@ -12,7 +12,6 @@ aws.config.update({
 // }
 
 const sendSMS = (phone, content, cb) => {
-  console.log("phone", phone);
   const params = {
     Message: content,
     PhoneNumber: "+" + phone,

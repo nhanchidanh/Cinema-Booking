@@ -18,7 +18,6 @@ class MemberShipService {
   }
 
   async createMemberShip(memberShip) {
-    console.log("memberShip", memberShip);
     memberShip.startDate = new Date();
     memberShip.menberShipCode = "MS" + Math.floor(Math.random() * 1000000);
     return await MemberShipRepository.createMemberShip(memberShip);
@@ -34,7 +33,6 @@ class MemberShipService {
 
   async getInfoCustomer(id) {
     const total_spent = await StatisticsService.getRevenueByCustomerInMonth(id);
-    console.log(total_spent);
     const data = await MemberShipRepository.GetInfoCustomer(id);
     data.dataValues.total_spent = total_spent;
     return data;

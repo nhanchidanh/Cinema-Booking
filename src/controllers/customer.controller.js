@@ -98,9 +98,7 @@ class CustomerController {
   // [PUT] /customers/:id
   async updateCustomer(req, res) {
     try {
-      const customer = await CustomerService.updateCustomer(
-        req
-      );
+      const customer = await CustomerService.updateCustomer(req);
       res.status(200).json(customer);
     } catch (err) {
       res.status(500).json({
@@ -110,12 +108,10 @@ class CustomerController {
     }
   }
 
-   // [PUT] /customers/:id
-   async updateCustomerById(req, res) {
+  // [PUT] /customers/:id
+  async updateCustomerById(req, res) {
     try {
-      const customer = await CustomerService.updateCustomerByID(
-        req
-      );
+      const customer = await CustomerService.updateCustomerByID(req);
       res.status(200).json(customer);
     } catch (err) {
       res.status(500).json({
@@ -127,9 +123,7 @@ class CustomerController {
 
   async updatePasswordCustomer(req, res) {
     try {
-      const customer = await CustomerService.resetPassword(
-        req
-      );
+      const customer = await CustomerService.resetPassword(req);
       res.status(200).json(customer);
     } catch (err) {
       res.status(500).json({
@@ -166,7 +160,6 @@ class CustomerController {
 
   async getCustomers(req, res) {
     try {
-      console.log("getCustomers");
       const customers = await CustomerService.getCustomers();
       res.status(200).json(customers);
     } catch (err) {
@@ -178,13 +171,13 @@ class CustomerController {
   }
 
   async forgotPassword(req, res) {
-    try{
-        const rs = await CustomerService.handleForgotPassword(req, res)
-    }catch(err){
-        res.status(500).json({
-            status: 500,
-            message: err.message
-        })
+    try {
+      const rs = await CustomerService.handleForgotPassword(req, res);
+    } catch (err) {
+      res.status(500).json({
+        status: 500,
+        message: err.message,
+      });
     }
   }
 }

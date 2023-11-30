@@ -170,7 +170,6 @@ class ShowService {
     let startDate = moment(show.startDate, "YYYY-MM-DD");
     let endDate = moment(show.endDate, "YYYY-MM-DD");
     const { duration } = await movieRepository.getMovieById(show.idMovie);
-    console.log(duration);
 
     // generate period start date to end date
     let dates = [];
@@ -206,7 +205,6 @@ class ShowService {
         }
       })
     );
-    console.log(isExists);
     if (isExists.length === 0) {
       const { id } = await ShowRepository.createShow({
         startDate: show.startDate,
@@ -338,9 +336,6 @@ class ShowService {
       .add(duration, "minutes")
       .format("HH:mm");
 
-    console.log("showTime", showTime);
-    console.log("crTime", currentTime);
-    console.log("endTime", endTime);
     if (showDate === currentDate) {
       if (showTime < currentTime) {
         return 3;
@@ -419,22 +414,17 @@ class ShowService {
       return unique;
     }, []);
 
-
     const showTimesCurrent = isExists.map((item) => item.ShowTime.showTime);
     const movies_id = isExists.map((item) => item.dataValues.idMovie);
     const { duration } = await movieRepository.getMovieById(movies_id[0]);
-    // console.log("showTimesCurrent", showTimesCurrent);
 
-
-    const showUnique = [...new Set(showTimesCurrent.filter(
-      (e, i, a) => a.indexOf(e) === i
-    ))];
-    // console.log("showUnique", showUnique);
+    const showUnique = [
+      ...new Set(showTimesCurrent.filter((e, i, a) => a.indexOf(e) === i)),
+    ];
 
     showUnique.sort((a, b) => {
       return moment(a, "HH:mm").diff(moment(b, "HH:mm"));
     });
-
 
     showUnique.forEach((showTime) => {
       const showTimeTmp = [];
@@ -449,7 +439,6 @@ class ShowService {
       });
       showTimesIsPass.push(...showTimeTmp);
     });
-
 
     const map = showTimesIsPass.map((item) => item.showTime);
 

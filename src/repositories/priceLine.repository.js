@@ -90,8 +90,6 @@ class PriceLineRepository {
   async checkPriceLine(body) {
     const startDateCheck = moment(body.startDate).format("YYYY-MM-DD");
     const endDateCheck = moment(body.endDate).format("YYYY-MM-DD");
-    console.log(startDateCheck);
-    console.log(endDateCheck);
     return await PriceLine.findAll({
       include: [
         {
