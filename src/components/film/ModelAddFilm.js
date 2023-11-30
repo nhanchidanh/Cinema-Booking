@@ -22,12 +22,10 @@ import categoryMovie from "../../api/categoryMovie";
 import { fimlValidator } from "./FilmSchema";
 import cinameApi from "../../api/cinemaApi";
 import movieApi from "../../api/movieApi";
-import { notifyError,
-  notifySucess
- } from "../../utils/Notifi";
- 
- import { setReload } from "../../redux/actions";
- import { useDispatch, useSelector } from "react-redux";
+import { notifyError, notifySucess } from "../../utils/Notifi";
+
+import { setReload } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 const { Option } = Select;
 
@@ -61,9 +59,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     setShowModalAddCustomer(false);
   };
 
-  const handleChangeCode = (e) => {
-
-  };
+  const handleChangeCode = (e) => {};
 
   //change position
   const handleChangePosition = (value) => {
@@ -86,12 +82,19 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     setClassify(value);
   };
 
-  const handleSubmit = async(val) => {
+  const handleSubmit = async (val) => {
     console.log(val);
     const {
-      category, classify, codeMovie, 
-      daoDien, description, dienVien, 
-      image, link, name, time
+      category,
+      classify,
+      codeMovie,
+      daoDien,
+      description,
+      dienVien,
+      image,
+      link,
+      name,
+      time,
     } = val;
     console.log(startDatePicker, endDatePicker);
     const data = new FormData();
@@ -106,21 +109,20 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     data.append("desc", description);
     data.append("classify", classify);
     data.append("endDate", endDatePicker);
-    if(image || (image && image.length > 0)){
+    if (image || (image && image.length > 0)) {
       data.append("image", image[0].originFileObj);
     }
     try {
       const rs = await movieApi.createMovie(data);
       console.log(rs);
-      if(rs){
+      if (rs) {
         setShowModalAddCustomer(false);
-        notifySucess("Thêm bộ phim thành công.")
+        notifySucess("Thêm bộ phim thành công.");
         depatch(setReload(!reload));
       }
     } catch (error) {
-      notifyError("Mã phim đã tồn tại!")
+      notifyError("Mã phim đã tồn tại!");
     }
-   
   };
   useEffect(() => {
     //load categories
@@ -164,9 +166,8 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     getCategories();
   }, []);
 
-
   const normFile = (e) => {
-    console.log('Upload event:', e);
+    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -178,7 +179,6 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     setTimeout(() => {
       onSuccess("ok");
     }, 0);
-
   };
 
   return (
@@ -200,8 +200,8 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
           </Space>
         }
       >
-        <Form layout="vertical"  onFinish={handleSubmit} id="myForm" form={form}>
-        <Row gutter={16}>
+        <Form layout="vertical" onFinish={handleSubmit} id="myForm" form={form}>
+          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="codeMovie"
@@ -213,19 +213,19 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   },
                 ]}
               >
-                <Input placeholder="Hãy nhập mã phim tối đa 5 ký tự..." 
+                <Input
+                  placeholder="Hãy nhập mã phim tối đa 5 ký tự..."
                   addonBefore="MOV"
                   min={1}
                   maxLength={5}
                   showCount
-                  style={{ width: "100%"}}
+                  style={{ width: "100%" }}
                   // onChange={handleChangeCode}
                   onKeyPress={(e) => {
                     if (!/[0-9]/.test(e.key)) {
                       e.preventDefault();
                     }
                   }}
-
                 />
               </Form.Item>
             </Col>
@@ -240,9 +240,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   },
                 ]}
               >
-                <Input
-                  placeholder="Hãy nhập tên bộ phim..."
-                />
+                <Input placeholder="Hãy nhập tên bộ phim..." />
               </Form.Item>
             </Col>
           </Row>
@@ -323,14 +321,12 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   },
                 ]}
               >
-                <RangePicker 
+                <RangePicker
                   placeholder={["Ngày bắt đầu", "Ngày kết thúc"]}
                   onChange={onChangeDate}
-                  disabledDate={
-                    (current) => {
-                      return current && current < moment().endOf('day');
-                    }
-                  }
+                  disabledDate={(current) => {
+                    return current && current < moment().endOf("day");
+                  }}
                 />
               </Form.Item>
             </Col>
@@ -353,7 +349,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   onChange={onChangeClassify}
                   options={[
                     {
-                      value: "C13"  ,
+                      value: "C13",
                       label: "C13 - 13 tuổi trở lên",
                     },
                     {
@@ -373,7 +369,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
               </Form.Item>
             </Col>
           </Row>
-          <Row  gutter={16}>
+          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="daoDien"
@@ -385,9 +381,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   },
                 ]}
               >
-                <Input
-                  placeholder="Hãy nhập tên đạo diễn..."
-                />
+                <Input placeholder="Hãy nhập tên đạo diễn..." />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -401,50 +395,44 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   },
                 ]}
               >
-                <Input
-                  placeholder="Hãy nhập tên diễn viên..."
-                />
+                <Input placeholder="Hãy nhập tên diễn viên..." />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item
-                name="link"
-                label="Link trailer"
-              >
-                <Input
-                  placeholder="Hãy nhập link trailer..."
-                />
+              <Form.Item name="link" label="Link trailer">
+                <Input placeholder="Hãy nhập link trailer..." />
               </Form.Item>
             </Col>
             <Col span={12}>
-            <Form.Item
-              name="image"
-              label="Hình ảnh"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              extra="Chỉ chấp nhận file ảnh"
-              type="file"
-            >
-              <Upload name="logo" customRequest={dummyRequest}
-                 listType="picture" maxCount={1} accept=".jpg,.jpeg,.png"
+              <Form.Item
+                name="image"
+                label="Hình ảnh"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                extra="Chỉ chấp nhận file ảnh"
+                type="file"
               >
-                <Button  icon={<UploadOutlined />}> Tải ảnh lên</Button>
-              </Upload>
-            </Form.Item>
-            </Col>
-          </Row>
-          <Row  gutter={16}>
-            <Col span={24}>
-              <Form.Item name="description" label="Mô tả">
-                <Input.TextArea
-                  rows={4}
-                  placeholder="Nhập miêu tả..."
-                />
+                <Upload
+                  name="logo"
+                  customRequest={dummyRequest}
+                  listType="picture"
+                  maxCount={1}
+                  accept=".jpg,.jpeg,.png"
+                >
+                  <Button icon={<UploadOutlined />}> Tải ảnh lên</Button>
+                </Upload>
               </Form.Item>
             </Col>
-          </Row>  
+          </Row>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item name="description" label="Mô tả">
+                <Input.TextArea rows={4} placeholder="Nhập mô tả..." />
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </Drawer>
     </>

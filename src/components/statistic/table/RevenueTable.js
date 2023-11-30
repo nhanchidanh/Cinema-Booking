@@ -93,9 +93,7 @@ const columnsCustomerStattits = [
       if (rank === "SILVER") {
         color = "silver";
       }
-      if (rank === "DIAMOND") {
-        color = "blue";
-      }
+
       return (
         <Tag color={color} key={rank}>
           {rank?.toUpperCase()}
@@ -291,7 +289,6 @@ const ExpandedRowRender = ({ record }) => {
 };
 
 const RevenueTable = ({ revenues, idStaff, tableType, setParamShow }) => {
-  console.log("revenues: ", revenues);
   if (tableType === 2) {
     return (
       <Table

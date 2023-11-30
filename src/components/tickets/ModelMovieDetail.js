@@ -84,6 +84,7 @@ const ModelDetailMovie = ({
   const [order, setOrder] = useState({});
 
   const [seatNomal, setSeatNomal] = useState([]);
+  console.log("seatNomal: ", seatNomal);
   const [seatVip, setSeatVip] = useState([]);
 
   const columnsSeat = [
@@ -221,7 +222,7 @@ const ModelDetailMovie = ({
     const fetchOrderDetail = async () => {
       const res = await orderApi.getDetail(selectedId);
       if (res) {
-        console.log("orderDetail", res);
+        console.log("orderDetail in model", res);
         let listSeat = [];
         let listProduct = [];
         res.forEach((item) => {
@@ -250,14 +251,13 @@ const ModelDetailMovie = ({
             listProduct,
           };
         });
+        console.log("listSeat: ", listSeat);
         setOrderDetailSeat(listSeat);
         setOrderDetailProduct(listProduct);
         const listNormal = listSeat.filter(
-          (item) => item.productCode === "PRD001"
+          (item) => item.productCode === "PRD01"
         );
-        const listVip = listSeat.filter(
-          (item) => item.productCode === "PRD003"
-        );
+        const listVip = listSeat.filter((item) => item.productCode === "PRD03");
         setSeatNomal(listNormal);
         setSeatVip(listVip);
       }
@@ -711,7 +711,9 @@ const ModelDetailMovie = ({
             </span>
           </Row>
           <Row className="print-content">
-            <span>===================================================</span>
+            <span>
+              ============================================================
+            </span>
           </Row>
           <Row className="print-content content-body">
             <span>{order?.ShowMovie?.Show?.Movie?.nameMovie}</span>
@@ -734,7 +736,9 @@ const ModelDetailMovie = ({
           {seatNomal && seatNomal.length > 0 && (
             <>
               <Row className="print-content">
-                <span>===================================================</span>
+                <span>
+                  ============================================================
+                </span>
               </Row>
               <Row
                 className="print-content content-body"
@@ -759,12 +763,15 @@ const ModelDetailMovie = ({
                       </>
                     ))}
                   </span>
-                  <span>{seatNomal[0]?.productCode}</span>
-                  <span>{seatNomal[0]?.price * seatNomal.length}</span>
+                  <span>{seatNomal.length} ghế đơn</span>
+                  {/* <span>{seatNomal[0]?.productCode}</span>
+                  <span>{seatNomal[0]?.price * seatNomal.length}</span> */}
                 </div>
               </Row>
               <Row className="print-content">
-                <span>--------------------------------------------------</span>
+                <span>
+                  -----------------------------------------------------------
+                </span>
               </Row>
             </>
           )}
@@ -793,12 +800,15 @@ const ModelDetailMovie = ({
                       </>
                     ))}
                   </span>
-                  <span>{seatVip[0]?.productCode}</span>
-                  <span>{seatVip[0]?.price * seatVip.length}</span>
+                  <span>{seatVip.length} ghế đôi</span>
+                  {/* <span>{seatVip[0]?.productCode}</span> */}
+                  {/* <span>{seatVip[0]?.price * seatVip.length}</span> */}
                 </div>
               </Row>
               <Row className="print-content">
-                <span>===================================================</span>
+                <span>
+                  ============================================================
+                </span>
               </Row>
             </>
           )}

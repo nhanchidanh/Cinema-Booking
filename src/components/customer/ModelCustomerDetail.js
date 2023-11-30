@@ -341,59 +341,65 @@ const ModelDetailCustomer = ({
 
           <Row gutter={16}>
             <Col span={12}>
-              <Select
-                showSearch
-                placeholder="Chọn tỉnh thành"
-                optionFilterProp="children"
-                value={provincePicked === 0 ? undefined : provincePicked}
-                onChange={onChangeProvince}
-                onSearch={onSearch}
-                style={{ width: "100%" }}
-                filterOption={(input, option) =>
-                  (option?.label ?? "")
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
-                options={province}
-              />
+              <Form.Item label="Tỉnh thành">
+                <Select
+                  showSearch
+                  placeholder="Chọn tỉnh thành"
+                  optionFilterProp="children"
+                  value={provincePicked === 0 ? undefined : provincePicked}
+                  onChange={onChangeProvince}
+                  onSearch={onSearch}
+                  style={{ width: "100%" }}
+                  filterOption={(input, option) =>
+                    (option?.label ?? "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={province}
+                />
+              </Form.Item>
             </Col>
             <Col span={12}>
-              <Select
-                showSearch
-                placeholder="Chọn quận huyện"
-                optionFilterProp="children"
-                onChange={onChangeDistrict}
-                onSearch={onSearch}
-                value={districtPicked === 0 ? undefined : districtPicked}
-                style={{ width: "100%" }}
-                filterOption={(input, option) =>
-                  (option?.label ?? "")
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
-                options={districts}
-              />
+              <Form.Item label="Quận huyện">
+                <Select
+                  showSearch
+                  placeholder="Chọn quận huyện"
+                  optionFilterProp="children"
+                  onChange={onChangeDistrict}
+                  onSearch={onSearch}
+                  value={districtPicked === 0 ? undefined : districtPicked}
+                  style={{ width: "100%" }}
+                  filterOption={(input, option) =>
+                    (option?.label ?? "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={districts}
+                />
+              </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16} style={{ marginTop: "24px" }}>
+          <Row gutter={16}>
             <Col span={12}>
-              <Select
-                showSearch
-                placeholder="Chọn phường/xã"
-                optionFilterProp="children"
-                onChange={onChangeWard}
-                value={wardPicked === 0 ? undefined : wardPicked}
-                onSearch={onSearch}
-                style={{ width: "100%" }}
-                filterOption={(input, option) =>
-                  (option?.label ?? "")
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
-                }
-                options={wards}
-              />
+              <Form.Item label="Phường xã">
+                <Select
+                  showSearch
+                  placeholder="Chọn phường/xã"
+                  optionFilterProp="children"
+                  onChange={onChangeWard}
+                  value={wardPicked === 0 ? undefined : wardPicked}
+                  onSearch={onSearch}
+                  style={{ width: "100%" }}
+                  filterOption={(input, option) =>
+                    (option?.label ?? "")
+                      .toLowerCase()
+                      .includes(input.toLowerCase())
+                  }
+                  options={wards}
+                />
+              </Form.Item>
             </Col>
-            <Col span={12}>
+            {/* <Col span={12}>
               <Form.Item name="address">
                 <Input
                   style={{
@@ -402,9 +408,9 @@ const ModelDetailCustomer = ({
                   placeholder="Nhập địa chỉ khách hàng..."
                 />
               </Form.Item>
-            </Col>
-            {/* <Col span={12}>
-              <Form.Item name="dob" label="Ngày sinh" >
+            </Col> */}
+            <Col span={12}>
+              <Form.Item name="dob" label="Ngày sinh">
                 <DatePicker
                   placeholder="Chọn ngày sinh"
                   // value={moment(customerInfo?.dob)}
@@ -414,7 +420,7 @@ const ModelDetailCustomer = ({
                   format="YYYY-MM-DD"
                 />
               </Form.Item>
-            </Col> */}
+            </Col>
             <Col span={12}>
               <Form.Item
                 name="image"

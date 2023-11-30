@@ -37,6 +37,7 @@ import promotionRsApi from "../../api/promotionRs";
 import { VND } from "../../constant";
 import { yupSync } from "./useModelAddPromotionHeaderHook";
 import ModelPromtionLineDetail from "./ModelPromtionLineDetail";
+import { useRoleHook } from "../../utils/useRoleHook.js";
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -83,6 +84,8 @@ const IndexLinePromotion = ({ setTab }) => {
     setIdPromotionLine(id);
     setIsShowModelDetail(true);
   };
+
+  const { isMangement } = useRoleHook();
   const columns = [
     {
       title: "Mã Code",
@@ -98,7 +101,7 @@ const IndexLinePromotion = ({ setTab }) => {
       ),
     },
     {
-      title: "Miêu tả",
+      title: "Mô tả",
       dataIndex: "desc",
       key: "age",
     },
@@ -261,7 +264,7 @@ const IndexLinePromotion = ({ setTab }) => {
         setPromotionRs(newList);
       }
     } catch (error) {
-      console.log("Failed to login ", error);
+      console.log("Failed", error);
     }
   };
 
@@ -287,7 +290,7 @@ const IndexLinePromotion = ({ setTab }) => {
           depatch(setReload(!reload));
         }
       } catch (error) {
-        console.log("Failed to login ", error);
+        console.log("Failed", error);
         message.error("Xóa thất bại");
       }
     };
@@ -516,18 +519,20 @@ const IndexLinePromotion = ({ setTab }) => {
           <Breadcrumb.Item>Chỉnh sửa</Breadcrumb.Item>
         </Breadcrumb>
 
-        <Button
-          type="primary"
-          form="myFormPro"
-          htmlType="submit"
-          style={{
-            marginBottom: "1rem",
-            marginTop: "1rem",
-            marginRight: "1rem",
-          }}
-        >
-          Cập nhật
-        </Button>
+        {isMangement && (
+          <Button
+            type="primary"
+            form="myFormPro"
+            htmlType="submit"
+            style={{
+              marginBottom: "1rem",
+              marginTop: "1rem",
+              marginRight: "1rem",
+            }}
+          >
+            Cập nhật
+          </Button>
+        )}
       </div>
       <Form
         id="myFormPro"

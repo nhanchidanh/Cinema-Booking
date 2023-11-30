@@ -61,7 +61,7 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
     };
     const fetchOrderDetail = async () => {
       const res = await orderApi.getDetail(idOrder);
-      console.log("orderDetail", res);
+      console.log("orderDetail in rspage", res);
       if (res) {
         let listSeat = [];
         res.forEach((item) => {
@@ -89,9 +89,9 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
         //   }
         // });
         const listNormal = listSeat.filter(
-          (item) => item.productCode === "PRD001"
+          (item) => item.productCode === "PRD01"
         );
-        const listVip = listSeat.filter((item) => item.productCode === "G003");
+        const listVip = listSeat.filter((item) => item.productCode === "PRD03");
         setDetailSeatNomal(listNormal);
         setDetailSeatVip(listVip);
       }
@@ -105,8 +105,6 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
       page-break-after: always;
     }
   `;
-
-  console.log("order", order);
 
   const PrintTemplate = ({
     detail,
@@ -161,7 +159,9 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
                 </span>
               </Row>
               <Row className="print-content">
-                <span>===================================================</span>
+                <span>
+                  ============================================================
+                </span>
               </Row>
               <Row className="print-content content-body">
                 <span>{orderTmp.ShowMovie.Show.Movie.nameMovie}</span>
@@ -185,7 +185,7 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
                 <>
                   <Row className="print-content">
                     <span>
-                      ===================================================
+                      ============================================================
                     </span>
                   </Row>
                   <Row
@@ -211,13 +211,14 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
                           </>
                         ))}
                       </span>
-                      <span>{seatNomal[0]?.productCode}</span>
-                      <span>{seatNomal[0]?.price * seatNomal.length}</span>
+                      <span>{seatNomal.length} ghế đơn</span>
+                      {/* <span>{seatNomal[0]?.productCode}</span>
+                      <span>{seatNomal[0]?.price * seatNomal.length}</span> */}
                     </div>
                   </Row>
                   <Row className="print-content">
                     <span>
-                      --------------------------------------------------
+                      -----------------------------------------------------------
                     </span>
                   </Row>
                 </>
@@ -247,28 +248,14 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
                           </>
                         ))}
                       </span>
-                      <span>{seatVip[0]?.productCode}</span>
-                      <span>{seatVip[0]?.price * seatVip.length}</span>
+                      <span>{seatVip.length} ghế đôi</span>
+                      {/* <span>{seatVip[0]?.productCode}</span>
+                      <span>{seatVip[0]?.price * seatVip.length}</span> */}
                     </div>
-                    {/* {seatVip.map((item, index) => (
-                      <>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <span>Seat: {item?.position} </span>
-                          <span>{item?.productCode}</span>
-                          <span>{item?.price}</span>
-                        </div>
-                      </>
-                    ))} */}
                   </Row>
                   <Row className="print-content">
                     <span>
-                      ===================================================
+                      ============================================================
                     </span>
                   </Row>
                 </>

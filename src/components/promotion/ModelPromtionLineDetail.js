@@ -209,11 +209,11 @@ const ModelPromtionLineDetail = ({
                     },
                     {
                       value: 1,
-                      label: "Khuyễn mãi tặng sản phẩm",
+                      label: "khuyến mãi tặng sản phẩm",
                     },
                     {
                       value: 3,
-                      label: "Khuyễn mãi chiết khấu %",
+                      label: "khuyến mãi chiết khấu %",
                     },
                   ]}
                 />

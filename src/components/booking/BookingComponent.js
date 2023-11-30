@@ -102,7 +102,7 @@ const BookingComponent = ({ setTab }) => {
             }}
             onClick={() => prev()}
           >
-            Previous
+            Quay lại
           </Button>
         )}
       </div>

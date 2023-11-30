@@ -82,7 +82,7 @@ const items = [
   // ]),
   // getItem("Quản lý rạp", "sub4", <HomeOutlined />, [getItem("Rạp", "13")]),
 
-  // getItem("Quản lý khuyến mãi", "19", <ThunderboltOutlined />),
+  getItem("Quản lý khuyến mãi", "19", <ThunderboltOutlined />),
 
   getItem("Quản lý khách hàng", "11", <TeamOutlined />),
 
@@ -122,9 +122,10 @@ const itemManager = [
     getItem("Sản phẩm", "20"),
     getItem("Bảng giá", "21"),
   ]),
-  getItem("Hệ thống", "sub100", <ProjectOutlined />, [
-    getItem("Nhân viên", "15"),
-  ]),
+  // getItem("Hệ thống", "sub100", <ProjectOutlined />, [
+  //   getItem("Nhân viên", "15"),
+  // ]),
+  getItem("Quản lý nhân viên", "15", <UserOutlined />),
   getItem("Thống kê", "18", <PieChartOutlined />, [
     getItem("Doanh số bán hàng", "1000"),
     getItem("Khuyến mãi", "1001"),
@@ -175,10 +176,8 @@ const HomePage = () => {
   function onClick(info) {
     if (itemClicked !== 2 && isBooking) {
       notifyWarn(MESSAGE_NOT_ACCEPT);
-      console.log("reun 1");
     } else {
       setItemClicked(+info.key);
-      console.log("reun 2");
     }
   }
 
@@ -251,7 +250,6 @@ const HomePage = () => {
 
   useEffect(() => {
     const pathname = window.location.pathname;
-    console.log(pathname);
     if (pathname === "/account-setting") {
       setItemClicked(100);
     }

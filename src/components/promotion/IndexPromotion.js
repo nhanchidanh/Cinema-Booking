@@ -24,6 +24,7 @@ import {
 import TablePromotionHeader from "./TablePromotionHeader";
 import moment from "moment";
 import ModelAddPromotionHeader from "./ModelAddPromotionHeader";
+import { useRoleHook } from "../../utils/useRoleHook.js";
 const { Title, Text } = Typography;
 const dateFormat = "YYYY/MM/DD";
 const IndexPromotion = ({ setTab }) => {
@@ -33,6 +34,8 @@ const IndexPromotion = ({ setTab }) => {
   const [startDatePicker, setStartDatePicker] = useState("");
   const [endDatePicker, setEndDatePicker] = useState("");
   const { RangePicker } = DatePicker;
+
+  const { isMangement } = useRoleHook();
 
   const showModal = () => {
     setShowModalAddCustomer(true);
@@ -66,7 +69,7 @@ const IndexPromotion = ({ setTab }) => {
         <Col span={7}>
           <Input
             onChange={(e) => handleChangeSearch(e)}
-            placeholder="Nhập tên khuyễn mãi..."
+            placeholder="Nhập mã khuyến mãi..."
             prefix={<SearchOutlined />}
           />
         </Col>
@@ -80,13 +83,15 @@ const IndexPromotion = ({ setTab }) => {
 
         <Col span={6}></Col>
         <Col span={2}>
-          <Button
-            type="primary"
-            icon={<AppstoreAddOutlined />}
-            onClick={showModal}
-          >
-            Thêm
-          </Button>
+          {isMangement && (
+            <Button
+              type="primary"
+              icon={<AppstoreAddOutlined />}
+              onClick={showModal}
+            >
+              Thêm
+            </Button>
+          )}
         </Col>
       </Row>
 

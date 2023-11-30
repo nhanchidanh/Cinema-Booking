@@ -51,7 +51,6 @@ const PickSeatComponent = ({ next }) => {
 
         if (response) {
           const { show } = booking;
-          console.log("show", show.id);
 
           getReservationData(show?.id)
             .then((result) => {
@@ -68,7 +67,6 @@ const PickSeatComponent = ({ next }) => {
                 }
                 return val;
               });
-              console.log(finalSeat);
               setSeats(finalSeat);
             })
             .catch(() => {
@@ -98,7 +96,6 @@ const PickSeatComponent = ({ next }) => {
   }, []);
 
   const handleShowModel = (val, idx, seat) => {
-    console.log("seat: ", seat);
     if (!seat.status) {
       return;
     }

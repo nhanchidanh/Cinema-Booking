@@ -32,8 +32,8 @@ export const REASON_REFULT = [
 export const MESSAGE_SYSTEM_ERRO = "Hệ thống đang lỗi";
 
 export const KM_MONEY = "Khuyến mãi giảm tiền";
-export const KM_PRODUCT = "Khuyễn mãi tặng sản phẩm";
-export const KM_PERCENT = "Khuyễn mãi chiết khấu %";
+export const KM_PRODUCT = "khuyến mãi tặng sản phẩm";
+export const KM_PERCENT = "khuyến mãi chiết khấu %";
 
 export const TYPE_SEAT_PRODUCT = "GHE";
 export const TYPE_FOOD_PRODUCT = "SP";

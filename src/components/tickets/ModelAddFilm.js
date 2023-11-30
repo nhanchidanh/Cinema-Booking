@@ -12,7 +12,7 @@ import {
   Select,
   Space,
   Upload,
-  message
+  message,
 } from "antd";
 
 import { useFormik } from "formik";
@@ -123,11 +123,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     setStatus(value);
   };
 
-
-
-
-
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     //call api create a new movie
     const data = new FormData();
     data.append("nameMovie", nameMovie);
@@ -143,12 +139,12 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     data.append("endDate", endDate);
     data.append("status", status);
     console.log(image);
-    if(image){
+    if (image) {
       data.append("image", image);
     }
     const rs = await movieApi.createMovie(data);
     console.log(rs);
-    if(rs){
+    if (rs) {
       setShowModalAddCustomer(false);
       setTimeout(() => {
         message.success("Thêm phim thành công");
@@ -197,9 +193,8 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     getCategories();
   }, []);
 
-
   const normFile = (e) => {
-    console.log('Upload event:', e);
+    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -211,7 +206,6 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     setTimeout(() => {
       onSuccess("ok");
     }, 0);
-
   };
 
   return (
@@ -333,7 +327,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   onChange={onChangeClassify}
                   options={[
                     {
-                      value: "C13"  ,
+                      value: "C13",
                       label: "C13 - 13 tuổi trở lên",
                     },
                     {
@@ -355,7 +349,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-            <Form.Item
+              <Form.Item
                 name="releaseDate"
                 label="Ngày phát hành"
                 rules={[
@@ -469,7 +463,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
           </Row>
           <Row style={{ marginBottom: "26px" }} gutter={16}>
             <Col span={12}>
-            <Form.Item
+              <Form.Item
                 name="status"
                 label="Trạng thái"
                 rules={[
@@ -487,7 +481,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   onChange={onChangeStatus}
                   options={[
                     {
-                      value: "1"  ,
+                      value: "1",
                       label: "Đang chiếu",
                     },
                     {
@@ -503,35 +497,37 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
               </Form.Item>
             </Col>
             <Col span={12}>
-            <Form.Item
-              name="image"
-              label="Hình ảnh"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              extra="Chỉ chấp nhận file ảnh"
-              type="file"
-            >
-              <Upload name="logo" customRequest={dummyRequest}
-                 listType="picture" maxCount={1} accept=".jpg,.jpeg,.png"
+              <Form.Item
+                name="image"
+                label="Hình ảnh"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                extra="Chỉ chấp nhận file ảnh"
+                type="file"
               >
-                <Button  icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload>
-            </Form.Item>
+                <Upload
+                  name="logo"
+                  customRequest={dummyRequest}
+                  listType="picture"
+                  maxCount={1}
+                  accept=".jpg,.jpeg,.png"
+                >
+                  <Button icon={<UploadOutlined />}>Click to upload</Button>
+                </Upload>
+              </Form.Item>
             </Col>
           </Row>
           <Row style={{ marginTop: "16px" }} gutter={16}>
             <Col span={24}>
-              <Form.Item name="description" label="Miêu tả">
+              <Form.Item name="description" label="Mô tả">
                 <Input.TextArea
                   onChange={(e) => setDesc(e.target.value)}
                   rows={4}
-                  placeholder="Nhập miêu tả..."
+                  placeholder="Nhập mô tả..."
                 />
               </Form.Item>
             </Col>
           </Row>
-
-          
         </Form>
       </Drawer>
     </>

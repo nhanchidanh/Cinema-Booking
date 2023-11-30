@@ -47,6 +47,7 @@ const useCustomerComponentHook = () => {
         } else {
           const newDate = await Promise.all(
             data.map(async (val, idx) => {
+              console.log("val: ", val);
               let ward = await openAddressApi.getWardByCode(
                 val?.Customer?.ward_id
               );
@@ -58,8 +59,8 @@ const useCustomerComponentHook = () => {
               );
 
               let address;
-              if (val?.Customer?.address !== null) {
-                address = `${val?.Customer?.address}, ${ward?.name}, ${district?.name}, ${city?.name}`;
+              if (val?.Customer?.city_id !== null) {
+                address = `${ward?.name}, ${district?.name}, ${city?.name}`;
               }
               return {
                 ...val,

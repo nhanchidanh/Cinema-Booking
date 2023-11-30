@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setReload } from "../../redux/actions";
 import moment from "moment";
 import { DeleteOutlined } from "@ant-design/icons";
+import { useRoleHook } from "../../utils/useRoleHook.js";
 
 const TablePromotionHeader = ({
   setTab,
@@ -22,6 +23,8 @@ const TablePromotionHeader = ({
   const dispatch = useDispatch();
   const reload = useSelector((state) => state.reload);
   const [selectedId, setSelectedId] = useState([]);
+
+  const { isMangement } = useRoleHook();
 
   //handle delete customer in here...
   const handleDelete = () => {
@@ -64,7 +67,6 @@ const TablePromotionHeader = ({
           endDate: endDatePicker,
         });
         if (response) {
-          console.log(response);
           //handle data
           const sortRes = response.sort((a, b) => {
             return moment(b.startDate).diff(a.startDate);
@@ -123,7 +125,7 @@ const TablePromotionHeader = ({
 
   const columns = [
     {
-      title: "Mã CT khuyễn mãi",
+      title: "Mã CT khuyến mãi",
       dataIndex: "promotionCode",
       render: (text, record) => (
         <a onClick={() => handleOnclik(record.id)}>{text}</a>
@@ -178,20 +180,22 @@ const TablePromotionHeader = ({
       render: (val, record) => {
         return (
           <Space size="middle">
-            <Button
-              disabled={
-                currentDay >= moment(record.startDate).format("YYYY-MM-DD") ||
-                record.statusPromotion === 1
-                  ? true
-                  : false
-              }
-              icon={<DeleteOutlined />}
-              onClick={() => {
-                setSelectedId(record.id);
-                handleDelete();
-              }}
-              danger
-            ></Button>
+            {isMangement && (
+              <Button
+                disabled={
+                  currentDay >= moment(record.startDate).format("YYYY-MM-DD") ||
+                  record.statusPromotion === 1
+                    ? true
+                    : false
+                }
+                icon={<DeleteOutlined />}
+                onClick={() => {
+                  setSelectedId(record.id);
+                  handleDelete();
+                }}
+                danger
+              ></Button>
+            )}
           </Space>
         );
       },

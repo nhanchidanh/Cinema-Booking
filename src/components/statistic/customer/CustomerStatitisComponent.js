@@ -22,8 +22,15 @@ const { Title, Text } = Typography;
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 const CustomerStatitisComponent = () => {
-  const { revenues, onChangeDate, listCinema, cinema, start_date, end_date, onChangeCustomer } =
-    useCustomerComponentHook();
+  const {
+    revenues,
+    onChangeDate,
+    listCinema,
+    cinema,
+    start_date,
+    end_date,
+    onChangeCustomer,
+  } = useCustomerComponentHook();
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
@@ -44,11 +51,14 @@ const CustomerStatitisComponent = () => {
   }, []);
 
   const handleExportExcel = () => {
-    console.log(revenues);
     // console.log(dayjs(start_date).format('DD/MM/YYYY') , end_date)
-    exportExcel(revenues, dayjs(start_date).format('DD/MM/YYYY'), dayjs(end_date).format('DD/MM/YYYY'));
-  }
-    
+    exportExcel(
+      revenues,
+      dayjs(start_date).format("DD/MM/YYYY"),
+      dayjs(end_date).format("DD/MM/YYYY")
+    );
+  };
+
   return (
     <div className="site-card-wrapper">
       <Title level={5} style={{ marginBottom: "1rem" }}>
@@ -85,13 +95,11 @@ const CustomerStatitisComponent = () => {
             options={customers}
             allowClear
             onChange={onChangeCustomer}
-           // onChange={handleChangeEmployee}
+            // onChange={handleChangeEmployee}
           />
         </Col>
         <Col span={4} style={{ position: "absolute", right: "2.5%" }}>
-          <Button type="primary" title="Xuất file"
-            onClick={handleExportExcel}
-          >
+          <Button type="primary" title="Xuất file" onClick={handleExportExcel}>
             Xuất báo cáo
           </Button>
         </Col>
