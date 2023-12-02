@@ -22,12 +22,13 @@ import moment from "moment";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { setReload } from "../../redux/actions";
-import { notifyError,
-  notifySucess
- } from "../../utils/Notifi";
+import { notifyError, notifySucess } from "../../utils/Notifi";
 
-
-const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,selectedId }) => {
+const ModelDetailMovie = ({
+  showModalDetailMovie,
+  setShowModalDetailMovie,
+  selectedId,
+}) => {
   const [listCategory, setListCategory] = useState([]);
   const [listCinema, setListCinema] = useState([]);
   const [nameMovie, setNameMovie] = useState("");
@@ -106,10 +107,10 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
       setEndDate(response.endDate);
       setStatus(response.isActived);
       setImage(response.image);
-     
-      let trailerTpm = " "
-      if(response.linkTrailer !== "undefined"){
-        trailerTpm = response.linkTrailer
+
+      let trailerTpm = " ";
+      if (response.linkTrailer !== "undefined") {
+        trailerTpm = response.linkTrailer;
       }
 
       form.setFieldsValue({
@@ -125,31 +126,43 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
         classify: response.classify,
         endDate: moment(response.endDate),
         status: response.status,
-        cinema:response.idCinema,
-        codeMovie:response.codeMovie,
+        cinema: response.idCinema,
+        codeMovie: response.codeMovie,
         // date: [moment(response.releaseDate), moment(response.endDate)],
-        date: [dayjs(response.releaseDate,formatDate), dayjs(response.endDate,formatDate)],
-        image: [{
-          uid: "-1",
-          name: response?.image,
-          status: "done",
-          url: response?.image,
-        }]
+        date: [
+          dayjs(response.releaseDate, formatDate),
+          dayjs(response.endDate, formatDate),
+        ],
+        image: [
+          {
+            uid: "-1",
+            name: response?.image,
+            status: "done",
+            url: response?.image,
+          },
+        ],
       });
     };
     fetchMovieInfo();
   }, []);
 
-
-  const handleSubmit = async(val) => {
+  const handleSubmit = async (val) => {
     console.log(val);
-    console.log("imagePicker",imagePicker);
+    console.log("imagePicker", imagePicker);
     const {
-      category, classify, codeMovie, 
-      cast, desc, director, 
-      image, linkTrailer, nameMovie, time, status,
+      category,
+      classify,
+      codeMovie,
+      cast,
+      desc,
+      director,
+      image,
+      linkTrailer,
+      nameMovie,
+      time,
+      status,
     } = val;
-    
+
     const data = new FormData();
     data.append("nameMovie", nameMovie);
     data.append("codeMovie", codeMovie);
@@ -163,9 +176,9 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
     data.append("classify", classify);
     data.append("endDate", new Date(endDatePicker));
     data.append("status", status);
-    
+
     if (imagePicker) {
-      if (imagePicker.length === 0){
+      if (imagePicker.length === 0) {
         console.log("image no");
       } else {
         data.append("image", image[0].originFileObj);
@@ -174,9 +187,9 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
       data.append("image", image);
     }
     try {
-      const response = await movieApi.updateMovie(selectedId,data);
+      const response = await movieApi.updateMovie(selectedId, data);
       console.log(response);
-      if(response){
+      if (response) {
         setShowModalDetailMovie(false);
         notifySucess("Cập nhật phim thành công");
         depatch(setReload(!reload));
@@ -228,7 +241,6 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
     getCategories();
   }, []);
 
-
   const normFile = (e) => {
     if (Array.isArray(e)) {
       return e;
@@ -241,7 +253,6 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
     setTimeout(() => {
       onSuccess("ok");
     }, 0);
-
   };
 
   const onChangeDate = (date, dateString) => {
@@ -249,11 +260,10 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
     setEndDatePicker(dateString[1]);
   };
 
-
   return (
     <>
       <Drawer
-        title="Thêm bộ phim"
+        title="Chi tiết bộ phim"
         width={720}
         onClose={onClose}
         open={showModalDetailMovie}
@@ -271,10 +281,9 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
       >
         <Form form={form} onFinish={handleSubmit} id="myForm" layout="vertical">
           <Row gutter={16}>
-            
             <Col span={12}>
-              <Form.Item name="codeMovie" label="Mã phim" >
-                <Input disabled={true}  />
+              <Form.Item name="codeMovie" label="Mã phim">
+                <Input disabled={true} />
               </Form.Item>
             </Col>
           </Row>
@@ -283,7 +292,6 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
               <Form.Item
                 name="nameMovie"
                 label="Tên bộ phim"
-                
                 rules={[
                   {
                     required: true,
@@ -294,7 +302,6 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
                 <Input
                   onChange={(e) => setNameMovie(e.target.value)}
                   placeholder="Hãy nhập tên bộ phim..."
-                  
                 />
               </Form.Item>
             </Col>
@@ -379,7 +386,7 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
                   onChange={onChangeClassify}
                   options={[
                     {
-                      value: "C13"  ,
+                      value: "C13",
                       label: "C13 - 13 tuổi trở lên",
                     },
                     {
@@ -401,7 +408,7 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-            <Form.Item
+              <Form.Item
                 name="date"
                 label="Thời hạn phim"
                 rules={[
@@ -411,23 +418,17 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
                   },
                 ]}
               >
-                <RangePicker 
-                  placeholder={['Ngày bắt đầu', 'Ngày kết thúc']}
+                <RangePicker
+                  placeholder={["Ngày bắt đầu", "Ngày kết thúc"]}
                   onChange={onChangeDate}
-                  disabledDate={
-                    (current) => {
-                      return current && current < moment().endOf('day');
-                    }
-                  }
+                  disabledDate={(current) => {
+                    return current && current < moment().endOf("day");
+                  }}
                 />
-                  
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item
-                name="linkTrailer"
-                label="Link trailer"
-              >
+              <Form.Item name="linkTrailer" label="Link trailer">
                 <Input
                   onChange={(e) => setLinkTrailer(e.target.value)}
                   placeholder="Hãy nhập link trailer..."
@@ -471,13 +472,10 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
               </Form.Item>
             </Col>
           </Row>
-          <Row  gutter={16}>
-            
-            
-          </Row>
+          <Row gutter={16}></Row>
           <Row gutter={16}>
             <Col span={12}>
-            <Form.Item
+              <Form.Item
                 name="status"
                 label="Trạng thái"
                 rules={[
@@ -495,37 +493,39 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
                   onChange={onChangeStatus}
                   options={[
                     {
-                      value:  1,
+                      value: 1,
                       label: "Hoạt động",
                     },
                     {
                       value: 0,
                       label: "Ngừng hoạt động",
-                    }
+                    },
                   ]}
                 />
               </Form.Item>
             </Col>
             <Col span={12}>
-            <Form.Item
-              name="image"
-              label="Hình ảnh"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              extra="Chỉ chấp nhận file ảnh"
-              type="file"
-            >
-              <Upload name="logo" customRequest={dummyRequest}
-                 listType="picture" 
-                 maxCount={1} 
-                 accept=".jpg,.jpeg,.png"
-                 onChange={(e) => {
-                  setImagePicker(e.fileList[0]);
-                }}
+              <Form.Item
+                name="image"
+                label="Hình ảnh"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                extra="Chỉ chấp nhận file ảnh"
+                type="file"
               >
-                <Button  icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload>
-            </Form.Item>
+                <Upload
+                  name="logo"
+                  customRequest={dummyRequest}
+                  listType="picture"
+                  maxCount={1}
+                  accept=".jpg,.jpeg,.png"
+                  onChange={(e) => {
+                    setImagePicker(e.fileList[0]);
+                  }}
+                >
+                  <Button icon={<UploadOutlined />}>Click to upload</Button>
+                </Upload>
+              </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
@@ -539,8 +539,6 @@ const ModelDetailMovie = ({ showModalDetailMovie, setShowModalDetailMovie,select
               </Form.Item>
             </Col>
           </Row>
-
-          
         </Form>
       </Drawer>
     </>

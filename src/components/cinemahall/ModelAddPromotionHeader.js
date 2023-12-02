@@ -60,7 +60,6 @@ const ModelAddPromotionHeader = ({
     fetchCinemaInfo();
   }, []);
 
-  //handle submit form create new customer...
   const handleSubmit = async (val) => {
     delete val.nameCinema;
     const payload = {
@@ -78,21 +77,6 @@ const ModelAddPromotionHeader = ({
       notifyError("Thêm thất bại");
       console.log("Failed to fetch product list: ", error);
     }
-  };
-
-  //change position
-  const handleChangePosition = (value) => {
-    console.log(`selected ${value}`);
-  };
-
-  //choise date start worling
-  const onChangeDate = (date, dateString) => {
-    console.log(dateString);
-  };
-
-  //choise date start worling
-  const onChangeEndDate = (date, dateString) => {
-    console.log(dateString);
   };
 
   useEffect(() => {
@@ -115,13 +99,18 @@ const ModelAddPromotionHeader = ({
           <Space>
             <Button onClick={onClose}>Cancel</Button>
 
-            <Button form="myForm" htmlType="submit" type="primary">
+            <Button form="myFormAddCinemaHall" htmlType="submit" type="primary">
               Lưu
             </Button>
           </Space>
         }
       >
-        <Form layout="vertical" onFinish={handleSubmit} id="myForm" form={form}>
+        <Form
+          layout="vertical"
+          onFinish={handleSubmit}
+          id="myFormAddCinemaHall"
+          form={form}
+        >
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item name="nameCinema" label="Chi nhánh">
@@ -161,7 +150,7 @@ const ModelAddPromotionHeader = ({
                   style={{
                     width: "100%",
                   }}
-                  onChange={handleChangePosition}
+                  // onChange={handleChangePosition}
                   options={[
                     {
                       value: "2D",

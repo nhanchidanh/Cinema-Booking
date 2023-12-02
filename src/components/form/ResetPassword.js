@@ -173,9 +173,9 @@ export default function ResetPassword() {
                 Đổi Mật Khẩu
               </Button>
             )}
-            <p onClick={() => navigate("/login")} className="forgetPassword">
+            {/* <p onClick={() => navigate("/login")} className="forgetPassword">
               Đăng nhập ngay
-            </p>
+            </p> */}
           </form>
         </div>
       </Col>

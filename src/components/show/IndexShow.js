@@ -1,23 +1,13 @@
+import { Col, Row, Typography } from "antd";
 import React, { useState } from "react";
-import { Input, Col, Row, Typography, Button, Modal, Breadcrumb } from "antd";
 
-import {
-  SearchOutlined,
-  PlusSquareFilled,
-  UserAddOutlined,
-  ToolOutlined,
-  DeleteOutlined,
-  DownloadOutlined,
-} from "@ant-design/icons";
-import TableCustomer from "../customer/TableCustomer";
-import ModelAddCustomer from "../customer/ModelAddCustomer";
-import TableShows from "./TableShows";
 import ModelAddShow from "./ModelAddShow";
+import TableShows from "./TableShows";
 
 const { Title, Text } = Typography;
 const IndexShow = ({ setTab }) => {
   const [showModalAddCustomer, setShowModalAddCustomer] = useState(false);
-  
+
   const showModal = () => {
     setShowModalAddCustomer(true);
   };
@@ -25,7 +15,7 @@ const IndexShow = ({ setTab }) => {
   return (
     <div className="site-card-wrapper">
       <Title level={5} style={{ marginBottom: "1rem" }}>
-        Quản lý lịch chiếu
+        Quản lý suất chiếu
       </Title>
       <Row
         style={{ margin: "1rem 0 1rem 0" }}

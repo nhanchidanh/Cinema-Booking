@@ -1,30 +1,16 @@
+import { Breadcrumb, Col, Row } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  Input,
-  Col,
-  Row,
-  Typography,
-  Button,
-  Modal,
-  Breadcrumb,
-  DatePicker,
-  Select,
-  notification,
-} from "antd";
-import "./IndexRoomMap.scss";
-import cinemaHallApi from "../../api/cinemaHallApi";
-import { MdChair, MdOutlineSignalCellularNull } from "react-icons/md";
+import { MdChair } from "react-icons/md";
 import { useSelector } from "react-redux";
+import cinemaHallApi from "../../api/cinemaHallApi";
+import "./IndexRoomMap.scss";
 import ModelSeat from "./ModelSeat";
-import { notifySucess } from "../../utils/Notifi";
-import { MESSAGE_UPDATE_SEAT_SUCCESS } from "../../constant";
 
 const arrColumn = ["B", "C", "D", "E", "F", "G", "H", "I", "K"];
 const arrRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const IndexCinemaMap = ({ setTab }) => {
   const [seats, setSeats] = useState([]);
-  console.log("seats: ", seats);
   const idCinemaHall = useSelector((state) => state.cinemaHallId);
   const [seat, setSeat] = useState(null);
   const [possition, setPossition] = useState("");
@@ -41,11 +27,11 @@ const IndexCinemaMap = ({ setTab }) => {
           setSeats(response);
         }
       } catch (error) {
-        console.log("Featch erro: ", error);
+        console.log("Fetch error: ", error);
       }
     };
     getSeats(idCinemaHall);
-  }, [changeSeat]);
+  }, [changeSeat, idCinemaHall]);
 
   const handleShowModel = (val, idx, seat) => {
     //call api get seat
@@ -77,11 +63,10 @@ const IndexCinemaMap = ({ setTab }) => {
     <div className="site-card-wrapper">
       <Breadcrumb style={{ marginBottom: "1rem", marginTop: "1rem" }}>
         <Breadcrumb.Item>
-          {" "}
-          <a onClick={() => handleRouter(0)}> Rạp</a>{" "}
+          <span onClick={() => handleRouter(0)}> Rạp</span>{" "}
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <a onClick={() => handleRouter(1)}> Phòng chiếu </a>
+          <span onClick={() => handleRouter(1)}> Phòng chiếu </span>
         </Breadcrumb.Item>
         <Breadcrumb.Item>Sơ đồ phòng chiếu</Breadcrumb.Item>
       </Breadcrumb>
@@ -140,11 +125,14 @@ const IndexCinemaMap = ({ setTab }) => {
                 {arrColumn.map((val, idx) => {
                   let number = 1;
                   let agg = 1;
-                  const newArr = seats.filter((seat) => {
-                    if (seat.seatColumn === val) {
-                      return seat;
-                    }
-                  });
+                  // const newArr = seats.filter((seat) => {
+                  //   if (seat.seatColumn === val) {
+                  //     return seat;
+                  //   }
+                  // });
+                  const newArr = seats.filter(
+                    (seat) => seat.seatColumn === val
+                  );
 
                   return (
                     <>
@@ -161,8 +149,8 @@ const IndexCinemaMap = ({ setTab }) => {
                                     }
                                     title={
                                       seat?.statusSeat
-                                        ? val + tmp
-                                        : val + tmp + " ghế bảo trì"
+                                        ? val + tmp + " ghế bảo trì"
+                                        : val + tmp
                                     }
                                     key={seat.createdAt}
                                     style={
@@ -183,8 +171,8 @@ const IndexCinemaMap = ({ setTab }) => {
                                     }
                                     title={
                                       seat?.statusSeat
-                                        ? val + tmp
-                                        : val + tmp + " ghế bảo trì"
+                                        ? val + tmp + " ghế bảo trì"
+                                        : val + tmp
                                     }
                                     key={seat.createdAt}
                                     style={
