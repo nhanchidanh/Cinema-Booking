@@ -20,7 +20,6 @@ const useBookingPreviewHook = () => {
   const { booking, userLogin, promotion, promotionWillActive } = state;
   const { seats, film, products, show } = booking;
 
-  console.log("anhanh", promotionWillActive);
   const navigation = useNavigation();
 
   const [quality, setQuality] = useState(0);
@@ -57,7 +56,6 @@ const useBookingPreviewHook = () => {
     depatch(SetPromotionNotActive([]));
   }, []);
 
-  // console.log(promotion);
   useEffect(() => {
     const sumWithInitial = seats.reduce((total, item) => {
       return item?.price + total;
@@ -132,7 +130,7 @@ const useBookingPreviewHook = () => {
       })
       .catch((err) => {
         console.log(err);
-        alert("Lỗi lấy khuyến mãi");
+        Alert.alert("Thông báo", "Lỗi lấy khuyến mãi");
       })
       .finally(() => {
         setLoaddingGetPromotion(false);
@@ -162,7 +160,7 @@ const useBookingPreviewHook = () => {
 
   const handlePayment = () => {
     if (!selectedId) {
-      alert("Hãy chọn phương thức thanh toán.");
+      Alert.alert("Thông báo", "Hãy chọn phương thức thanh toán.");
       return;
     }
     setIsOpen(true);
@@ -215,42 +213,21 @@ const useBookingPreviewHook = () => {
       setReCall(true);
       setCount(count + 1);
       Linking.openURL(data?.result?.order_url);
-      // callBank = setInterval(() => {
-      //   checkStatus(data?.appTransId, data?.appTime).then(
-      //     (data) => {
-      //        console.log(data?.status);
-      //       if(data?.status === 1){
-      //         createOrderMethod(dataPayload)
-      //         .then((data) => {
-      //           depatch(SetPromotion([]));
-      //           clearInterval(callBank);
-      //           navigation.navigate("HomePage");
-      //           navigation.navigate("TicketBooked");
-      //         })
-      //         .catch(() => {});
-      //       }else if(data?.status === 2){
-      //         alert("Thanh toán thất bại")
-      //        clearInterval(callBank)
-      //       }
-      //     }
-      //   );
-      // }, 2000);
     });
   };
 
   const reCallStatus = (appTransId, appTime, dataPayload) => {
     checkStatus(appTransId, appTime).then((data) => {
-      console.log(data?.status);
       if (data?.status === 1) {
         createOrderMethod(dataPayload)
           .then((data) => {
             depatch(SetPromotion([]));
-            navigation.navigate("HomePage");
-            navigation.navigate("TicketBooked");
+            // navigation.navigate("HomePage");
+            // navigation.navigate("TicketBooked");
           })
           .catch(() => {});
       } else if (data?.status === 2) {
-        alert("Thanh toán thất bại");
+        Alert.alert("Thông báo", "Thanh toán thất bại");
       }
     });
   };

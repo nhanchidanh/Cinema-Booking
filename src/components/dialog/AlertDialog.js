@@ -10,23 +10,23 @@ import {
 } from "native-base";
 import { PayMent } from "../../constant";
 
-const AlertDialogCustom = ({isOpen, onClose, content, callBack}) => {
+const AlertDialogCustom = ({ isOpen, onClose, content, callBack }) => {
   const navigation = useNavigation();
-  const handleClick =  () => {
-    onClose()
-    if(content?.type == PayMent){
-      callBack()
-    }else{
-      navigation.navigate("Login");
+  const handleClick = () => {
+    onClose();
+    if (content?.type == PayMent) {
+      callBack();
+    } else {
+      navigation.navigate("Tài khoản", { screen: "Login" });
     }
   };
 
   const handleClose = () => {
-    onClose()
-    if(content?.type == PayMent){
-      callBack()
+    onClose();
+    if (content?.type == PayMent) {
+      callBack();
     }
-  }
+  };
 
   const cancelRef = React.useRef(null);
   return (
@@ -41,10 +41,7 @@ const AlertDialogCustom = ({isOpen, onClose, content, callBack}) => {
             <AlertDialog.CloseButton />
             <AlertDialog.Header>Thông báo</AlertDialog.Header>
             <AlertDialog.Body>
-              
-              {
-                content?.text || 'Bạn cần đăng nhập để tiếp tục'
-              }
+              {content?.text || "Bạn cần đăng nhập để tiếp tục"}
             </AlertDialog.Body>
             <AlertDialog.Footer>
               <Button.Group space={2}>
@@ -57,9 +54,7 @@ const AlertDialogCustom = ({isOpen, onClose, content, callBack}) => {
                   Hủy
                 </Button>
                 <Button colorScheme="green" onPress={handleClick}>
-                 {
-                  content?.buttonContent || 'Đăng nhập'
-                 }
+                  {content?.buttonContent || "Đăng nhập"}
                 </Button>
               </Button.Group>
             </AlertDialog.Footer>

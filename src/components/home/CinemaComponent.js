@@ -27,7 +27,7 @@ const CinemaComponent = ({ cinema }) => {
         >
           <AntDesign
             name="pushpino"
-            color="white"
+            // color="white"
             size={12}
             style={{ marginTop: 2 }}
           />
@@ -53,13 +53,13 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   text: {
-    color: "white",
+    // color: "white",
     fontWeight: "700",
     fontSize: 14,
     marginBottom: 8,
   },
   textAdd: {
-    color: "#ECE8DD",
+    // color: "#ECE8DD",
     fontWeight: "400",
     fontSize: 12,
     marginLeft: 4,

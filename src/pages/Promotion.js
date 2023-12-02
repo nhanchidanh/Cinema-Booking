@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Button, FlatList, TouchableOpacity } from "react-native";
 import {
-  StyleSheet,
-  View,
-  Text,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
-  RefreshControl,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
-import PromotionCard from "./PromotionCard";
-import { getPromotionActive } from "../service/PromotionService";
 import EmptyData from "../components/loading/EmptyData";
+import { getPromotionActive } from "../service/PromotionService";
+import PromotionCard from "./PromotionCard";
 
 const Promotion = () => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [listPromotion, setListPromotion] = useState([]);
-  console.log(listPromotion);
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     setListPromotion([]);
@@ -57,7 +56,7 @@ const Promotion = () => {
               fontSize: 25,
               fontWeight: "400",
               textAlign: "center",
-              marginTop: 30,
+              marginTop: 10,
             }}
           >
             Các chương trình khuyến mãi
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#DDDDDD",
+    // backgroundColor: "#DDDDDD",
   },
   time: {
     width: "100%",

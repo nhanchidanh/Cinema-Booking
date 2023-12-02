@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Button, FlatList, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  Button,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { StyleSheet, View, Text, SafeAreaView, ScrollView } from "react-native";
 import { GHE_DOI, GHE_THUONG, VND } from "../../constant";
 import CountDownTime from "../../utils/CountDownTime";
@@ -17,9 +22,8 @@ const PickProduct = () => {
     pickProducts,
     handleContinue,
     totalPrice,
-    loadding
+    loadding,
   } = usePickProductHook();
-  console.log(loadding);
   return (
     <SafeAreaView style={styles.container}>
       {/* <View style={styles.time}>

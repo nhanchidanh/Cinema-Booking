@@ -1,24 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-  ScrollView,
-} from "react-native";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import { AlertDialog, Button, Center, NativeBaseProvider } from "native-base";
-import { useNavigation } from "@react-navigation/native";
-import Contex from "../store/Context";
-import { SetUserLogin } from "../store/Actions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import CinemaComponent from "../components/home/CinemaComponent";
+import { useRoute } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import cinameApi from "../api/cinameApi";
+import CinemaComponent from "../components/home/CinemaComponent";
 
-const ShowTimePage = () => {
+const ShowTimePage = (props) => {
   const [cinemas, setCinemas] = useState([]);
+  const route = useRoute();
+
+  // console.log(`props ShowTimePage`, JSON.stringify(props, null, 4));
+
   useEffect(() => {
     const getCinema = async () => {
       const data = await cinameApi.getCinemas();
@@ -30,11 +21,6 @@ const ShowTimePage = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <Text style={styles.title}>Hệ Thống Rạp</Text>
-        {/* <View>
-          <TouchableOpacity style={styles.buttonGPlusStyle} activeOpacity={0.5}>
-            <Text style={styles.buttonTextStyle}>TPHCM</Text>
-          </TouchableOpacity>
-        </View> */}
         <ScrollView style={styles.profile_bottom}>
           {cinemas.map((cinema) => {
             return <CinemaComponent key={Math.random()} cinema={cinema} />;
@@ -48,13 +34,13 @@ const ShowTimePage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
-    padding: 20,
+    // backgroundColor: "black",
+    padding: 10,
   },
   title: {
     fontSize: 20,
     fontWeight: "500",
-    color: "white",
+    // color: "white",
     textTransform: "capitalize",
     fontSize: 22,
     paddingBottom: 20,
@@ -82,7 +68,7 @@ const styles = StyleSheet.create({
   },
 
   buttonTextStyle: {
-    color: "#fff",
+    // color: "#fff",
     fontWeight: "600",
     fontSize: 16,
     marginLeft: 10,

@@ -44,10 +44,10 @@ const BookingPreview = () => {
     const data = products.map((val) => {
       return (
         <View style={styles.detailTicket} key={Math.random().toString()}>
-          <Text style={{ fontSize: 12 }}>
+          <Text style={{ fontSize: 14 }}>
             {val?.qty + "x " + val?.productName}
           </Text>
-          <Text style={{ fontWeight: "600", fontSize: 12 }}>
+          <Text style={{ fontWeight: "600", fontSize: 14 }}>
             {VND.format(val?.qty * val?.price)}
           </Text>
         </View>
@@ -86,7 +86,7 @@ const BookingPreview = () => {
         </View>
         <Text
           style={{
-            fontSize: 12,
+            fontSize: 14,
             marginTop: 20,
             marginLeft: 10,
             marginBottom: 8,
@@ -96,8 +96,8 @@ const BookingPreview = () => {
         </Text>
         <View style={styles.blockFirst}>
           <View style={styles.detailTicket}>
-            <Text style={{ fontSize: 12 }}>{handleShowTextSeat().text}</Text>
-            <Text style={{ fontWeight: "600", fontSize: 12 }}>
+            <Text style={{ fontSize: 14 }}>{handleShowTextSeat().text}</Text>
+            <Text style={{ fontWeight: "600", fontSize: 14 }}>
               {VND.format(handleShowTextSeat().price)}
             </Text>
           </View>
@@ -106,14 +106,14 @@ const BookingPreview = () => {
             <RenderProducts />
           </>
 
-          <View style={[styles.detailTicket, { marginTop: 12 }]}>
+          <View style={[styles.detailTicket, { marginTop: 14 }]}>
             <Text style={{ fontWeight: "600", fontSize: 14 }}>Giảm tiền:</Text>
-            <Text style={{ fontWeight: "700", fontSize: 12 }}>
+            <Text style={{ fontWeight: "700", fontSize: 14 }}>
               - {VND.format(moneyPromotion)}
             </Text>
           </View>
 
-          <View style={[styles.detailTicket, { marginTop: 12 }]}>
+          <View style={[styles.detailTicket, { marginTop: 14 }]}>
             <Text style={{ fontWeight: "600", fontSize: 14 }}>Tổng cộng</Text>
             <Text style={{ fontWeight: "700", fontSize: 16, color: "orange" }}>
               {VND.format(totalPrice - moneyPromotion)}
@@ -183,7 +183,7 @@ const BookingPreview = () => {
 
         <Text
           style={{
-            fontSize: 12,
+            fontSize: 14,
             marginTop: 28,
             marginLeft: 10,
             marginBottom: 8,
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   blockContent: {},
-  text: { marginBottom: 4 },
+  text: { marginBottom: 4, fontSize: 14 },
   container: {
     flex: 1,
     backgroundColor: "#DDDDDD",
@@ -354,7 +354,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 20,
     position: "relative",
-    marginTop: 60,
   },
   proBlock: {
     paddingHorizontal: 16,

@@ -11,11 +11,15 @@ import {
 } from "react-native";
 import { VND } from "../../constant";
 
-const TicketComponent = ({item}) => {
-  const navigation = useNavigation()
-  var date = new Date(item?.createdAt)
+const TicketComponent = ({ item }) => {
+  const navigation = useNavigation();
+  var date = new Date(item?.createdAt);
   return (
-    <TouchableOpacity key={item} style={styles.container} onPress={() => navigation.navigate("TicketDetails", {item})}>
+    <TouchableOpacity
+      key={item}
+      style={styles.container}
+      onPress={() => navigation.navigate("TicketDetails", { item })}
+    >
       <View style={{ marginRight: 12 }}>
         <Image
           style={{
@@ -31,16 +35,26 @@ const TicketComponent = ({item}) => {
           }}
         />
       </View>
-      <View style={{ paddingVertical: 12, flexDirection:'column', justifyContent:"space-between", height:"100%" }}>
+      <View
+        style={{
+          paddingVertical: 12,
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "100%",
+        }}
+      >
         <View>
-        <Text style={{ fontSize: 14, fontWeight: "500" }}>
-          {item?.ShowMovie?.Show?.Movie?.nameMovie?.length > 30 ? item?.ShowMovie?.Show?.Movie?.nameMovie.substring(0,25) + "..." : item?.ShowMovie?.Show?.Movie?.nameMovie}
-        </Text>
-        <Text style={{ fontSize: 12, fontWeight: "400", marginVertical: 6 }}>
-        {item?.ShowMovie?.Show?.Cinema?.name} -  {item?.ShowMovie?.Show?.CinemaHall?.name}
-        </Text>
-        <Text style={{ fontSize: 12, fontWeight: "400" }}>
-           {item?.ShowMovie?.ShowTime?.showTime} - {item?.ShowMovie?.showDate}
+          <Text style={{ fontSize: 14, fontWeight: "500" }}>
+            {item?.ShowMovie?.Show?.Movie?.nameMovie?.length > 30
+              ? item?.ShowMovie?.Show?.Movie?.nameMovie.substring(0, 25) + "..."
+              : item?.ShowMovie?.Show?.Movie?.nameMovie}
+          </Text>
+          <Text style={{ fontSize: 12, fontWeight: "400", marginVertical: 6 }}>
+            {item?.ShowMovie?.Show?.Cinema?.name} -{" "}
+            {item?.ShowMovie?.Show?.CinemaHall?.name}
+          </Text>
+          <Text style={{ fontSize: 12, fontWeight: "400" }}>
+            {item?.ShowMovie?.ShowTime?.showTime} - {item?.ShowMovie?.showDate}
           </Text>
         </View>
         <View
@@ -51,10 +65,21 @@ const TicketComponent = ({item}) => {
           }}
         >
           <Text style={{ fontSize: 12, fontWeight: "400", paddingVertical: 4 }}>
-           Tổng tiền:  <Text style={{color:"green", marginLeft:10}}>{ VND.format(+item?.totalPrice - +item?.totalDiscount)}</Text>
+            Tổng tiền:{" "}
+            <Text style={{ color: "green", marginLeft: 10 }}>
+              {VND.format(+item?.totalPrice)}
+            </Text>
           </Text>
-          <Text style={{ fontSize: 12, color: "#146C94", fontWeight: "400", textAlign:"left", marginLeft:0}}>
-           Ngày đặt: {date.toLocaleString()}
+          <Text
+            style={{
+              fontSize: 12,
+              color: "#146C94",
+              fontWeight: "400",
+              textAlign: "left",
+              marginLeft: 0,
+            }}
+          >
+            Ngày đặt: {date.toLocaleString()}
           </Text>
         </View>
       </View>

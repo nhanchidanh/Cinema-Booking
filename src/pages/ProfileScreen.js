@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   SafeAreaView,
   Image,
+  RefreshControl,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -15,6 +16,7 @@ import Contex from "../store/Context";
 import { SetUserLogin } from "../store/Actions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getMemberShipById } from "../service/userService";
+import { VND } from "../constant";
 
 const data = [
   {
@@ -48,6 +50,7 @@ const data = [
 const ProfileScreen = () => {
   const navigation = useNavigation();
   const { state, depatch } = useContext(Contex);
+  const [refreshing, setRefreshing] = useState(false);
   const [memberShip, setMemberShip] = useState(null);
   const { userLogin } = state;
 
@@ -57,18 +60,33 @@ const ProfileScreen = () => {
     await AsyncStorage.removeItem("user");
   };
 
-  useEffect(() => {
-    getMemberShipById(userLogin?.customer?.id)
-      .then((val) => {
-        setMemberShip(val);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500);
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const val = await getMemberShipById(userLogin?.customer?.id);
+      setMemberShip(val);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [refreshing]);
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ flex: 1, paddingVertical: 36 }}>
+      <ScrollView
+        style={{ flex: 1, paddingVertical: 20 }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <TouchableOpacity
           onPress={() => navigation.navigate("UpdateProfile")}
           style={{
@@ -204,9 +222,11 @@ const ProfileScreen = () => {
             }}
           >
             <Text style={{ fontWeight: "700", fontSize: 16 }}>
-              Tổng chi tiêu 2023
+              Tổng chi tiêu trong tháng
             </Text>
-            <Text style={{ color: "orange", fontSize: 14 }}>0đ</Text>
+            <Text style={{ color: "orange", fontSize: 14 }}>
+              {VND.format(memberShip?.total_spent)}
+            </Text>
           </View>
         </View>
         <View
@@ -370,7 +390,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: "100%",
-    backgroundColor: "white",
+    // backgroundColor: "white",
   },
   tinyLogo: {
     width: 70,

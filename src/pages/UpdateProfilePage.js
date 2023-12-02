@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  ScrollView,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import Contex from "../store/Context";
@@ -30,8 +31,8 @@ export default function UpdateProfilePage({ navigation: { goBack } }) {
   const [onChangeImage, setOnChangeImage] = useState(false);
   const [loadding, setLoadding] = useState(false);
   const handleUpdate = async (values) => {
-    const { name } = values;
-    if (name.length === 0) {
+    const { firstName, lastName } = values;
+    if (firstName.length === 0 || lastName.length === 0) {
       alert("Không được để trống.");
       return;
     }
@@ -43,21 +44,19 @@ export default function UpdateProfilePage({ navigation: { goBack } }) {
         .child(`images/users/${filename}`)
         .put(imageBlob)
         .then((snapshot) => {
-          console.log("Uploaded a blob or file!");
           storageRef
             .child(`images/users/${filename}`)
             .getDownloadURL()
             .then((url) => {
               updateInfoCustomerById(userLogin?.customer?.id, {
-                firstName: name,
+                firstName: firstName,
+                lastName: lastName,
                 image: url,
               })
                 .then((data) => {
-                  //console.log(data);
                   getCustomerById(userLogin?.customer?.id)
                     .then((data) => {
                       const dataFormat = { customer: data };
-                      // console.log(dataFormat);
                       depatch(SetUserLogin(dataFormat));
                       AsyncStorage.setItem("user", JSON.stringify(dataFormat));
                     })
@@ -74,13 +73,11 @@ export default function UpdateProfilePage({ navigation: { goBack } }) {
             });
         });
     } else {
-      updateInfoCustomerById(userLogin?.customer?.id, { firstName: name })
+      updateInfoCustomerById(userLogin?.customer?.id, { firstName, lastName })
         .then((data) => {
-          //console.log(data);
           getCustomerById(userLogin?.customer?.id)
             .then((data) => {
               const dataFormat = { customer: data };
-              // console.log(dataFormat);
               depatch(SetUserLogin(dataFormat));
               AsyncStorage.setItem("user", JSON.stringify(dataFormat));
             })
@@ -137,7 +134,7 @@ export default function UpdateProfilePage({ navigation: { goBack } }) {
   }, []);
 
   return (
-    <View style={styles.AndroidSafeArea}>
+    <ScrollView style={styles.AndroidSafeArea}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.topView} onPress={() => pickImage()}>
           <Image
@@ -165,21 +162,25 @@ export default function UpdateProfilePage({ navigation: { goBack } }) {
                 style={{
                   fontSize: 26,
 
-                  marginBottom: 10,
+                  marginVertical: 10,
                   textAlign: "center",
                   fontWeight: "700",
                   //color:"#6ECB63"
                 }}
               >
-                Galaxy Cinema
+                {userLogin?.customer?.firstName +
+                  " " +
+                  userLogin?.customer?.lastName}
               </Text>
             </View>
             <Formik
               initialValues={{
-                name:
-                  userLogin?.customer?.firstName +
-                  " " +
-                  userLogin?.customer?.lastName,
+                // name:
+                //   userLogin?.customer?.firstName +
+                //   " " +
+                //   userLogin?.customer?.lastName,
+                firstName: userLogin?.customer?.firstName,
+                lastName: userLogin?.customer?.lastName,
                 email: userLogin?.customer?.email,
                 phone: userLogin?.customer?.phone,
               }}
@@ -189,10 +190,19 @@ export default function UpdateProfilePage({ navigation: { goBack } }) {
                 <>
                   <View style={styles.viewInput}>
                     <TextInput
-                      onChangeText={handleChange("name")}
-                      onBlur={handleBlur("name")}
-                      value={values.name}
-                      placeholder="Name"
+                      onChangeText={handleChange("firstName")}
+                      onBlur={handleBlur("firstName")}
+                      value={values.firstName}
+                      placeholder="Họ và tên đệm"
+                      style={{ paddingLeft: 10, color: "#333" }}
+                    />
+                  </View>
+                  <View style={styles.viewInput}>
+                    <TextInput
+                      onChangeText={handleChange("lastName")}
+                      onBlur={handleBlur("lastName")}
+                      value={values.lastName}
+                      placeholder="Tên"
                       style={{ paddingLeft: 10, color: "#333" }}
                     />
                   </View>
@@ -250,7 +260,7 @@ export default function UpdateProfilePage({ navigation: { goBack } }) {
           <ActivityIndicator size="large" color="#00ff00" />
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({

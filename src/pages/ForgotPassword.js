@@ -18,6 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SimpleLottie from "../components/loading/CatSleeping";
 import { forgotPasswordHandler } from "../service/userService";
+import { imageUrl } from "./LoginPage";
 
 export default function ForgotPassword({ navigation }) {
   const { state, depatch } = useContext(Contex);
@@ -35,11 +36,22 @@ export default function ForgotPassword({ navigation }) {
     setLoadding(true);
     forgotPasswordHandler({ email: email })
       .then(() => {
-        navigation.navigate("SignUpSuccessPage", {
-          content:
-            " Link đổi mật khẩu đã được gửi vào Email. Vui lòng kiểm tra.",
-          button: "Đăng nhập",
-        });
+        // navigation.navigate("SignUpSuccessPage", {
+        //   content:
+        //     " Link đổi mật khẩu đã được gửi vào Email. Vui lòng kiểm tra.",
+        //   button: "Đăng nhập",
+        // });
+
+        Alert.alert(
+          "Thông báo",
+          "Link đổi mật khẩu đã được gửi vào Email. Vui lòng kiểm tra.",
+          [
+            {
+              text: "Đăng nhập",
+              onPress: () => navigation.navigate("Login"),
+            },
+          ]
+        );
       })
       .catch((error) => {
         alert("Email không tồn tại trong hệ thống.");
@@ -58,7 +70,8 @@ export default function ForgotPassword({ navigation }) {
     <View style={styles.AndroidSafeArea}>
       <View style={styles.container}>
         <View style={styles.topView}>
-          <SimpleLottie />
+          {/* <SimpleLottie /> */}
+          <Image source={{ uri: imageUrl }} style={styles.image} />
         </View>
 
         <View style={styles.downView}>
@@ -82,7 +95,7 @@ export default function ForgotPassword({ navigation }) {
                   //color:"#6ECB63"
                 }}
               >
-                Galaxy Cinema
+                Quên Mật Khẩu
               </Text>
               <Text
                 style={{
@@ -93,7 +106,7 @@ export default function ForgotPassword({ navigation }) {
                   //color:"#6ECB63"
                 }}
               >
-                Nhập email để nhận mật khẩu mới.
+                Nhập email để đổi mật khẩu mới.
               </Text>
             </View>
             <Formik
@@ -141,6 +154,11 @@ export default function ForgotPassword({ navigation }) {
   );
 }
 const styles = StyleSheet.create({
+  image: {
+    width: 200, // Đặt chiều rộng theo nhu cầu của bạn
+    height: 150, // Đặt chiều cao theo nhu cầu của bạn
+    objectFit: "contain",
+  },
   screenReload: {
     width: "100%",
     height: "100%",

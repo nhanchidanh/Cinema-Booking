@@ -18,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SimpleLottie from "../components/loading/CatSleeping";
 
-const imageUrl =
+export const imageUrl =
   "https://www.galaxycine.vn/_next/image/?url=%2F_next%2Fstatic%2Fmedia%2Fgalaxy-logo-mobile.074abeac.png&w=128&q=75";
 
 export default function Login({ navigation }) {
@@ -39,6 +39,7 @@ export default function Login({ navigation }) {
         AsyncStorage.setItem("user", JSON.stringify(user.data));
       })
       .catch((error) => {
+        console.log(error?.response?.data?.message);
         if (error?.response?.data?.message === "Account is not activated") {
           Alert.alert(
             "Thông báo",

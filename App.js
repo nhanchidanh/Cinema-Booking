@@ -1,19 +1,21 @@
-import 'react-native-gesture-handler';
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, LogBox } from "react-native";
+import { NativeBaseProvider } from "native-base";
+import { LogBox, StatusBar, StyleSheet, View } from "react-native";
+import "react-native-gesture-handler";
 import Index from "./src/pages/Index";
 import Provider from "./src/store/Provider";
-import { NativeBaseProvider } from "native-base";
+
 LogBox.ignoreAllLogs();
+
 export default function App() {
   return (
     <NativeBaseProvider>
       <Provider>
         <View style={styles.container}>
+          <StatusBar></StatusBar>
           <Index />
         </View>
       </Provider>
-  </NativeBaseProvider>
+    </NativeBaseProvider>
   );
 }
 

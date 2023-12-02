@@ -85,7 +85,6 @@ const usePickSeatHook = (url) => {
     getAllSeatByIdHall(booking?.show?.Show?.idCinemaHall)
       .then((response) => {
         if (response) {
-          console.log(show);
           getReservationData(show?.id)
             .then((result) => {
               const dataClear = result.filter((seat) => {
@@ -120,7 +119,6 @@ const usePickSeatHook = (url) => {
 
   useEffect(() => {
     const sumWithInitial = seatPicked.reduce((total, item) => {
-      // console.log(value);
       return item?.price + total;
     }, 0);
 

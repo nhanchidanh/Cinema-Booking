@@ -23,7 +23,6 @@ const PromotionScreen = ({ route, navigation }) => {
   const { promotion } = route.params;
   const { state, depatch } = useContext(Contex);
   const { promotionNotActive, promotionWillActive } = state;
-  console.log("rerender");
 
   const handlePromotionPick = () => {
     if (promotionNotActive.length > 0) {

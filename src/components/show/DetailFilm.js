@@ -18,7 +18,6 @@ const DetailFilm = () => {
   const { film } = booking;
   const [showAll, setShowAll] = useState(false);
   const [arrActor, setArrActor] = useState([]);
-  console.log(arrActor);
   useEffect(() => {
     setArrActor(film?.cast.split(","));
   }, []);
@@ -60,7 +59,9 @@ const DetailFilm = () => {
               style={{ flexDirection: "column", marginLeft: 12, marginTop: 8 }}
             >
               <Text style={{ fontSize: 20, fontWeight: 700 }}>
-                {film?.nameMovie?.length > 20 ? film?.nameMovie.substring(0,20) + "..." : film?.nameMovie }
+                {film?.nameMovie?.length > 20
+                  ? film?.nameMovie.substring(0, 20) + "..."
+                  : film?.nameMovie}
               </Text>
               <View
                 style={{
@@ -178,7 +179,14 @@ const DetailFilm = () => {
               {arrActor.length > 0 &&
                 arrActor.map((val) => {
                   return (
-                    <View style={{ marginRight: 24, justifyContent:"center", alignItems:"center" }} key={val}>
+                    <View
+                      style={{
+                        marginRight: 24,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                      key={val}
+                    >
                       <Image
                         style={{
                           height: 70,
@@ -194,7 +202,7 @@ const DetailFilm = () => {
                       />
                       <Text
                         style={{
-                          textAlign:"center",
+                          textAlign: "center",
                           textTransform: "capitalize",
                           fontWeight: "700",
                           marginTop: 8,

@@ -28,47 +28,61 @@ export default function SignUp() {
   const navigation = useNavigation();
 
   const handleLoginFormSubmit = (values) => {
+    console.log("values: ", values);
     var phoneno = /^\d{10}$/;
     var validRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const { name, email, password, confirmPassword, phone } = values;
+    const { firstName, lastName, email, password, confirmPassword, phone } =
+      values;
     if (
-      name.length === 0 ||
+      firstName.length === 0 ||
+      lastName.length === 0 ||
       email.length === 0 ||
       password.length === 0 ||
       confirmPassword.length === 0 ||
       phone.length === 0
     ) {
-      alert("Yêu cầu nhập đủ thông tin.");
+      Alert.alert("Thông báo", "Yêu cầu nhập đủ thông tin.");
       return;
     } else if (!phone.match(phoneno)) {
-      alert("Số điện thoại có 10 chữ số.");
+      Alert.alert("Thông báo", "Số điện thoại có 10 chữ số.");
       return;
     } else if (!email.match(validRegex)) {
-      alert("Email không đúng định dạng.");
+      Alert.alert("Thông báo", "Email không đúng định dạng.");
       return;
     } else if (password !== confirmPassword) {
-      alert("Mật khẩu phải giổng nhau.");
+      Alert.alert("Thông báo", "Mật khẩu phải giổng nhau.");
       return;
     }
 
-    const data = {
-      ...values,
-      firstName: values.name,
-      lastName: "",
-    };
+    // const data = {
+    //   ...values,
+    //   firstName: values.name,
+    //   lastName: "",
+    // };
 
-    SignUpUser(data)
+    SignUpUser(values)
       .then((data) => {
-        navigation.navigate("SignUpSuccessPage", {
-          content:
-            " Bạn đã đăng ký tài khoản thành công. Vui lòng check mail để mở tài khoản.",
-          button: "Đăng ký tiếp",
-        });
+        // navigation.navigate("Login", {
+        //   content:
+        //     " Bạn đã đăng ký tài khoản thành công. Vui lòng check mail để mở tài khoản.",
+        //   button: "Đăng nhập",
+        // });
+
+        Alert.alert(
+          "Thông báo",
+          "Bạn đã đăng ký tài khoản thành công. Vui lòng kiểm tra email để mở tài khoản.",
+          [
+            {
+              text: "Đăng nhập",
+              onPress: () => navigation.navigate("Login"),
+            },
+          ]
+        );
       })
       .catch((error) => {
         console.log(error.message);
-        alert("Email hoặc Số ĐT đã tồn tại.");
+        Alert.alert("Thông báo", "Email hoặc Số ĐT đã tồn tại.");
       });
   };
 
@@ -106,7 +120,8 @@ export default function SignUp() {
             <Formik
               initialValues={{
                 email: "",
-                name: "",
+                firstName: "",
+                lastName: "",
                 phone: "",
                 password: "",
                 confirmPassword: "",
@@ -117,10 +132,19 @@ export default function SignUp() {
                 <>
                   <View style={styles.viewInput}>
                     <TextInput
-                      onChangeText={handleChange("name")}
-                      onBlur={handleBlur("name")}
-                      value={values.name}
-                      placeholder="Họ và tên"
+                      onChangeText={handleChange("firstName")}
+                      onBlur={handleBlur("firstName")}
+                      value={values.firstName}
+                      placeholder="Họ và tên đệm"
+                      style={{ paddingLeft: 10, color: "#333" }}
+                    />
+                  </View>
+                  <View style={styles.viewInput}>
+                    <TextInput
+                      onChangeText={handleChange("lastName")}
+                      onBlur={handleBlur("lastName")}
+                      value={values.lastName}
+                      placeholder="Tên"
                       style={{ paddingLeft: 10, color: "#333" }}
                     />
                   </View>

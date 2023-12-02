@@ -12,44 +12,42 @@ const DropListShow = ({ idx, status, show, setIsOpen }) => {
     handleShowList,
     handleClick,
     dataFilter,
-  } = useDropListHook({ idx, status, show , setIsOpen });
-  console.log(Math.random())
+  } = useDropListHook({ idx, status, show, setIsOpen });
   return (
-      <TouchableOpacity
-        onPress={handleShowList}
-        style={styles.container}
-        key={Math.random()}
+    <TouchableOpacity
+      onPress={handleShowList}
+      style={styles.container}
+      key={Math.random()}
+    >
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
       >
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Text style={styles.title}>{show?.name}</Text>
-          <Text style={styles.km}>3.5km</Text>
+        <Text style={styles.title}>{show?.name}</Text>
+        <Text style={styles.km}>3.5km</Text>
+      </View>
+      {showComponent.idx === idx && showComponent.status === status ? (
+        <View style={styles.shows}>
+          {dataFilter?.map((val) => {
+            if (val?.disable) return null;
+            return (
+              <TouchableOpacity
+                onPress={() => handleClick(val)}
+                style={styles.show}
+                key={Math.random()}
+              >
+                <Text>{val?.ShowTime?.showTime}</Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
-        {showComponent.idx === idx && showComponent.status === status ? (
-          <View style={styles.shows}>
-            {dataFilter?.map((val) => {
-              if (val?.disable) return null;
-              return (
-                <TouchableOpacity
-                  onPress={() => handleClick(val)}
-                  style={styles.show}
-                  key={Math.random()}
-                >
-                  <Text>{val?.ShowTime?.showTime}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        ) : (
-          false
-        )}
-     
-      </TouchableOpacity>
+      ) : (
+        false
+      )}
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({

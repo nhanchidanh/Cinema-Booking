@@ -125,18 +125,6 @@ const TicketDetails = ({ route, navigation }) => {
               {VND.format(+(item?.totalPrice + item?.totalDiscount))}
             </Text>
           </View>
-          {/* <View
-            style={{
-              marginBottom: 12,
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text style={{ fontSize: 12, fontWeight: "500" }}>
-              Dịch vụ: 2x bắp, 1x nước
-            </Text>
-            <Text style={{ fontSize: 14, fontWeight: "500" }}>0đ</Text>
-          </View> */}
           <View
             style={{
               marginBottom: 12,
@@ -174,9 +162,6 @@ const TicketDetails = ({ route, navigation }) => {
           </View>
           <Text style={{ fontSize: 12, fontWeight: "400", marginVertical: 12 }}>
             Hãy đưa mã vé hoặc màn hình vé để nhận vé tại quầy giao dịch!
-          </Text>
-          <Text style={{ fontSize: 12, fontWeight: "400" }}>
-            (*) Vé đã đặt không được hoàn trả, xin cảm ơn!
           </Text>
           <View style={{ marginTop: 20, marginBottom: 20 }}>
             <QRCode value={item?.id.toString()} />

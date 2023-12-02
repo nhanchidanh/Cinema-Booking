@@ -78,6 +78,7 @@ const HomeStackNavigator = () => {
       />
       <Stack.Screen
         // options={{ headerShown: false }}
+        options={{ title: "Danh sách vé" }}
         name="TicketBooked"
         component={TicketBooked}
       />
@@ -155,6 +156,7 @@ const ProfileStackNavigator = () => {
     </Stack.Navigator>
   );
 };
+
 const LoginStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
