@@ -21,9 +21,7 @@ import cinameApi from "../../api/cinemaApi";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setReload } from "../../redux/actions";
-import { notifyError,
-  notifySucess
-} from "../../utils/Notifi";
+import { notifyError, notifySucess } from "../../utils/Notifi";
 import cinemaHallApi from "../../api/cinemaHallApi";
 
 const ModelDetailHall = ({
@@ -32,13 +30,12 @@ const ModelDetailHall = ({
   selectedIdHall,
   selectedIdCinema,
 }) => {
- // const handleCancel = () => setPreviewOpen(false);
+  // const handleCancel = () => setPreviewOpen(false);
   const [form] = Form.useForm();
   const [cinemaInfo, setCinemaInfo] = useState({});
 
   const depatch = useDispatch();
   const reload = useSelector((state) => state.reload);
-
 
   const onSearch = (value) => {
     console.log("search:", value);
@@ -47,7 +44,6 @@ const ModelDetailHall = ({
   const onClose = () => {
     setShowModalAddCustomer(false);
   };
-
 
   useEffect(() => {
     const fetchCinemaInfo = async () => {
@@ -122,7 +118,7 @@ const ModelDetailHall = ({
   return (
     <>
       <Drawer
-        title="Chỉnh sửa phòng chiếu"
+        title="Cập nhật phòng chiếu"
         width={720}
         onClose={onClose}
         open={showModalAddCustomer}
@@ -213,8 +209,8 @@ const ModelDetailHall = ({
                   options={[
                     {
                       value: 81,
-                      label: "Big - 81 ghế( 72 - 9 )",  
-                    }
+                      label: "Big - 81 ghế( 72 - 9 )",
+                    },
                   ]}
                 />
               </Form.Item>

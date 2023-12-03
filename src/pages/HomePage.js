@@ -1,60 +1,45 @@
-import React, { useEffect, useState } from "react";
 import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
+  AppstoreAddOutlined,
   DashboardTwoTone,
-  BellOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-  ProfileOutlined,
-  ThunderboltOutlined,
+  DesktopOutlined,
   HomeOutlined,
+  LogoutOutlined,
+  PieChartOutlined,
+  ProfileOutlined,
   ProjectOutlined,
+  TeamOutlined,
+  ThunderboltOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
 } from "@ant-design/icons";
-import {
-  Breadcrumb,
-  Layout,
-  Menu,
-  theme,
-  Avatar,
-  Dropdown,
-  Button,
-  Space,
-  Typography,
-  Modal,
-} from "antd";
-import "./HomePageStyle.scss";
-import ItemNotification from "../components/notification/ItemNotification";
-import Index from "../components/dashboard";
-import IndexDashboard from "../components/dashboard";
+import { Avatar, Dropdown, Layout, Menu, Modal, Typography, theme } from "antd";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import IndexBooking from "../components/booking/IndexBooking";
+import IndexRouteHall from "../components/cinemahall/IndexRoute";
 import IndexCustomer from "../components/customer";
+import IndexDashboard from "../components/dashboard";
 import IndexEmployee from "../components/employee/IndexEmployee";
 import IndexFilm from "../components/film/IndexFilm";
-import IndexShow from "../components/show/IndexShow";
+import IndexRoutePrice from "../components/price/IndexRoutePrice";
+import IndexProduct from "../components/product";
+import IndexRoutePro from "../components/promotion/IndexRoutePro";
 import IndexRouter from "../components/show/IndexRouter";
-import { useSelector } from "react-redux";
+import IndexTicketRefund from "../components/ticketsRefund/IndexFilm";
 import UserInfo from "../components/user/UserIndex";
 import tokenService from "../service/token.service";
-import { useLocation, useNavigate } from "react-router-dom";
-import IndexRoutePro from "../components/promotion/IndexRoutePro";
-import IndexProduct from "../components/product";
-import IndexRouteHall from "../components/cinemahall/IndexRoute";
-import IndexRoutePrice from "../components/price/IndexRoutePrice";
-import IndexBooking from "../components/booking/IndexBooking";
-import IndexTicketRefund from "../components/ticketsRefund/IndexFilm";
+import "./HomePageStyle.scss";
 
-import { ToastContainer, toast } from "react-toastify";
-import IndexTicket from "../components/tickets/IndexFilm";
-import { notifyWarn } from "../utils/Notifi";
-import { MESSAGE_NOT_ACCEPT } from "../constant";
+import { ToastContainer } from "react-toastify";
 import RevenueComponent from "../components/statistic/RevenueComponent";
 import CustomerStatitisComponent from "../components/statistic/customer/CustomerStatitisComponent";
-import PromotionStatitisComponent from "../components/statistic/promotion/PromotionStatitisComponent";
 import FilmStatisticComponent from "../components/statistic/film/FilmStatisticComponent";
+import PromotionStatitisComponent from "../components/statistic/promotion/PromotionStatitisComponent";
 import RefundStatitisComponent from "../components/statistic/refund/RefundStatitisComponent";
+import IndexTicket from "../components/tickets/IndexFilm";
+import { MESSAGE_NOT_ACCEPT } from "../constant";
+import { notifyWarn } from "../utils/Notifi";
 const { Header, Content, Footer, Sider } = Layout;
 
 const { Text } = Typography;
@@ -70,7 +55,7 @@ function getItem(label, key, icon, children) {
 
 const items = [
   getItem("Dashboard", "1", <DashboardTwoTone />),
-  getItem("Đặt vé", "sub00", <DesktopOutlined />, [
+  getItem("Quản lý vé", "sub00", <DesktopOutlined />, [
     getItem("Đặt vé", "2"),
     getItem("Vé đã đặt", "9"),
     getItem("Vé hoàn trả", "10"),
@@ -102,16 +87,16 @@ const items = [
 
 const itemManager = [
   getItem("Dashboard", "1", <DashboardTwoTone />),
-  getItem("Đặt vé", "sub00", <DesktopOutlined />, [
+  getItem("Quản lý vé", "sub00", <DesktopOutlined />, [
     getItem("Đặt vé", "2"),
     getItem("Vé đã đặt", "9"),
     getItem("Vé hoàn trả", "10"),
   ]),
 
-  getItem("Quản lý phim", "sub1", <UserOutlined />, [
-    getItem("Danh sách phim", "3"),
-    getItem("Quản lý suất chiếu", "4"),
-  ]),
+  getItem("Quản lý phim phim", "3", <VideoCameraOutlined />),
+  // getItem("Quản lý phim", "sub1", <UserOutlined />, [
+  // ]),
+  getItem("Quản lý suất chiếu", "4", <AppstoreAddOutlined />),
   getItem("Quản lý rạp", "sub4", <HomeOutlined />, [getItem("Rạp", "13")]),
 
   getItem("Quản lý khuyến mãi", "19", <ThunderboltOutlined />),
@@ -314,7 +299,7 @@ const HomePage = () => {
           >
             <div>
               <p style={{ fontWeight: "700", fontSize: "16px" }}>
-                {cinema?.name}
+                {user?.position === 1 ? "QUẢN LÝ" : cinema?.name}
               </p>
             </div>
             <div style={{ display: "flex", alignItems: "center" }}>
@@ -330,64 +315,7 @@ const HomePage = () => {
                   " " +
                   user?.lastName?.toLowerCase()}
               </p>
-              {/* <Dropdown
-                overlay={
-                  <>
-                    <Menu>
-                      <Menu.Item key="0L">
-                        <Text
-                          style={{
-                            fontSize: "18px",
-                            fontWeight: "500",
-                            textAlign: "center",
-                          }}
-                        >
-                          Thông báo
-                        </Text>
-                      </Menu.Item>
-                      <Menu.Item key="0">
-                        <ItemNotification />
-                      </Menu.Item>
 
-                      <Menu.Item key="1">
-                        {" "}
-                        <ItemNotification />
-                      </Menu.Item>
-                      <Menu.Item key="100">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Text
-                            style={{
-                              fontSize: "14px",
-                              fontWeight: "400",
-                              color: "blue",
-                              cursor: "pointer",
-                            }}
-                          >
-                            View All
-                          </Text>
-                        </div>
-                      </Menu.Item>
-                    </Menu>
-                  </>
-                }
-                trigger={["click"]}
-              >
-                <div
-                  className="notification"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <BellOutlined
-                    style={{ color: "#0068ff" }}
-                    className="notification_icon"
-                  />
-                </div>
-              </Dropdown> */}
               <Dropdown
                 overlay={
                   <>

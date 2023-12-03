@@ -16,21 +16,32 @@ const IndexCinemaMap = ({ setTab }) => {
   const [possition, setPossition] = useState("");
   const [open, setOpen] = useState(false);
   const [changeSeat, setChangeSeat] = useState(false);
+  const [nameCinemaHall, setNameCinemaHall] = useState("");
+  console.log("nameCinemaHall: ", nameCinemaHall);
 
-  useEffect(() => {
-    const getSeats = async () => {
-      try {
-        const response = await cinemaHallApi.getCinemaHallSeatById(
-          idCinemaHall
-        );
-        if (response) {
-          setSeats(response);
-        }
-      } catch (error) {
-        console.log("Fetch error: ", error);
+  const getSeats = async () => {
+    try {
+      const response = await cinemaHallApi.getCinemaHallSeatById(idCinemaHall);
+      if (response) {
+        setSeats(response);
       }
-    };
+    } catch (error) {
+      console.log("Fetch error: ", error);
+    }
+  };
+  const getNameCinemaHall = async () => {
+    try {
+      const response = await cinemaHallApi.getCinemaHallById(idCinemaHall);
+      if (response) {
+        setNameCinemaHall(response?.name);
+      }
+    } catch (error) {
+      console.log("Fetch error: ", error);
+    }
+  };
+  useEffect(() => {
     getSeats(idCinemaHall);
+    getNameCinemaHall(idCinemaHall);
   }, [changeSeat, idCinemaHall]);
 
   const handleShowModel = (val, idx, seat) => {
@@ -44,7 +55,7 @@ const IndexCinemaMap = ({ setTab }) => {
           setOpen(true);
         }
       } catch (error) {
-        console.log("Featch erro: ", error);
+        console.log("Featch error: ", error);
       }
     };
     getSeatById(seat.id);
@@ -68,7 +79,7 @@ const IndexCinemaMap = ({ setTab }) => {
         <Breadcrumb.Item>
           <span onClick={() => handleRouter(1)}> Phòng chiếu </span>
         </Breadcrumb.Item>
-        <Breadcrumb.Item>Sơ đồ phòng chiếu</Breadcrumb.Item>
+        <Breadcrumb.Item>Sơ đồ phòng chiếu {nameCinemaHall}</Breadcrumb.Item>
       </Breadcrumb>
 
       <Row
@@ -207,7 +218,7 @@ const IndexCinemaMap = ({ setTab }) => {
         <Col span={4} className="block-content-details">
           <Row style={{ marginTop: "16px" }}>
             <Col span={16}>
-              <p>Tổng số vị trí:</p>{" "}
+              <p>Tổng số vị trí:</p>
             </Col>
             <Col span={8} className="block-span">
               <span>81</span>
@@ -215,7 +226,7 @@ const IndexCinemaMap = ({ setTab }) => {
           </Row>
           <Row>
             <Col span={16}>
-              <p>Tổng số ghế:</p>{" "}
+              <p>Tổng số ghế:</p>
             </Col>
             <Col span={8} className="block-span">
               <span>{seats.length}</span>
@@ -225,7 +236,7 @@ const IndexCinemaMap = ({ setTab }) => {
             <Col span={10}>
               <p style={{ fontSize: "16px", color: "blue" }}>
                 <MdChair />
-              </p>{" "}
+              </p>
             </Col>
             <Col span={14} className="block-span">
               <span>Ghế đơn</span>

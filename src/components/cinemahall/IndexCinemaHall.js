@@ -1,27 +1,9 @@
+import { Breadcrumb, Button, Col, Input, Row, Typography } from "antd";
 import React, { useState } from "react";
-import {
-  Input,
-  Col,
-  Row,
-  Typography,
-  Button,
-  Modal,
-  Breadcrumb,
-  DatePicker,
-} from "antd";
 
-import {
-  SearchOutlined,
-  PlusSquareFilled,
-  UserAddOutlined,
-  ToolOutlined,
-  DeleteOutlined,
-  DownloadOutlined,
-  AppstoreAddOutlined,
-} from "@ant-design/icons";
-import TablePromotionHeader from "./TablePromotionHeader";
-import moment from "moment";
+import { PlusSquareOutlined, SearchOutlined } from "@ant-design/icons";
 import ModelAddPromotionHeader from "./ModelAddPromotionHeader";
+import TablePromotionHeader from "./TablePromotionHeader";
 const { Title, Text } = Typography;
 const dateFormat = "YYYY/MM/DD";
 const IndexCinemaHall = ({ setTab, selectedIdCinema, statusDb }) => {
@@ -40,14 +22,12 @@ const IndexCinemaHall = ({ setTab, selectedIdCinema, statusDb }) => {
     <div className="site-card-wrapper">
       <Breadcrumb style={{ marginBottom: "1rem", marginTop: "1rem" }}>
         <Breadcrumb.Item>
-          {" "}
           <a
             onClick={() => {
               handleRouter(0);
             }}
           >
-            {" "}
-            Rạp{" "}
+            Rạp
           </a>
         </Breadcrumb.Item>
         <Breadcrumb.Item>Phòng chiếu</Breadcrumb.Item>
@@ -60,7 +40,7 @@ const IndexCinemaHall = ({ setTab, selectedIdCinema, statusDb }) => {
           lg: 16,
         }}
       >
-        <Col span={10}>
+        <Col span={12}>
           <Input
             placeholder="Nhập tên phòng chiếu hoặc loại phòng"
             prefix={<SearchOutlined />}
@@ -71,11 +51,11 @@ const IndexCinemaHall = ({ setTab, selectedIdCinema, statusDb }) => {
             }}
           />
         </Col>
-        <Col span={8}>
-          {" "}
+        <Col span={10}></Col>
+        <Col span={2}>
           <Button
             type="primary"
-            icon={<AppstoreAddOutlined />}
+            icon={<PlusSquareOutlined />}
             onClick={showModal}
             title="Thêm phòng chiếu mới"
           >

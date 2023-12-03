@@ -17,6 +17,7 @@ import {
   ToolOutlined,
   DeleteOutlined,
   DownloadOutlined,
+  PlusSquareOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
 import ModelAddCinema from "./ModelAddCinema";
@@ -25,7 +26,7 @@ import { useRoleHook } from "../../utils/useRoleHook.js";
 const { Title, Text } = Typography;
 const dateFormat = "YYYY/MM/DD";
 const IndexCinema = ({ setTab, setSelectedIdCinema, setStatusDb }) => {
-  const { isEmployee } = useRoleHook();
+  const { isMangement } = useRoleHook();
   const [showModalAddCustomer, setShowModalAddCustomer] = useState(false);
   const [keyword, setKeyword] = useState("");
 
@@ -50,18 +51,19 @@ const IndexCinema = ({ setTab, setSelectedIdCinema, setStatusDb }) => {
           lg: 16,
         }}
       >
-        <Col span={10}>
+        <Col span={12}>
           <Input
             placeholder="Nhập tên rạp hoặc mã rạp"
             prefix={<SearchOutlined />}
             onChange={(e) => setKeyword(e.target.value)}
           />
         </Col>
-        <Col span={8}>
-          {isEmployee ? null : (
+        <Col span={10}></Col>
+        <Col span={2}>
+          {isMangement && (
             <Button
               type="primary"
-              icon={<UserAddOutlined />}
+              icon={<PlusSquareOutlined />}
               onClick={showModal}
               title="Thêm mới rạp"
             >

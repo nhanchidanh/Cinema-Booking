@@ -15,13 +15,10 @@ import {
   Upload,
 } from "antd";
 
-import { notifyError,
-  notifySucess
-} from "../../utils/Notifi";
+import { notifyError, notifySucess } from "../../utils/Notifi";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setReload } from "../../redux/actions";
-
 
 import { PlusOutlined } from "@ant-design/icons";
 
@@ -38,7 +35,7 @@ const getBase64 = (file) =>
 const { Option } = Select;
 
 const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
- // const handleCancel = () => setPreviewOpen(false);
+  // const handleCancel = () => setPreviewOpen(false);
   const [form] = Form.useForm();
 
   const depatch = useDispatch();
@@ -157,9 +154,9 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
       district_id: val.district.value,
       ward_id: val.ward.value,
       street: val?.street,
-      address
+      address,
     };
-    
+
     try {
       const response = await cinameApi.create(payload);
       if (response) {
@@ -169,7 +166,7 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
       }
     } catch (error) {
       console.log("Failed to fetch product list: ", error);
-      notifyError("Tạo rạp thất bại! Lỗi: " + error?.response?.data?.message );
+      notifyError("Tạo rạp thất bại! Lỗi: " + error?.response?.data?.message);
     }
   };
 
@@ -233,7 +230,7 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                 ]}
               >
                 <Input
-                  placeholder="Hãy nhập mã rạp tối đa 5 ký tự..."
+                  placeholder="Nhập mã rạp tối đa 5 ký tự..."
                   addonBefore="CIN"
                   min={1}
                   maxLength={5}
@@ -249,7 +246,9 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="name" label="Tên rạp"
+              <Form.Item
+                name="name"
+                label="Tên rạp"
                 rules={[
                   {
                     required: true,
@@ -257,13 +256,15 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   },
                 ]}
               >
-                <Input placeholder="Hãy nhập tên rạp..." />
+                <Input placeholder="Nhập tên rạp..." />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="province" label="Tỉnh thành"
+              <Form.Item
+                name="province"
+                label="Tỉnh thành"
                 rules={[
                   {
                     required: true,
@@ -285,12 +286,13 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                       .includes(input.toLowerCase())
                   }
                   options={province}
-                  
                 />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="district" label="Quận huyện"
+              <Form.Item
+                name="district"
+                label="Quận huyện"
                 rules={[
                   {
                     required: true,
@@ -318,7 +320,9 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="ward" label="Xã phường"
+              <Form.Item
+                name="ward"
+                label="Xã phường"
                 rules={[
                   {
                     required: true,

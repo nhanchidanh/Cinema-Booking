@@ -42,9 +42,8 @@ const IndexCustomer = () => {
           />
         </Col>
         <Col span={6}></Col>
-        <Col span={3}></Col>
+        <Col span={4}></Col>
         <Col span={2}>
-          {" "}
           <Button type="primary" icon={<UserAddOutlined />} onClick={showModal}>
             Thêm
           </Button>

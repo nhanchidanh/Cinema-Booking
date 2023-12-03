@@ -118,7 +118,7 @@ const TablePromotionHeader = ({
       render: (_, record) => (
         <Space size="middle">
           <Button
-            title="Chỉnh sửa"
+            title="Cập nhật"
             type="default"
             icon={<FormOutlined />}
             onClick={() => {

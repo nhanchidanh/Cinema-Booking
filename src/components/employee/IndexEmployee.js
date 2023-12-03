@@ -43,16 +43,12 @@ const IndexEmployee = () => {
             onChange={(e) => setSearchText(e.target.value)}
           />
         </Col>
-        <Col span={9}>
+        <Col span={10}></Col>
+        <Col span={2}>
           <Button type="primary" icon={<UserAddOutlined />} onClick={showModal}>
             Thêm
           </Button>
         </Col>
-        {/* <Col span={1}>
-          <Button type="primary" icon={<DownloadOutlined />}>
-            Xuất file
-          </Button>
-        </Col> */}
       </Row>
 
       <Row

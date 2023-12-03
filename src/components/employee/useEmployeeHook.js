@@ -285,8 +285,6 @@ const useEmployeeHook = (
   };
 
   const handleUpdate = async (val) => {
-    console.log("val: ", val);
-    console.log("typeof val.city: ", typeof val.city);
     const response = await staffApi.updateStaff(selectedId, {
       email: val.email,
       phone: val.phone,

@@ -1,43 +1,18 @@
+import { Badge, Modal, Select, Table, Tag, message } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Table,
-  Modal,
-  Tag,
-  Image,
-  Alert,
-  Space,
-  message,
-  Badge,
-  Select,
-  Spin,
-} from "antd";
-import {
-  SearchOutlined,
-  PlusSquareFilled,
-  UserAddOutlined,
-  ToolOutlined,
-  DeleteOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
-import customerApi from "../../api/customerApi";
-import ModelAddCustomer from "./ModelAddCustomer";
-import ModelDetailCustomer from "./ModelCustomerDetail";
-import openAddressApi from "../../api/openApi";
 import { useDispatch, useSelector } from "react-redux";
+import customerApi from "../../api/customerApi";
+import openAddressApi from "../../api/openApi";
 import { setReload } from "../../redux/actions";
 import { useRoleHook } from "../../utils/useRoleHook.js";
+import ModelDetailCustomer from "./ModelCustomerDetail";
 
 const { Option } = Select;
 
 const TableCustomer = ({ keySearch }) => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [listCustomer, setListCustomer] = useState([]);
-  console.log("listCustomer: ", listCustomer);
   const [selectedId, setSelectedId] = useState([]);
   const [showModalDetailCustomer, setShowModalDetailCustomer] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
   const depatch = useDispatch();
   const reload = useSelector((state) => state.reload);
   const { isEmployee } = useRoleHook();
@@ -70,10 +45,10 @@ const TableCustomer = ({ keySearch }) => {
       title: "Số điện thoại",
       dataIndex: "phone",
     },
-    {
-      title: "Địa chỉ",
-      dataIndex: "address",
-    },
+    // {
+    //   title: "Địa chỉ",
+    //   dataIndex: "address",
+    // },
     {
       title: "Email",
       dataIndex: "email",
@@ -127,7 +102,6 @@ const TableCustomer = ({ keySearch }) => {
       title: "Trạng thái",
       dataIndex: "status",
       render: (val, record) => {
-        console.log("val: ", val);
         let color = "";
         let text = "";
         if (val === false) {
@@ -143,7 +117,7 @@ const TableCustomer = ({ keySearch }) => {
             <Select
               value={val}
               style={{
-                width: 140,
+                width: "90%",
               }}
               bordered={false}
               onChange={(value) => {
@@ -173,10 +147,6 @@ const TableCustomer = ({ keySearch }) => {
     {
       title: "Mã khách hàng",
       dataIndex: "code",
-    },
-    {
-      title: "Họ và Tên",
-      dataIndex: "name",
       render: (val, record) => {
         return (
           <a
@@ -190,13 +160,28 @@ const TableCustomer = ({ keySearch }) => {
       },
     },
     {
+      title: "Họ và Tên",
+      dataIndex: "name",
+      // render: (val, record) => {
+      //   return (
+      //     <a
+      //       onClick={() => {
+      //         showModalDetail(record.id);
+      //       }}
+      //     >
+      //       {val}
+      //     </a>
+      //   );
+      // },
+    },
+    {
       title: "Số điện thoại",
       dataIndex: "phone",
     },
-    {
-      title: "Địa chỉ",
-      dataIndex: "address",
-    },
+    // {
+    //   title: "Địa chỉ",
+    //   dataIndex: "address",
+    // },
     {
       title: "Email",
       dataIndex: "email",
@@ -320,44 +305,15 @@ const TableCustomer = ({ keySearch }) => {
     fetchListCustomer();
   }, [reload, keySearch]);
 
-  //handle delete customer in here...
-  const handleDelete = () => {
-    showModal();
-  };
-
-  const handleRefresh = () => {
-    setLoading(true);
-    // ajax request after empty completing
-    setTimeout(() => {
-      setSelectedRowKeys([]);
-      setLoading(false);
-      setRefreshKey((oldKey) => oldKey + 1);
-      message.success("Tải lại thành công");
-    }, 1000);
-  };
-
-  //handle update customer in here ....
-  const handleUpdate = () => {
-    setLoading(true);
-    // ajax request after empty completing
-    setTimeout(() => {
-      setSelectedRowKeys([]);
-      setLoading(false);
-    }, 500);
-  };
-
   //model
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
 
   const handleOk = () => {
     setIsModalOpen(false);
     const fetchDeleteCustomer = async () => {
       try {
         const response = await customerApi.deleteCustomer(selectedId);
-        if (response == 1) {
+        if (+response === 1) {
           depatch(setReload(!reload));
         } else {
           setTimeout(() => {
