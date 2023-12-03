@@ -81,7 +81,7 @@ class CustomerService {
       const newStaff = {
         email,
         password: hashPassword,
-        isActivated: true,
+        isActivated: false,
         phone,
         firstName,
         lastName,
@@ -229,27 +229,31 @@ class CustomerService {
         return {
           status: 400,
           code: 1,
-          message: "Tài khoản hoặc mật khẩu sai.",
+          message: "Tài khoản hoặc mật khẩu sai",
         };
       }
       if (!existingStaff.isVerify) {
         return {
           status: 403,
           code: 2,
-          message: "Tài khoản chưa được xác minh.",
+          message: "Tài khoản chưa được xác minh",
         };
       }
+      if (+existingStaff.status === 0) {
+        return {
+          status: 403,
+          code: 2,
+          message: "Tài khoản đã bị ngừng hoạt động",
+        };
+      }
+
       if (existingStaff == null) {
         return {
           status: 400,
           message: "Phone is not exist",
         };
       }
-      // let { nameRole } = await RoleRepository.GetNameRoleByStaffId(
-      //   existingStaff.id
-      // );
 
-      // existingStaff.dataValues["nameRole"] = nameRole;
       if (!existingStaff) {
         return {
           status: 400,
@@ -324,7 +328,7 @@ class CustomerService {
         return {
           status: 403,
           code: 3,
-          message: "Tài khoản đã bị ngưng hoạt động",
+          message: "Tài khoản đã bị ngừng hoạt động",
         };
       }
 

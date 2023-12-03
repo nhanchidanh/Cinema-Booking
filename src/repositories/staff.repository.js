@@ -18,6 +18,7 @@ class StaffRepository {
     return await Staff.update(
       {
         isVerify: new Date().toString(),
+        isActivated: true,
       },
       {
         where: {
@@ -37,7 +38,7 @@ class StaffRepository {
           email: emailPayLoad,
         },
       }
-    )
+    );
   }
 
   async GetByPhone(phone) {
@@ -101,7 +102,7 @@ class StaffRepository {
         "ward_id",
         "street",
         "image",
-        "code"
+        "code",
       ],
     });
   }
