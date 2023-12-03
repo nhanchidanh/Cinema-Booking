@@ -101,6 +101,7 @@ class showMovieService {
     await showMovieRepository.deteteWithShowDate(id, date);
     return "Delete success";
   }
+
   async getByShowIdAndDate(idShow, date) {
     const data = await showMovieRepository.getByShowIdAndDate(idShow, date);
     return data;

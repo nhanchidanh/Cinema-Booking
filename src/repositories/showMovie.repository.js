@@ -74,7 +74,7 @@ class showMovieRepository {
         ["showDate", "ASC"],
         ["idShowTime", "ASC"],
       ],
-      attributes: ["status", "id",'showDate'],
+      attributes: ["status", "id", "showDate"],
       include: [
         {
           model: ShowTime,
@@ -86,7 +86,7 @@ class showMovieRepository {
             status: 1,
             idMovie: idMovie,
           },
-          attributes: ["idMovie", "idCinema","idCinemaHall"],
+          attributes: ["idMovie", "idCinema", "idCinemaHall"],
         },
       ],
     });
@@ -104,7 +104,7 @@ class showMovieRepository {
         ["showDate", "ASC"],
         ["idShowTime", "ASC"],
       ],
-      attributes: ["status", "id",'showDate'],
+      attributes: ["status", "id", "showDate"],
       include: [
         {
           model: ShowTime,
@@ -116,17 +116,13 @@ class showMovieRepository {
           where: {
             idCinema: idCinema,
           },
-          attributes: ["idMovie", "idCinema","idCinemaHall"],
+          attributes: ["idMovie", "idCinema", "idCinemaHall"],
         },
       ],
     });
   }
 
-  async checkShowMovieExisted(
-    idCinema,
-    idCinemaHall,
-    showDate,
-  ) {
+  async checkShowMovieExisted(idCinema, idCinemaHall, showDate) {
     return await ShowMovie.findAll({
       include: [
         {
@@ -136,7 +132,7 @@ class showMovieRepository {
             idCinema: idCinema,
             idCinemaHall: idCinemaHall,
           },
-          attributes: ["id","code"],
+          attributes: ["id", "code"],
           include: [
             {
               model: Movie,
@@ -151,31 +147,29 @@ class showMovieRepository {
                 status: 1,
               },
               attributes: ["id", "name"],
-            }
+            },
           ],
         },
         {
           model: ShowTime,
           attributes: ["id", "showTime"],
-        }
+        },
       ],
       where: {
         showDate: showDate,
         // idShowTime: idShowTime,
       },
       attributes: [
-        "showDate", "idShowTime", "idShow", "id",
+        "showDate",
+        "idShowTime",
+        "idShow",
+        "id",
         [sequelize.col("Show.Movie.id"), "idMovie"],
       ],
     });
   }
 
-  async getShowMovieShowAndMovie({
-    idCinema,
-    showDate,
-    idMovie,
-  })
-  {
+  async getShowMovieShowAndMovie({ idCinema, showDate, idMovie }) {
     return await ShowMovie.findAll({
       include: [
         {
@@ -197,7 +191,7 @@ class showMovieRepository {
       where: {
         showDate: showDate,
       },
-      attributes: ["idShowTime","showDate"],
+      attributes: ["idShowTime", "showDate"],
     });
   }
 
@@ -231,7 +225,6 @@ class showMovieRepository {
     });
   }
 
-
   async getByShowIdAndDate(idShow, showDate) {
     return await ShowMovie.findAll({
       where: {
@@ -248,14 +241,7 @@ class showMovieRepository {
     });
   }
 
-  async getListShowTimeIsPass({
-    startDate,
-    endDate,
-    idCinema,
-    idCinemaHall,
-  }) {
-    
-  }
+  async getListShowTimeIsPass({ startDate, endDate, idCinema, idCinemaHall }) {}
 
   async getShowTimeUnique(idShow) {
     return await ShowMovie.findAll({

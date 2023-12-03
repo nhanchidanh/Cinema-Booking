@@ -571,14 +571,23 @@ class CustomerService {
         let salt = await GenerateSalt();
         let hashPassword = await GeneratePassword(password, salt);
 
-        const status = await StaffRepository.updateCurrentPassword(
+        const updateStaff = await StaffRepository.updateCurrentPassword(
           email,
           hashPassword
         );
+        // console.log("updateStaff: ", updateStaff);
+        if (!updateStaff[0]) {
+          const updateCustomer = await CustomerRepository.UpdateCustomerByEmail(
+            email,
+            { password: hashPassword }
+          );
+          // console.log("updateCustomer: ", updateCustomer);
+        }
+
         mailer.sendMail(
           email,
-          "Thông báo đổi mật khẩu thành công.",
-          `Mật khẩu đã được thay đổi, mật khẩu hiện tại: ${password}`
+          "Thông báo đổi mật khẩu thành công",
+          `Mật khẩu đã được thay đổi, mật khẩu hiện tại: <strong>${password}</strong>`
         );
         res.json({
           status: 200,

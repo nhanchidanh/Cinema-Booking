@@ -1,7 +1,6 @@
 const cors = require("cors");
 
-
-const whitelist = ['*'];
+const whitelist = ["*"];
 
 const corsOptions = {
   origin: function (origin, callback) {
