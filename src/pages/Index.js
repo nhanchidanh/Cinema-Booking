@@ -18,7 +18,7 @@ export default function Index() {
     <NavigationContainer
       linking={{
         prefixes: [Linking.createURL("/")],
-        config: { screens: { Home: { screens: { TicketBooked: "r" } } } },
+        config: { screens: { Home: "r" } },
       }}
     >
       {/* <DrawerNavigator /> */}

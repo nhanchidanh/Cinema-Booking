@@ -222,10 +222,12 @@ const useBookingPreviewHook = () => {
         createOrderMethod(dataPayload)
           .then((data) => {
             depatch(SetPromotion([]));
-            // navigation.navigate("HomePage");
-            // navigation.navigate("TicketBooked");
+            navigation.navigate("HomePage");
+            navigation.navigate("TicketBooked");
           })
-          .catch(() => {});
+          .catch((error) => {
+            console.log("error: ", error);
+          });
       } else if (data?.status === 2) {
         Alert.alert("Thông báo", "Thanh toán thất bại");
       }
