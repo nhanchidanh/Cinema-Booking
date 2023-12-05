@@ -83,6 +83,11 @@ const TicketComponent = ({ item }) => {
           </Text>
         </View>
       </View>
+      {item.status === 3 && (
+        <View style={styles.cancelledTag}>
+          <Text style={{ color: "white", fontSize: 10 }}>Đã hủy</Text>
+        </View>
+      )}
     </TouchableOpacity>
   );
 };
@@ -97,6 +102,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 10,
     marginTop: 20,
+  },
+  cancelledTag: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    backgroundColor: "red",
+    padding: 4,
+    borderRadius: 4,
   },
 });
 
