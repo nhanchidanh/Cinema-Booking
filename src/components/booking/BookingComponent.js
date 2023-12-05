@@ -95,7 +95,7 @@ const BookingComponent = ({ setTab }) => {
           marginTop: 24,
         }}
       >
-        {current > 0 && (
+        {current > 0 && !isSucess && (
           <Button
             style={{
               marginBottom: "10px",

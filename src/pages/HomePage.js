@@ -97,7 +97,9 @@ const itemManager = [
   // getItem("Quản lý phim", "sub1", <UserOutlined />, [
   // ]),
   getItem("Quản lý suất chiếu", "4", <AppstoreAddOutlined />),
-  getItem("Quản lý rạp", "sub4", <HomeOutlined />, [getItem("Rạp", "13")]),
+  // getItem("Quản lý rạp", "sub4", <HomeOutlined />, [getItem("Rạp", "13")]),
+
+  getItem("Quản lý rạp", "13", <HomeOutlined />),
 
   getItem("Quản lý khuyến mãi", "19", <ThunderboltOutlined />),
 

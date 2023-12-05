@@ -1,38 +1,28 @@
-import React, { useEffect, useState } from "react";
+import { EyeOutlined, RetweetOutlined } from "@ant-design/icons";
 import {
   Button,
-  Table,
-  Modal,
-  Image,
-  message,
-  Badge,
-  Tag,
-  Space,
-  Form,
-  Row,
   Col,
-  Input,
+  Form,
+  Modal,
+  Row,
   Select,
+  Space,
+  Table,
+  Tag,
+  message,
 } from "antd";
-import {
-  ReloadOutlined,
-  RetweetOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setReload } from "../../redux/actions";
 
-import ModelDetailMovie from "./ModelMovieDetail";
-import orderApi from "../../api/orderApi";
 import moment from "moment";
+import orderApi from "../../api/orderApi";
 import { MESSAGE_SYSTEM_ERRO, REASON_REFULT } from "../../constant";
-import dayjs from "dayjs";
+import ModelDetailMovie from "./ModelMovieDetail";
 
 const TableFilms = ({ start_date, end_date, idScan }) => {
   // const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [listMovie, setListMovie] = useState([]);
-  const [refresh, setRefresh] = useState(false);
   const [showModalDetailMovie, setShowModalDetailMovie] = useState(false);
   const [selectedId, setSelectedId] = useState(0);
   const [order, setOrder] = useState({});
@@ -43,8 +33,8 @@ const TableFilms = ({ start_date, end_date, idScan }) => {
   const depatch = useDispatch();
   const reload = useSelector((state) => state.reload);
 
-  const currentDay = moment().format("YYYY-MM-DD");
-  const currentTimes = moment().format("HH:mm");
+  // Lấy thời gian hiện tại
+  const currentDateTime = moment();
 
   const columns = [
     {
@@ -101,38 +91,38 @@ const TableFilms = ({ start_date, end_date, idScan }) => {
     },
     {
       dataIndex: "action",
-      render: (text, record) => (
-        <div>
-          <Space>
-            <Button
-              title="Đổi trả vé"
-              icon={<RetweetOutlined />}
-              disabled={
-                currentDay > moment(record.showDate).format("YYYY-MM-DD")
-                  ? true
-                  : false ||
-                    (currentDay ===
-                      moment(record.showDate).format("YYYY-MM-DD") &&
-                      currentTimes > record.showTime)
-                  ? true
-                  : false
-              }
-              onClick={() => {
-                showModal(record.id);
-              }}
-            ></Button>
-          </Space>
-          <Space style={{ marginLeft: "10px" }}>
-            <Button
-              title="Xem chi tiết"
-              icon={<EyeOutlined />}
-              onClick={() => {
-                showModalDetail(record.id);
-              }}
-            ></Button>
-          </Space>
-        </div>
-      ),
+      render: (text, record) => {
+        // Tạo moment từ thời gian chiếu phim
+        const showDateTime = moment(
+          `${record.showDate} ${record.showTime}`,
+          "YYYY-MM-DD HH:mm"
+        );
+        // So sánh thời gian hiện tại với thời gian chiếu phim
+        const isMoviePast = currentDateTime.isAfter(showDateTime);
+        return (
+          <div>
+            <Space>
+              <Button
+                title="Đổi trả vé"
+                icon={<RetweetOutlined />}
+                disabled={isMoviePast ? true : false}
+                onClick={() => {
+                  showModal(record.id);
+                }}
+              ></Button>
+            </Space>
+            <Space style={{ marginLeft: "10px" }}>
+              <Button
+                title="Xem chi tiết"
+                icon={<EyeOutlined />}
+                onClick={() => {
+                  showModalDetail(record.id);
+                }}
+              ></Button>
+            </Space>
+          </div>
+        );
+      },
     },
   ];
 
@@ -186,7 +176,6 @@ const TableFilms = ({ start_date, end_date, idScan }) => {
   };
 
   useEffect(() => {
-    console.log("idScan", idScan);
     if (idScan && typeof idScan === "number") {
       showModalDetail(idScan);
     } else if (idScan !== 0) {
@@ -262,18 +251,6 @@ const TableFilms = ({ start_date, end_date, idScan }) => {
   };
   const handleCancel = () => {
     setIsModalOpen(false);
-  };
-  /////
-
-  const handleRefresh = () => {
-    setLoading(true);
-    // ajax request after empty completing
-    setTimeout(() => {
-      // setSelectedRowKeys([]);
-      setLoading(false);
-      setRefresh(!refresh);
-      message.success("Tải lại thành công");
-    }, 1000);
   };
 
   useEffect(() => {

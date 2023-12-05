@@ -33,7 +33,6 @@ const ModelDetailCustomer = ({
   const [provincePicked, setProvincePicked] = useState(0);
   const [districtPicked, setDistrictPicked] = useState(0);
   const [wardPicked, setWardPicked] = useState(0);
-  console.log("wardPicked: ", wardPicked);
   const [customerInfo, setCustomerInfo] = useState({});
   const [fileList, setFileList] = useState([]);
   const [form] = Form.useForm();
@@ -43,7 +42,7 @@ const ModelDetailCustomer = ({
   const reload = useSelector((state) => state.reload);
 
   const normFile = (e) => {
-    console.log("Upload event:", e);
+    // console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
@@ -51,21 +50,21 @@ const ModelDetailCustomer = ({
   };
 
   const onChangeProvince = (value) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     setProvincePicked(value);
   };
   const onChangeDistrict = (value) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     setDistrictPicked(value);
   };
 
   const onChangeWard = (value) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     setWardPicked(value);
   };
 
   const onSearch = (value) => {
-    console.log("search:", value);
+    // console.log("search:", value);
   };
 
   const onClose = () => {
@@ -73,14 +72,14 @@ const ModelDetailCustomer = ({
   };
 
   const handleSubmit = async (val) => {
-    console.log("submit", val);
+    // console.log("submit", val);
     const { id, firstName, lastname, phone, email, address, dob, note, image } =
       val;
     const data = new FormData();
     data.append("firstName", firstName);
     data.append("lastName", lastname);
     data.append("phone", phone);
-    // data.append("dob", dob);
+    data.append("dob", dob);
     // data.append("note", note);
     if (
       provincePicked !== 0 ||
@@ -97,7 +96,7 @@ const ModelDetailCustomer = ({
       data.append("email", email);
     }
     if (image.length > 0 && image[0].uid !== "-1") {
-      console.log(image[0].originFileObj);
+      // console.log(image[0].originFileObj);
       data.append("image", image[0].originFileObj);
     }
     if (image.length === 0) {
@@ -141,9 +140,6 @@ const ModelDetailCustomer = ({
             email: response.email ? response.email : undefined,
             dob: response.dob ? dayjs(response?.dob, "YYYY-MM-DD") : undefined,
             address: response.address ? response.address : undefined,
-            // province: response.province ? response.province : undefined,
-            // district: response.district ? response.district : undefined,
-            // ward: response.ward ? response.ward : undefined,
             image: [
               {
                 uid: "-1",
@@ -188,7 +184,6 @@ const ModelDetailCustomer = ({
 
   useEffect(() => {
     if (provincePicked !== 0) {
-      console.log("run");
       const fetchConversations = async (id) => {
         try {
           const response = await openAddressApi.getList(`/p/${id}?depth=2`);
@@ -399,21 +394,10 @@ const ModelDetailCustomer = ({
                 />
               </Form.Item>
             </Col>
-            {/* <Col span={12}>
-              <Form.Item name="address">
-                <Input
-                  style={{
-                    width: "100%",
-                  }}
-                  placeholder="Nhập địa chỉ khách hàng..."
-                />
-              </Form.Item>
-            </Col> */}
             <Col span={12}>
               <Form.Item name="dob" label="Ngày sinh">
                 <DatePicker
                   placeholder="Chọn ngày sinh"
-                  // value={moment(customerInfo?.dob)}
                   style={{
                     width: "100%",
                   }}
@@ -443,14 +427,6 @@ const ModelDetailCustomer = ({
             </Col>
             <Col span={12}></Col>
           </Row>
-
-          {/* <Row style={{ marginTop: "16px" }} gutter={16}>
-            <Col span={24}>
-              <Form.Item name="description" label="Ghi chú">
-                <Input.TextArea rows={4} placeholder="Nhập ghi chú..." />
-              </Form.Item>
-            </Col>
-          </Row> */}
         </Form>
       </Drawer>
     </>

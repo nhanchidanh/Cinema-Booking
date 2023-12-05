@@ -1,81 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import {
-  Button,
-  Col,
-  DatePicker,
-  Drawer,
-  Form,
-  Input,
-  Modal,
-  Row,
-  Select,
-  Space,
-  Upload,
-  message,
-  Table,
-} from "antd";
+import { Button, Col, Drawer, Form, Row, Space, Table } from "antd";
 
-import { useFormik } from "formik";
-import {
-  PlusOutlined,
-  UploadOutlined,
-  FileExcelOutlined,
-} from "@ant-design/icons";
-import categoryMovie from "../../api/categoryMovie";
-import cinameApi from "../../api/cinemaApi";
-import movieApi from "../../api/movieApi";
 import moment from "moment";
+import QRCode from "react-qr-code";
+import ReactToPrint from "react-to-print";
 import orderApi from "../../api/orderApi";
 import promotionRsApi from "../../api/promotionRs";
-import ReactToPrint from "react-to-print";
-import "./index.scss";
 import "./Telidon Hv Italic.ttf";
-import QRCode from "react-qr-code";
-
-const { Option } = Select;
-const getBase64 = (file) =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
+import "./index.scss";
 
 const ModelDetailMovie = ({
   showModalDetailMovie,
   setShowModalDetailMovie,
   selectedId,
 }) => {
-  const [listCategory, setListCategory] = useState([]);
-  const [listCinema, setListCinema] = useState([]);
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
-  const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-  ]);
   let componentRef = useRef();
   let componentRef2 = useRef();
 
-  const [nameMovie, setNameMovie] = useState("");
-  const [cast, setCast] = useState("");
-  const [director, setDirector] = useState("");
-  const [linkTrailer, setLinkTrailer] = useState("");
-  const [category, setCategory] = useState("");
-  const [time, setTime] = useState(0);
-  const [releaseDate, setReleaseDate] = useState("");
-  const [desc, setDesc] = useState("");
-  const [classify, setClassify] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [status, setStatus] = useState("");
-  const [image, setImage] = useState("");
-  const [movieInfo, setMovieInfo] = useState({});
   const [form] = Form.useForm();
 
   const [orderDetailSeat, setOrderDetailSeat] = useState([]);
@@ -84,7 +26,6 @@ const ModelDetailMovie = ({
   const [order, setOrder] = useState({});
 
   const [seatNomal, setSeatNomal] = useState([]);
-  console.log("seatNomal: ", seatNomal);
   const [seatVip, setSeatVip] = useState([]);
 
   const columnsSeat = [
@@ -149,52 +90,19 @@ const ModelDetailMovie = ({
     },
   ];
 
-  const onSearch = (value) => {
-    console.log("search:", value);
-  };
-
   const onClose = () => {
     setShowModalDetailMovie(false);
-  };
-
-  //change position
-  const handleChangePosition = (value) => {
-    console.log(`selected ${value}`);
-  };
-  const handleChangeTime = (value) => {
-    setTime(value);
-  };
-  const handleChangeCategory = (value) => {
-    setCategory(value);
-  };
-
-  //choise date start worling
-  const onChangeDate = (date, dateString) => {
-    setReleaseDate(dateString);
-  };
-  const onChangeEndDate = (date, dateString) => {
-    setEndDate(dateString);
-  };
-
-  const onChangeClassify = (value) => {
-    setClassify(value);
-  };
-
-  const onChangeStatus = (value) => {
-    setStatus(value);
   };
 
   useEffect(() => {
     const fetchOrder = async () => {
       try {
         const res = await orderApi.getById(selectedId);
-        console.log("order", res);
         if (res) {
           res.createdAt = moment(res.createdAt).format("DD/MM/YYYY HH:mm");
           res.showDate = moment(res.ShowMovie.showDate).format("DD/MM/YYYY");
-          const name = res.Customer?.firstName + res.Customer?.lastName;
-          let nameStaff = res.Staff?.firstName + res.Staff?.lastName;
-          // res.totalPrice = res.totalPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          const name = `${res.Customer?.firstName} ${res.Customer?.lastName}`;
+          let nameStaff = `${res.Staff?.firstName} ${res.Staff?.lastName}`;
           const totatBefore =
             Number(res.totalPrice) + Number(res.totalDiscount);
 
@@ -222,7 +130,6 @@ const ModelDetailMovie = ({
     const fetchOrderDetail = async () => {
       const res = await orderApi.getDetail(selectedId);
       if (res) {
-        console.log("orderDetail in model", res);
         let listSeat = [];
         let listProduct = [];
         res.forEach((item) => {
@@ -265,7 +172,6 @@ const ModelDetailMovie = ({
 
     const fetchPromotionRs = async () => {
       const res = await promotionRsApi.getByOrderId(selectedId);
-      console.log("promotionRs", res);
       if (res) {
         let listPromotion = [];
         res.forEach((item) => {
@@ -282,83 +188,7 @@ const ModelDetailMovie = ({
     fetchPromotionRs();
     fetchOrder();
     fetchOrderDetail();
-  }, []);
-
-  console.log("vip", seatVip);
-
-  const handleSubmit = async () => {
-    const data = {
-      nameMovie: nameMovie,
-      cast: cast,
-      director: director,
-      linkTrailer: linkTrailer,
-      idCategoryMovie: category,
-      duration: time,
-      releaseDate: releaseDate,
-      idCinema: 1,
-      desc: desc,
-      classify: classify,
-      endDate: endDate,
-      status: status,
-      image: image,
-    };
-    console.log(data);
-    const rs = await movieApi.updateMovie(selectedId, data);
-    console.log(rs);
-    if (rs) {
-      setShowModalDetailMovie(false);
-      setTimeout(() => {
-        message.success("Cập nhật phim thành công");
-      }, 500);
-    }
-  };
-  useEffect(() => {
-    //load categories
-    const getCategories = async () => {
-      try {
-        const response = await categoryMovie.getCategory();
-
-        console.log(response);
-        //set user info
-        if (response) {
-          //handle data
-          const newArr = response.map((val) => {
-            return { value: val.id, label: val.nameCategory };
-          });
-          setListCategory(newArr);
-        }
-      } catch (error) {
-        console.log("Failed to login ", error);
-      }
-    };
-
-    //load categories
-    const getCinemas = async () => {
-      try {
-        const response = await cinameApi.getCinemas();
-
-        console.log(response);
-        //set user info
-        if (response) {
-          const newArr = response.map((val) => {
-            return { value: val.id, label: val.name };
-          });
-
-          setListCinema(newArr);
-        }
-      } catch (error) {
-        console.log("Failed to login ", error);
-      }
-    };
-    getCinemas();
-    getCategories();
-  }, []);
-
-  const handleExportExcel = () => {
-    console.log("export excel");
-  };
-
-  // console.log("id", selectedId);
+  }, [selectedId]);
 
   const PrintTemplate = () => {
     return (
@@ -449,7 +279,7 @@ const ModelDetailMovie = ({
                       {" "}
                       {order?.Staff
                         ? order?.Staff?.firstName + order?.Staff?.lastName
-                        : "KH đặt Online"}
+                        : "Online"}
                     </span>
                   </span>
                 </Col>
@@ -707,7 +537,7 @@ const ModelDetailMovie = ({
               {" "}
               {order?.Staff
                 ? order?.Staff?.firstName + order?.Staff?.lastName
-                : "KH đặt Online"}
+                : "Online"}
             </span>
           </Row>
           <Row className="print-content">
@@ -947,7 +777,7 @@ const ModelDetailMovie = ({
                       order?.Staff?.firstName +
                       " " +
                       order?.Staff?.lastName
-                    : " Khách đặt online"}
+                    : " Online"}
                 </span>
               </span>
             </Col>
