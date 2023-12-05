@@ -115,7 +115,6 @@ class PromotionHeaderService {
 
   async checkPromotionApplicable(body) {
     const rank_id = await CustomerRepository.GetByPhone(body.phone);
-    console.log("rank_id: ", rank_id);
 
     let result = [];
     const moneyView = 50000;

@@ -8,6 +8,7 @@ const fs = require("fs");
 var path = require("path");
 require("dotenv").config();
 require("./src/config/redis");
+const NetworkUtil = require("./src/utils/network");
 
 const key = fs.readFileSync(path.resolve("ssl/private.key"));
 const cert = fs.readFileSync(path.resolve("ssl/certificate.crt"));
@@ -15,6 +16,8 @@ const options = {
   key: key,
   cert: cert,
 };
+
+console.log(`mobile host`, NetworkUtil.getMoblieHost("success"));
 
 const app = express();
 const httpsServer = https.createServer(options, app);

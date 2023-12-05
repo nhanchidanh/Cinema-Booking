@@ -60,7 +60,7 @@ class OrderService {
           idCustomer: order.idCustomer,
           idStaff: order?.idStaff,
           totalDiscount: totalDiscount,
-          paymentMethod: order.paymentMethod,
+          // paymentMethod: order.paymentMethod,
           numberSeat: order.seats.length,
         };
         const newOrder = await OrderRepository.create(payloadOrder, {

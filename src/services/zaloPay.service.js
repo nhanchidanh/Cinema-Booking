@@ -3,6 +3,7 @@ const CryptoJS = require("crypto-js");
 const moment = require("moment");
 require("dotenv").config();
 const qs = require("qs");
+const NetworkUtil = require("../utils/network");
 
 const config = {
   app_id: process.env.ZALO_PAY_APP_ID,
@@ -13,7 +14,7 @@ const config = {
 };
 
 const embed_data = {
-  redirecturl: process.env.REDIRECT_URL,
+  redirecturl: NetworkUtil.getMoblieHost("r"),
 };
 const items = [{}];
 class ZaloPayService {
@@ -22,10 +23,10 @@ class ZaloPayService {
     const order = {
       app_id: config.app_id,
       app_trans_id: `${moment().format("YYMMDD")}_${transID}`,
+      embed_data: JSON.stringify(embed_data),
       app_user: process.env.ZALO_PAY_APP_USER,
       app_time: Date.now(), // miliseconds
       item: JSON.stringify(items),
-      embed_data: JSON.stringify(embed_data),
       amount: Number(amount),
       description: `Thanh toán vé phim ${moment().format("YYMMDD")}_${transID}`,
       title: "Thanh toán vé phim",
