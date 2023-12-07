@@ -17,7 +17,6 @@ function App() {
   const pathname = window.location.pathname;
   React.useEffect(() => {
     const userInLocalStorage = tokenService.getUser();
-    console.log("userInLocalStorage: ", userInLocalStorage);
     if (userInLocalStorage) {
       depatch(setUser(userInLocalStorage.staff));
       //navigator("/");

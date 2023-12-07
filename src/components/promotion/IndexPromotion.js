@@ -74,7 +74,6 @@ const IndexPromotion = ({ setTab }) => {
           />
         </Col>
         <Col span={9}>
-          {" "}
           <RangePicker
             placeholder={["Ngày bắt đầu", "Ngày kết thúc"]}
             onCalendarChange={onChangeDate}

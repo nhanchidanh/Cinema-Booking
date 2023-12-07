@@ -11,6 +11,7 @@ const dateFormat = "YYYY-MM-DD";
 
 const useCustomerComponentHook = () => {
   const [revenues, setRevenues] = useState([]);
+  console.log("revenues: ", revenues);
   const user = useSelector((state) => state.user);
   const cinema = useSelector((state) => state.cinema);
   const [listCinema, setListCinema] = useState([]);
@@ -39,7 +40,7 @@ const useCustomerComponentHook = () => {
   };
 
   useEffect(() => {
-    console.log(params);
+    // console.log(params);
     fetchRevenueByCustomer(params)
       .then(async (data) => {
         if (data.length === 0) {
@@ -47,16 +48,19 @@ const useCustomerComponentHook = () => {
         } else {
           const newDate = await Promise.all(
             data.map(async (val, idx) => {
-              console.log("val: ", val);
-              let ward = await openAddressApi.getWardByCode(
-                val?.Customer?.ward_id
-              );
-              let district = await openAddressApi.getDistrictByCode(
-                val?.Customer?.district_id
-              );
-              let city = await openAddressApi.getProvinceByCode(
-                val?.Customer?.city_id
-              );
+              let ward =
+                val?.Customer?.ward_id &&
+                (await openAddressApi.getWardByCode(val?.Customer?.ward_id));
+              let district =
+                val?.Customer?.district_id &&
+                (await openAddressApi.getDistrictByCode(
+                  val?.Customer?.district_id
+                ));
+              let city =
+                val?.Customer?.city_id &&
+                (await openAddressApi.getProvinceByCode(
+                  val?.Customer?.city_id
+                ));
 
               let address;
               if (val?.Customer?.city_id !== null) {

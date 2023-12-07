@@ -289,7 +289,6 @@ const ExpandedRowRender = ({ record }) => {
 };
 
 const RevenueTable = ({ revenues, idStaff, tableType, setParamShow }) => {
-  console.log("revenues: ", revenues);
   if (tableType === 2) {
     return (
       <Table

@@ -1,23 +1,17 @@
-import React from "react";
 import { Col, Row, Typography } from "antd";
-
-// import {
-//   InfoCircleOutlined,
-//   UserOutlined,
-//   LockOutlined,
-// } from "@ant-design/icons";
-import { 
-  CardDashboard_Revenue,
-  CardDashboard_NewCus,
-  CardDashboard_Ticket,
-  CardDashboard_Refund,
- } from "./CardDashboard";
+import React from "react";
+import statitisApi from "../../api/statitisApi";
 import ColumnChart from "../chart/ColunmChart";
 import PieChart from "../chart/PieChart";
-import { TableTopMovie, TableTopCus } from "../table/TableTopMovie";
-import statitisApi from "../../api/statitisApi";
+import { TableTopCus, TableTopMovie } from "../table/TableTopMovie";
+import {
+  CardDashboard_NewCus,
+  CardDashboard_Refund,
+  CardDashboard_Revenue,
+  CardDashboard_Ticket,
+} from "./CardDashboard";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 const IndexDashboard = () => {
   const [data, setData] = React.useState([]);
   const [dataPie, setDataPie] = React.useState([]);
@@ -62,8 +56,7 @@ const IndexDashboard = () => {
         });
         const newData = response.sort((a, b) => {
           return b.totalPrice - a.totalPrice;
-      });
-        console.log(newData);
+        });
         setDataTopMovie(newData);
       } catch (error) {
         console.log("Failed to fetch top movie: ", error);
@@ -79,9 +72,8 @@ const IndexDashboard = () => {
             rank: item.Customer.Rank.nameRank,
             code: item.Customer.code,
             ...item,
-          }
+          };
         });
-        console.log(newList);
         setDataTopCustomer(newList);
       } catch (error) {
         console.log("Failed to fetch top customer: ", error);
@@ -125,16 +117,32 @@ const IndexDashboard = () => {
         }}
       >
         <Col span={6}>
-          <CardDashboard_Revenue total={totalRevenue} ratio={ratioRevenue} rs= {rsRevenue}/>
+          <CardDashboard_Revenue
+            total={totalRevenue}
+            ratio={ratioRevenue}
+            rs={rsRevenue}
+          />
         </Col>
         <Col span={6}>
-          <CardDashboard_NewCus total={totalCustomer}  ratio= {ratioCustomer} rs= {rsCustomer} />
+          <CardDashboard_NewCus
+            total={totalCustomer}
+            ratio={ratioCustomer}
+            rs={rsCustomer}
+          />
         </Col>
         <Col span={6}>
-          <CardDashboard_Ticket total={totalTicket} ratio={ratioTicket} rs= {rsTicket} />
+          <CardDashboard_Ticket
+            total={totalTicket}
+            ratio={ratioTicket}
+            rs={rsTicket}
+          />
         </Col>
         <Col span={6}>
-          <CardDashboard_Refund total={totalRefund} ratio={ratioRefund}  rs= {rsRefund} />
+          <CardDashboard_Refund
+            total={totalRefund}
+            ratio={ratioRefund}
+            rs={rsRefund}
+          />
         </Col>
       </Row>
       <Row
@@ -151,7 +159,7 @@ const IndexDashboard = () => {
         </Col>
         <Col span={2}></Col>
         <Col span={11}>
-          <PieChart data={dataPie}/>
+          <PieChart data={dataPie} />
         </Col>
       </Row>
 
@@ -165,10 +173,16 @@ const IndexDashboard = () => {
         }}
       >
         <Col span={14}>
-          <TableTopMovie title={"Top 5 bộ phim có doanh thu cao nhất"} data={dataTopMovie} />
+          <TableTopMovie
+            title={"Top 5 phim có doanh thu cao nhất"}
+            data={dataTopMovie}
+          />
         </Col>
         <Col span={10}>
-          <TableTopCus title={"Top 5 khách hàng thân thiết"}  data={dataTopCustomer}/>
+          <TableTopCus
+            title={"Top 5 khách hàng thân thiết"}
+            data={dataTopCustomer}
+          />
         </Col>
       </Row>
     </div>

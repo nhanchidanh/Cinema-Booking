@@ -26,12 +26,15 @@ import ModelAddCustomer from "./ModelAddCustomer";
 import productApi from "../../api/productApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setReload } from "../../redux/actions";
+import { useRoleHook } from "../../utils/useRoleHook.js";
 
 const { Title, Text } = Typography;
 const IndexCustomer = ({ setTab, setSelectedIdHeader }) => {
   const [showModalAddCustomer, setShowModalAddCustomer] = useState(false);
   const [isShowTable, setIsShowTable] = useState(true);
   const [listProduct, setListProduct] = useState([]);
+
+  const { isMangement } = useRoleHook();
   const depatch = useDispatch();
   const reload = useSelector((state) => state.reload);
 
@@ -99,30 +102,35 @@ const IndexCustomer = ({ setTab, setSelectedIdHeader }) => {
           lg: 16,
         }}
       >
-        <Col span={19}>
+        <Col span={12}>
           <RangePicker
             placeholder={["Ngày bắt đầu", "Ngày kết thúc"]}
             onCalendarChange={onChangeDate}
-            style={{ width: "50%" }}
+            style={{ width: "100%" }}
           />
         </Col>
+        <Col span={6}></Col>
 
         <Col
           style={{
             marginLeft: "3rem",
           }}
-          span={1}
+          span={3}
         >
-          <Button
-            type="primary"
-            icon={<TableOutlined />}
-            onClick={() => {
-              setIsShowTable(!isShowTable);
-            }}
-            title="Danh sách giá sản phẩm hiện tại"
-          ></Button>
+          {isMangement && (
+            <Button
+              type="primary"
+              icon={<TableOutlined />}
+              onClick={() => {
+                setIsShowTable(!isShowTable);
+              }}
+              title="Danh sách giá sản phẩm hiện tại"
+            >
+              Bảng giá hiện tại
+            </Button>
+          )}
         </Col>
-        <Col span={1}>
+        <Col span={2}>
           <Button
             type="primary"
             icon={<AppstoreAddOutlined />}

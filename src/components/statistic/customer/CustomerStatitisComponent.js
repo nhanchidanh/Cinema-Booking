@@ -85,7 +85,7 @@ const CustomerStatitisComponent = () => {
             format={dateFormat}
           />
         </Col>
-        <Col span={12}>
+        <Col span={6}>
           <Select
             placeholder="Chọn khách hàng"
             style={{
@@ -98,7 +98,8 @@ const CustomerStatitisComponent = () => {
             // onChange={handleChangeEmployee}
           />
         </Col>
-        <Col span={4} style={{ position: "absolute", right: "2.5%" }}>
+        <Col span={9}></Col>
+        <Col span={3}>
           <Button type="primary" title="Xuất file" onClick={handleExportExcel}>
             Xuất báo cáo
           </Button>

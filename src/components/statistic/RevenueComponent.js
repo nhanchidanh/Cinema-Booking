@@ -17,23 +17,32 @@ import useRevenueComponentHook from "./useRevenueComponentHook";
 import { exportExcel } from "../export-excel/statistics/reveneu-staff";
 const { Title, Text } = Typography;
 
-
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 const RevenueComponent = () => {
-  const { revenues, onChangeDate, handleChangeEmployee, idStaff, staffs, start_date, end_date } =
-    useRevenueComponentHook();
+  const {
+    revenues,
+    onChangeDate,
+    handleChangeEmployee,
+    idStaff,
+    staffs,
+    start_date,
+    end_date,
+  } = useRevenueComponentHook();
 
   const handleExportExcel = () => {
     console.log(revenues);
     // console.log(dayjs(start_date).format('DD/MM/YYYY') , end_date)
-    exportExcel(revenues, dayjs(start_date).format('DD/MM/YYYY'), dayjs(end_date).format('DD/MM/YYYY'));
-
+    exportExcel(
+      revenues,
+      dayjs(start_date).format("DD/MM/YYYY"),
+      dayjs(end_date).format("DD/MM/YYYY")
+    );
   };
-    
+
   return (
     <div className="site-card-wrapper">
-     <Title level={5} style={{ marginBottom: "1rem" }}>
+      <Title level={5} style={{ marginBottom: "1rem" }}>
         Thống kê doanh thu theo nhân viên
       </Title>
       <Row
@@ -47,7 +56,6 @@ const RevenueComponent = () => {
       >
         <Col span={6}>
           <RangePicker
-
             placeholder={["Ngày bắt đầu", "Ngày kết thúc"]}
             style={{ minWidth: "50%" }}
             onChange={onChangeDate}
@@ -58,7 +66,7 @@ const RevenueComponent = () => {
             format={dateFormat}
           />
         </Col>
-        <Col span={12}>
+        <Col span={6}>
           <Select
             placeholder="Thống kê theo nhân viên"
             style={{
@@ -69,10 +77,9 @@ const RevenueComponent = () => {
             options={staffs}
           />
         </Col>
-        <Col span={4} style={{ position: "absolute", right: "2.5%" }}>
-          <Button type="primary" title="Xuất file"
-            onClick={handleExportExcel}
-          >
+        <Col span={9}></Col>
+        <Col span={3}>
+          <Button type="primary" title="Xuất file" onClick={handleExportExcel}>
             Xuất báo cáo
           </Button>
         </Col>

@@ -88,7 +88,7 @@ const items = [
 const itemManager = [
   getItem("Dashboard", "1", <DashboardTwoTone />),
   getItem("Quản lý vé", "sub00", <DesktopOutlined />, [
-    getItem("Đặt vé", "2"),
+    // getItem("Đặt vé", "2"),
     getItem("Vé đã đặt", "9"),
     getItem("Vé hoàn trả", "10"),
   ]),
