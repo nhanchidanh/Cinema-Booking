@@ -6,15 +6,14 @@ const moment = require("moment");
 
 class MovieService {
   async getAllMovie(query) {
-    return  await MovieRepository.getAllMovie(query);
+    return await MovieRepository.getAllMovie(query);
   }
-  
 
   async getMovieById(id) {
     return await MovieRepository.getMovieById(id);
   }
 
-  async searchMovieByName(nameMovie){
+  async searchMovieByName(nameMovie) {
     return await MovieRepository.searchMovieByName(nameMovie);
   }
 
@@ -25,36 +24,40 @@ class MovieService {
   async createMovie(req) {
     const movie = req.body;
     const image = req.file;
-    if(image) {
-      const result = await s3Service.uploadFile(image);
-      movie.image = result
-    }
+
     movie.codeMovie = `MOV${movie.codeMovie}`;
-    const codeMovieIsExist = await this.getMovieByCode(movie.codeMovie)
-    if ( codeMovieIsExist ) {
-      throw new Error("Mã phim đã tồn tại")
+    const codeMovieIsExist = await this.getMovieByCode(movie.codeMovie);
+    if (codeMovieIsExist) {
+      throw new Error("Mã phim đã tồn tại");
     }
-    // const newMovie = 
+
+    if (image) {
+      const result = await s3Service.uploadFile(image);
+      movie.image = result;
+    }
+
+    movie.status = 1;
+    // const newMovie =
     // const { id } = newMovie;
     // const idCinema = movie.idCinema;
     // await MovieCinemaService.createCinemaMovie({ idCinema, idMovie: id });
     return await MovieRepository.createMovie(movie);
   }
 
-  async getMovieByCode(codeMovie){
+  async getMovieByCode(codeMovie) {
     return await MovieRepository.getMovieByCode(codeMovie);
   }
 
-  async getMovieByStatus(status){
+  async getMovieByStatus(status) {
     return await MovieRepository.getMovieByStatus(status);
   }
 
   async updateMovie(id, req) {
     const movie = req.body;
     const image = req.file;
-    if(image) {
+    if (image) {
       const result = await s3Service.uploadFile(image);
-      movie.image = result
+      movie.image = result;
     }
     await MovieRepository.updateMovie(id, movie);
     return { message: "Update success" };

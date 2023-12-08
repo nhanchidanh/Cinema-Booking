@@ -149,6 +149,7 @@ class MovieRepository {
   async getMovieByCode(codeMovie) {
     return await Movie.findOne({
       where: {
+        status: 1,
         codeMovie: codeMovie,
       },
     });

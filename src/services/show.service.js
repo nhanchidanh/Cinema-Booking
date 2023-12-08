@@ -212,6 +212,7 @@ class ShowService {
         idCinemaHall: show.idCinemaHall,
         idMovie: show.idMovie,
         idCinema: show.idCinema,
+        status: 1,
       });
       await Promise.all(
         dates.map(async (date) => {

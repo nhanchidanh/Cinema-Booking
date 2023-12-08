@@ -579,13 +579,11 @@ class CustomerService {
           email,
           hashPassword
         );
-        // console.log("updateStaff: ", updateStaff);
         if (!updateStaff[0]) {
           const updateCustomer = await CustomerRepository.UpdateCustomerByEmail(
             email,
             { password: hashPassword }
           );
-          // console.log("updateCustomer: ", updateCustomer);
         }
 
         mailer.sendMail(
