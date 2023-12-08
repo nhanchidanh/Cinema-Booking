@@ -211,7 +211,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
   return (
     <>
       <Drawer
-        title="Thêm bộ phim"
+        title="Thêm phim"
         width={720}
         onClose={onClose}
         open={showModalAddCustomer}

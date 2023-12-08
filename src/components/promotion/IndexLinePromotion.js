@@ -312,7 +312,7 @@ const IndexLinePromotion = ({ setTab }) => {
       color = "green";
     } else if (label === "GOLD") {
       color = "gold";
-    } else if (label === "DIAMOND") {
+    } else if (label === "SILVER") {
       color = "blue";
     } else if (label === "ANONYMOUS") {
       color = "geekblue";

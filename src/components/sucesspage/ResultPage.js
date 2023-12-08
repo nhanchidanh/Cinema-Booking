@@ -1,16 +1,14 @@
-import { Result } from "antd";
+import { Button, Result, Row } from "antd";
+import moment from "moment";
+import React, { useEffect, useRef, useState } from "react";
+import QRCode from "react-qr-code";
+import { useSelector } from "react-redux";
 import ReactToPrint from "react-to-print";
-import { useDispatch, useSelector } from "react-redux";
-import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Button, Col, Row } from "antd";
+import openAddressApi from "../../api/openApi";
+import orderApi from "../../api/orderApi";
 import "./Telidon Hv Italic.ttf";
 import "./index.scss";
-import Barcode from "react-barcode";
-import QRCode from "react-qr-code";
-import orderApi from "../../api/orderApi";
-import moment from "moment";
-import openAddressApi from "../../api/openApi";
 
 const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
   const booking = useSelector((state) => state.booking);
@@ -118,7 +116,7 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
         {order && (
           <>
             <div
-              className=" print_ticket"
+              className="print_ticket"
               style={{
                 display: "flex",
                 flexDirection: "column",

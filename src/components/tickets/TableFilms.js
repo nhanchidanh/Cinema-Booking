@@ -103,7 +103,7 @@ const TableFilms = ({ start_date, end_date, idScan }) => {
           <div>
             <Space>
               <Button
-                title="Đổi trả vé"
+                title="Trả vé"
                 icon={<RetweetOutlined />}
                 disabled={isMoviePast ? true : false}
                 onClick={() => {

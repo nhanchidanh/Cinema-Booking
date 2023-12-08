@@ -93,11 +93,10 @@ const itemManager = [
     getItem("Vé hoàn trả", "10"),
   ]),
 
-  getItem("Quản lý phim phim", "3", <VideoCameraOutlined />),
+  getItem("Quản lý phim", "3", <VideoCameraOutlined />),
   // getItem("Quản lý phim", "sub1", <UserOutlined />, [
   // ]),
   getItem("Quản lý suất chiếu", "4", <AppstoreAddOutlined />),
-  // getItem("Quản lý rạp", "sub4", <HomeOutlined />, [getItem("Rạp", "13")]),
 
   getItem("Quản lý rạp", "13", <HomeOutlined />),
 

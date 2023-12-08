@@ -59,7 +59,7 @@ const ModelAddPromotionHeader = ({
             <Button onClick={onClose}>Hủy</Button>
 
             <Button form="myForm" htmlType="submit" type="primary">
-              Lưu
+              Thêm
             </Button>
           </Space>
         }
@@ -88,7 +88,7 @@ const ModelAddPromotionHeader = ({
                   {
                     required: true,
                     message: "Hãy nhập mã CT khuyến mãi...",
-                  }
+                  },
                 ]}
               >
                 <Input
@@ -117,17 +117,15 @@ const ModelAddPromotionHeader = ({
                   {
                     required: true,
                     message: "Hãy nhập thời gian hoạt động.",
-                  }
+                  },
                 ]}
               >
                 <RangePicker
-                  placeholder={['Ngày bắt đầu', 'Ngày kết thúc']}
+                  placeholder={["Ngày bắt đầu", "Ngày kết thúc"]}
                   onChange={onChangeDate}
-                  disabledDate={
-                    (current) => {
-                      return current && current < moment().endOf('day');
-                    }
-                  }
+                  disabledDate={(current) => {
+                    return current && current < moment().endOf("day");
+                  }}
                 />
               </Form.Item>
             </Col>

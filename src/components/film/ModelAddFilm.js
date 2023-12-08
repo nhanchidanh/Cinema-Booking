@@ -96,12 +96,12 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
       name,
       time,
     } = val;
-    console.log(startDatePicker, endDatePicker);
+    // console.log(startDatePicker, endDatePicker);
     const data = new FormData();
     data.append("nameMovie", name);
     data.append("codeMovie", codeMovie);
-    data.append("cast", daoDien);
-    data.append("director", dienVien);
+    data.append("cast", dienVien);
+    data.append("director", daoDien);
     data.append("linkTrailer", link);
     data.append("idCategoryMovie", category);
     data.append("duration", time);
@@ -117,7 +117,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
       console.log(rs);
       if (rs) {
         setShowModalAddCustomer(false);
-        notifySucess("Thêm bộ phim thành công.");
+        notifySucess("Thêm phim thành công.");
         depatch(setReload(!reload));
       }
     } catch (error) {
@@ -184,7 +184,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
   return (
     <>
       <Drawer
-        title="Thêm bộ phim"
+        title="Thêm phim"
         width={720}
         onClose={onClose}
         open={showModalAddCustomer}
@@ -195,7 +195,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
           <Space>
             <Button onClick={onClose}>Hủy</Button>
             <Button form="myForm" htmlType="submit" type="primary">
-              Lưu
+              Thêm
             </Button>
           </Space>
         }

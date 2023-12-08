@@ -550,7 +550,7 @@ const PayComponent = ({ next, setIsSucess, setIdOrder }) => {
             Hủy
           </Button>,
           <Button key="submit" htmlType="submit" form="myForm" type="primary">
-            Lưu
+            Tạo
           </Button>,
         ]}
       >

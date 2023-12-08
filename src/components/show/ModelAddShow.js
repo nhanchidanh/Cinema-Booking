@@ -110,7 +110,7 @@ const ModelAddShow = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
       idCinema: values.cinema,
     };
 
-    console.log("payload", payload);
+    // console.log("payload", payload);
 
     try {
       const res = await showApi.createShow(payload);
@@ -120,12 +120,11 @@ const ModelAddShow = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
         depatch(setReload(!reload));
       }
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
       const { data } = error.response;
       if (data) {
         message.error(
-          data.message +
-            "! Vui lòng chọn vào nút xem lịch trùng để xem chi tiết"
+          data.message + "Vui lòng chọn vào nút xem lịch trùng để xem chi tiết!"
         );
       }
     }
