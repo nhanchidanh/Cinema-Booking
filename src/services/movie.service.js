@@ -25,10 +25,10 @@ class MovieService {
     const movie = req.body;
     const image = req.file;
 
-    movie.codeMovie = `MOV${movie.codeMovie}`;
-    const codeMovieIsExist = await this.getMovieByCode(movie.codeMovie);
-    if (codeMovieIsExist) {
-      throw new Error("Mã phim đã tồn tại");
+    // movie.codeMovie = `MOV${movie.codeMovie}`;
+    const nameMovieIsExist = await this.searchMovieByName(movie.nameMovie);
+    if (nameMovieIsExist.length > 0) {
+      throw new Error("Phim đã tồn tại");
     }
 
     if (image) {

@@ -80,6 +80,17 @@ const Movie = db.define(
   }
 );
 
+Movie.beforeCreate(async (instance) => {
+  const movie = await Movie.findOne({
+    order: [["id", "DESC"]],
+  });
+  if (movie) {
+    instance.codeMovie = "MOV" + String(movie.id + 1).padStart(5, "0");
+  } else {
+    instance.codeMovie = "MOV" + String(1).padStart(5, "0");
+  }
+});
+
 Movie.belongsTo(CategoryMovie, {
   as: "category",
   foreignKey: "idCategoryMovie",

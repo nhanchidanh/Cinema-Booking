@@ -41,4 +41,15 @@ const Product = db.define(
   }
 );
 
+Product.beforeCreate(async (instance) => {
+  const product = await Product.findOne({
+    order: [["id", "DESC"]],
+  });
+  if (product) {
+    instance.productCode = "PRD" + String(product.id + 1).padStart(5, "0");
+  } else {
+    instance.productCode = "PRD" + String(1).padStart(5, "0");
+  }
+});
+
 module.exports = Product;

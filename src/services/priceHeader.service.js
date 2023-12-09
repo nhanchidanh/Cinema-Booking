@@ -18,13 +18,13 @@ class PriceHeaderService {
   }
 
   async createPriceHeader(priceHeader) {
-    priceHeader.priceCode = `PRI${priceHeader.priceCode}`;
-    const priceCodeIsExist = await PriceHeaderRepository.getPriceHeaderByCode(
-      priceHeader.priceCode
-    );
-    if (priceCodeIsExist) {
-      throw new Error("Price code is exist");
-    }
+    // priceHeader.priceCode = `PRI${priceHeader.priceCode}`;
+    // const priceCodeIsExist = await PriceHeaderRepository.getPriceHeaderByCode(
+    //   priceHeader.priceCode
+    // );
+    // if (priceCodeIsExist) {
+    //   throw new Error("Price code is exist");
+    // }
     return await PriceHeaderRepository.createPriceHeader(priceHeader);
   }
 

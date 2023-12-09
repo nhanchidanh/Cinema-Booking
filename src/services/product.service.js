@@ -29,10 +29,10 @@ class ProductService {
       const result = await s3Service.uploadFile(image);
       product.image = result;
     }
-    product.productCode = `PRD${product.productCode}`;
-    const productCodeIsExist = await this.getProductByCode(product.productCode);
-    if (productCodeIsExist) {
-      throw new Error("Mã sản phẩm đã tồn tại");
+    // product.productCode = `PRD${product.productCode}`;
+    const productNameIsExist = await this.getProductByName(product.productName);
+    if (productNameIsExist) {
+      throw new Error("Sản phẩm đã tồn tại");
     }
     return await ProductRepository.createProduct(product);
   }

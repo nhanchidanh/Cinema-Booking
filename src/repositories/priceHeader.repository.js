@@ -53,6 +53,7 @@ class PriceHeaderRepository {
     return await PriceHeader.findOne({
       where: {
         priceCode: code,
+        status: 1,
       },
     });
   }

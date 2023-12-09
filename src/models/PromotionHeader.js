@@ -38,12 +38,24 @@ const PromotionHeader = db.define(
     promotionCode: {
       type: DataTypes.STRING(50),
       allowNull: false,
-    }
+    },
   },
   {
     freezeTableName: true,
     timestamps: true,
   }
 );
+
+PromotionHeader.beforeCreate(async (instance) => {
+  const promotionHeader = await PromotionHeader.findOne({
+    order: [["id", "DESC"]],
+  });
+  if (promotionHeader) {
+    instance.promotionCode =
+      "PRO" + String(promotionHeader.id + 1).padStart(5, "0");
+  } else {
+    instance.promotionCode = "PRO" + String(1).padStart(5, "0");
+  }
+});
 
 module.exports = PromotionHeader;

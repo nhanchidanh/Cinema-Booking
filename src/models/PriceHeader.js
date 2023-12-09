@@ -43,13 +43,24 @@ const PriceHeader = db.define(
     priceCode: {
       type: DataTypes.STRING(50),
       allowNull: true,
-    }
+    },
   },
   {
     freezeTableName: true,
     timestamps: true,
   }
 );
+
+PriceHeader.beforeCreate(async (instance) => {
+  const priceHeader = await PriceHeader.findOne({
+    order: [["id", "DESC"]],
+  });
+  if (priceHeader) {
+    instance.priceCode = "PRI" + String(priceHeader.id + 1).padStart(5, "0");
+  } else {
+    instance.priceCode = "PRI" + String(1).padStart(5, "0");
+  }
+});
 
 PriceHeader.belongsTo(Staff, { as: "user_create", foreignKey: "userCreate" });
 Staff.hasMany(PriceHeader, {

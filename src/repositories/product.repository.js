@@ -34,7 +34,7 @@ class ProductRepository {
   async getProductByName(name) {
     return await Product.findOne({
       where: {
-        nameProduct: name,
+        productName: name,
       },
     });
   }

@@ -40,14 +40,15 @@ class PromotionHeaderService {
       promotion.image = result;
     }
     promotion.statusPromotion = 0;
-    promotion.promotionCode = `PRO${promotion.promotionCode}`;
-    const promotionCodeIsExist =
-      await PromotionHeardRepository.getPromotionHeaderByCode(
-        promotion.promotionCode
+    // promotion.promotionCode = `PRO${promotion.promotionCode}`;
+    const namePromotionIsExist =
+      await PromotionHeardRepository.getPromotionHeaderByName(
+        promotion.namePromotion
       );
-    if (promotionCodeIsExist) {
-      throw new Error("Promotion code is exist");
+    if (namePromotionIsExist) {
+      throw new Error("Promotion is exist");
     }
+
     const newPromotion = await PromotionHeardRepository.createPromotionHeader(
       promotion
     );

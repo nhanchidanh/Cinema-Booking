@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/database");
 
-
 const Cinema = db.define(
   "Cinema",
   {
@@ -47,12 +46,23 @@ const Cinema = db.define(
     address: {
       type: DataTypes.STRING(200),
       allowNull: true,
-    }
+    },
   },
   {
     timestamps: true,
     freezeTableName: true,
   }
 );
+
+Cinema.beforeCreate(async (instance) => {
+  const cinema = await Cinema.findOne({
+    order: [["id", "DESC"]],
+  });
+  if (cinema) {
+    instance.codeCinema = "CIN" + String(cinema.id + 1).padStart(5, "0");
+  } else {
+    instance.codeCinema = "CIN" + String(1).padStart(5, "0");
+  }
+});
 
 module.exports = Cinema;
