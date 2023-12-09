@@ -162,9 +162,11 @@ const ModelDetailMovie = ({
         setOrderDetailSeat(listSeat);
         setOrderDetailProduct(listProduct);
         const listNormal = listSeat.filter(
-          (item) => item.productCode === "PRD01"
+          (item) => item.productCode === "PRD00001"
         );
-        const listVip = listSeat.filter((item) => item.productCode === "PRD03");
+        const listVip = listSeat.filter(
+          (item) => item.productCode === "PRD00003"
+        );
         setSeatNomal(listNormal);
         setSeatVip(listVip);
       }
@@ -217,8 +219,7 @@ const ModelDetailMovie = ({
                 fontSize: "20px",
               }}
             >
-              Toà nhà Bitexco Nam Long, 63A Võ Văn Tần, Phường 6, Quận 3, Tp. Hồ
-              Chí Minh
+              {order?.ShowMovie?.Show?.Cinema?.address}
             </span>
             <span
               style={{
@@ -536,8 +537,17 @@ const ModelDetailMovie = ({
             <span>
               {" "}
               {order?.Staff
-                ? order?.Staff?.firstName + order?.Staff?.lastName
+                ? order?.Staff?.firstName + " " + order?.Staff?.lastName
                 : "Online"}
+            </span>
+          </Row>
+          <Row className="print-content">
+            <span>Khách hàng:</span>
+            <span>
+              {" "}
+              {order?.customerName
+                ? order?.customerName
+                : order?.Customer?.firstName + " " + order?.Customer?.lastName}
             </span>
           </Row>
           <Row className="print-content">
@@ -717,7 +727,37 @@ const ModelDetailMovie = ({
                 Thông tin cơ bản
               </span>
             </Col>
-            <Col span={3}>
+            {!order?.refundDate && (
+              <>
+                <Col span={3}>
+                  <ReactToPrint
+                    trigger={() => <Button type="default">In vé</Button>}
+                    content={() => componentRef2}
+                    pageStyle="@page {
+              size: 52mm 74mm;
+              }
+              @media print {
+              @page {  size: a8 landscape;
+                  margin: 0mm !important;
+              }
+              @media all {
+                              .pagebreak {
+                                overflow: visible; 
+                              }
+                          }
+                      }
+              }`;"
+                  />
+                </Col>
+                <Col span={3}>
+                  <ReactToPrint
+                    trigger={() => <Button type="primary">Xuất hóa đơn</Button>}
+                    content={() => componentRef}
+                  />
+                </Col>
+              </>
+            )}
+            {/* <Col span={3}>
               <ReactToPrint
                 trigger={() => <Button type="default">In vé</Button>}
                 content={() => componentRef2}
@@ -742,7 +782,7 @@ const ModelDetailMovie = ({
                 trigger={() => <Button type="primary">Xuất hóa đơn</Button>}
                 content={() => componentRef}
               />
-            </Col>
+            </Col> */}
 
             <div style={{ display: "none" }}>
               <ComponentToPrint ref={(el) => (componentRef = el)} />
@@ -846,12 +886,21 @@ const ModelDetailMovie = ({
             </Col>
           </Row>
           <Row gutter={16} style={{ marginBottom: "10px" }}>
-            <Col span={16}></Col>
+            <Col span={16}>
+              {order?.refundDate && (
+                <span>
+                  Ngày trả:
+                  <span>
+                    {" "}
+                    {moment(order.refundDate).format("DD/MM/YYYY HH:mm")}{" "}
+                  </span>
+                </span>
+              )}
+            </Col>
             <Col span={8}>
               <span>
-                Chiết khấu:
+                Chiết khấu:{" "}
                 <span>
-                  {" "}
                   {order?.totalDiscount
                     ?.toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "đ"}
@@ -860,7 +909,14 @@ const ModelDetailMovie = ({
             </Col>
           </Row>
           <Row gutter={16} style={{ marginBottom: "10px" }}>
-            <Col span={16}></Col>
+            <Col span={16}>
+              {order?.note && (
+                <span>
+                  Lý do hoàn trả:
+                  <span> {order?.note} </span>
+                </span>
+              )}
+            </Col>
             <Col span={8}>
               <span>
                 Tổng tiền sau CK:
@@ -873,6 +929,21 @@ const ModelDetailMovie = ({
               </span>
             </Col>
           </Row>
+          {order?.refundDate && (
+            <Row gutter={16} style={{ marginBottom: "10px" }}>
+              <Col span={16}>
+                <span>
+                  Tổng tiền hoàn trả:{" "}
+                  <span>
+                    {order?.totalPrice
+                      ?.toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "đ"}{" "}
+                  </span>
+                </span>
+              </Col>
+              <Col span={8}></Col>
+            </Row>
+          )}
           <Row gutter={16} style={{ marginTop: "10px" }}>
             <Col span={12}>
               <span

@@ -55,9 +55,7 @@ export async function exportExcel(data, start_date, end_date) {
     properties: { defaultColWidth: 20, defaultRowHeight: 30 },
   });
   worksheet.addRow(["Hệ thống rạp chiếu phim GALAXY CINEMA"]);
-  worksheet.addRow([
-    "Toà nhà Bitexco Nam Long, 63A Võ Văn Tần, Phường 6, Quận 3, Tp. Hồ Chí Minh",
-  ]);
+  worksheet.addRow([""]);
   worksheet.addRow(["Ngày xuất báo cáo: " + new Date().toLocaleDateString()]);
   worksheet.addRow(["BẢNG THỐNG KÊ CHI TIẾT HÓA ĐƠN TRẢ VÉ"]);
   worksheet.addRow([

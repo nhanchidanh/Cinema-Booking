@@ -1,8 +1,6 @@
 import * as ExcelJS from "exceljs";
-import { saveAs } from "file-saver";
 import moment from "moment";
 import statitisApi from "../../../api/statitisApi";
-import { fetchRevenueByShow } from "../../../services/StatitisFetch";
 
 export async function exportExcel(data, start_date, end_date) {
   const workbook = new ExcelJS.Workbook();
@@ -49,15 +47,13 @@ export async function exportExcel(data, start_date, end_date) {
   let count = 0;
   let index_curr = 1;
 
-  const worksheet = workbook.addWorksheet("DTBN_MV", {
+  const worksheet = workbook.addWorksheet("DTTP", {
     views: [{ showGridLines: false }],
     pageSetup: { paperSize: 9, orientation: "landscape" },
     properties: { defaultColWidth: 20, defaultRowHeight: 30 },
   });
   worksheet.addRow(["Hệ thống rạp chiếu phim GALAXY CINEMA"]);
-  worksheet.addRow([
-    "Toà nhà Bitexco Nam Long, 63A Võ Văn Tần, Phường 6, Quận 3, Tp. Hồ Chí Minh",
-  ]);
+  worksheet.addRow([""]);
   worksheet.addRow(["Ngày xuất báo cáo: " + new Date().toLocaleDateString()]);
   worksheet.addRow(["DOANH THU THEO PHIM"]);
   worksheet.addRow([
@@ -244,7 +240,7 @@ export async function exportExcel(data, start_date, end_date) {
   worksheet.getRow(7).height = 30;
   worksheet.getRow(7).alignment = alignmentCenter;
 
-  const fileName = `DTBH_MV_${new Date().toLocaleDateString()}.xlsx`;
+  const fileName = `DTTP_${new Date().toLocaleDateString()}.xlsx`;
   const fileType =
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
   const xls64 = workbook.xlsx.writeBuffer().then((buffer) => {

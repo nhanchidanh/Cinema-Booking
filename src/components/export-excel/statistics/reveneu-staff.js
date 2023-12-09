@@ -34,15 +34,13 @@ export function exportExcel(data, start_date, end_date) {
   let discount = 0;
   let index_curr = 1;
 
-  const worksheet = workbook.addWorksheet("DSBN_NV", {
+  const worksheet = workbook.addWorksheet("DSBH_NV", {
     views: [{ showGridLines: false }],
     pageSetup: { paperSize: 9, orientation: "landscape" },
     properties: { defaultColWidth: 20, defaultRowHeight: 15.5 },
   });
   worksheet.addRow(["Hệ thống rạp chiếu phim GALAXY CINEMA"]);
-  worksheet.addRow([
-    "Toà nhà Bitexco Nam Long, 63A Võ Văn Tần, Phường 6, Quận 3, Tp. Hồ Chí Minh",
-  ]);
+  worksheet.addRow([""]);
   worksheet.addRow(["Ngày xuất báo cáo: " + new Date().toLocaleDateString()]);
   worksheet.addRow(["DOANH SỐ BÁN HÀNG"]);
   worksheet.addRow([
@@ -125,9 +123,9 @@ export function exportExcel(data, start_date, end_date) {
       worksheet.getCell(`A${row_index}`).alignment = alignmentCenter;
       worksheet.getCell(`A${row_index}`).border = borderRight;
 
-      total_revenue += item.total;
-      total_revenue_before_discount += item.totalDiscount;
-      discount += item.discount;
+      total_revenue += +item.total;
+      total_revenue_before_discount += +item.totalDiscount;
+      discount += +item.discount;
       row_index++;
     } else {
       if (item.Staff?.id === idStaff_curr) {
@@ -158,9 +156,9 @@ export function exportExcel(data, start_date, end_date) {
         worksheet.getCell(`A${row_index}`).alignment = alignmentCenter;
         worksheet.getCell(`A${row_index}`).border = borderRight;
 
-        total_revenue += item.total;
-        total_revenue_before_discount += item.totalDiscount;
-        discount += item.discount;
+        total_revenue += +item.total;
+        total_revenue_before_discount += +item.totalDiscount;
+        discount += +item.discount;
         row_index++;
       } else {
         worksheet.addRow({
@@ -265,12 +263,12 @@ export function exportExcel(data, start_date, end_date) {
     index: "Tổng",
     name: "",
     date: "",
-    discount: data.reduce((sum, item) => sum + item.discount, 0),
+    discount: data.reduce((sum, item) => sum + +item.discount, 0),
     revenueBeforeDiscount: data.reduce(
-      (sum, item) => sum + item.totalDiscount,
+      (sum, item) => sum + +item.totalDiscount,
       0
     ),
-    revenueAfterDiscount: data.reduce((sum, item) => sum + item.total, 0),
+    revenueAfterDiscount: data.reduce((sum, item) => sum + +item.total, 0),
   });
   const totalRow = data.length + 8 + index_curr;
   console.log(totalRow);

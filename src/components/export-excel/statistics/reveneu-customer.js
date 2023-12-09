@@ -37,15 +37,13 @@ export function exportExcel(data, start_date, end_date) {
   let idCustomer_curr;
   let index_curr = 1;
 
-  const worksheet = workbook.addWorksheet("DSBN_KH", {
+  const worksheet = workbook.addWorksheet("DSBH_KH", {
     views: [{ showGridLines: false }],
     pageSetup: { paperSize: 9, orientation: "landscape" },
     properties: { defaultColWidth: 20, defaultRowHeight: 25 },
   });
   worksheet.addRow(["Hệ thống rạp chiếu phim GALAXY CINEMA"]);
-  worksheet.addRow([
-    "Toà nhà Bitexco Nam Long, 63A Võ Văn Tần, Phường 6, Quận 3, Tp. Hồ Chí Minh",
-  ]);
+  worksheet.addRow([""]);
   worksheet.addRow(["Ngày xuất báo cáo: " + new Date().toLocaleDateString()]);
   worksheet.addRow(["DOANH SỐ THEO KHÁCH HÀNG"]);
   worksheet.addRow([

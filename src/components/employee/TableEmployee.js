@@ -15,7 +15,7 @@ import roleApi from "../../api/roleApi";
 import ModelDetailEmployee from "./ModelDetailEmployee";
 const { Option } = Select;
 
-const TableEmployee = ({ searchText }) => {
+const TableEmployee = ({ searchText, cinemaPicker }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModalDetailEmployee, setShowModalDetailEmployee] = useState(false);
@@ -31,15 +31,27 @@ const TableEmployee = ({ searchText }) => {
   };
 
   useEffect(() => {
-    if (!searchText) {
+    if (!searchText || !cinemaPicker) {
+      // Reset to the original list when searchText or cinemaPicker is not present
       setListStaff(staffsTemplate);
       return;
     }
-    const newArr = listStaff.filter((val) => {
-      return val?.name.toLowerCase().search(searchText.toLowerCase()) !== -1;
+
+    // Filter the original list based on searchText and cinemaPicker
+    const newArr = staffsTemplate.filter((val) => {
+      return (
+        // val?.name.toLowerCase().includes(searchText.toLowerCase()) &&
+        // val?.cinema.includes(cinemaPicker)
+
+        (val?.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          !searchText) &&
+        (val?.cinema.includes(cinemaPicker) || !cinemaPicker)
+      );
     });
+
+    // Update the state with the filtered list
     setListStaff(newArr);
-  }, [searchText]);
+  }, [searchText, cinemaPicker]);
 
   const columns = [
     {
@@ -74,42 +86,28 @@ const TableEmployee = ({ searchText }) => {
       dataIndex: "email",
     },
     {
-      title: "Chức vụ",
-      dataIndex: "position",
-      render: (position) => {
-        let color = "green";
-        let roleName = "";
-        if (position === "STAFF") {
-          color = "green";
-          roleName = "Nhân viên";
-        }
-        if (position === "ADMIN") {
-          color = "blue";
-          roleName = "Quản lý";
-        }
-        return (
-          <Tag color={color} key={position}>
-            {roleName}
-          </Tag>
-        );
-      },
+      title: "Nơi làm việc",
+      dataIndex: "cinema",
     },
     // {
-    //   title: "Trạng thái",
-    //   dataIndex: "status",
-    //   render: (status) => {
-    //     console.log("status: ", status);
+    //   title: "Chức vụ",
+    //   dataIndex: "position",
+    //   render: (position) => {
     //     let color = "green";
-    //     let statusName = "";
-    //     if (status === "1") {
+    //     let roleName = "";
+    //     if (position === "STAFF") {
     //       color = "green";
-    //       statusName = "Hoạt động";
+    //       roleName = "Nhân viên";
     //     }
-    //     if (status === "0") {
-    //       color = "red";
-    //       statusName = "Không hoạt động";
+    //     if (position === "ADMIN") {
+    //       color = "blue";
+    //       roleName = "Quản lý";
     //     }
-    //     return <Badge text={statusName} color={color} />;
+    //     return (
+    //       <Tag color={color} key={position}>
+    //         {roleName}
+    //       </Tag>
+    //     );
     //   },
     // },
 
@@ -214,6 +212,7 @@ const TableEmployee = ({ searchText }) => {
               maneger: item.Staffs[0]?.firstName + item.Staffs[0]?.lastName,
               image: item.image,
               code: item.code,
+              cinema: item?.Cinema?.name,
             };
           })
         );

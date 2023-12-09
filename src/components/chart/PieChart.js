@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { Pie } from '@ant-design/plots';
+import { Pie } from "@ant-design/plots";
+import React from "react";
 
-const PieChart = ({data}) => {
+const PieChart = ({ data }) => {
   const config = {
     appendPadding: 10,
     data,
-    angleField: 'percent',
-    colorField: 'title',
+    angleField: "percent",
+    colorField: "title",
     radius: 0.8,
     label: {
-      type: 'outer',
-      content: '{name}',
+      type: "outer",
+      content: "{name}",
     },
     interactions: [
       {
-        type: 'pie-legend-active',
+        type: "pie-legend-active",
       },
       {
-        type: 'element-active',
+        type: "element-active",
       },
     ],
   };
   return <Pie {...config} />;
 };
- export default PieChart
+export default PieChart;

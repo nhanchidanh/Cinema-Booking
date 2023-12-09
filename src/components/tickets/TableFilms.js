@@ -26,7 +26,9 @@ const TableFilms = ({ start_date, end_date, idScan }) => {
   const [showModalDetailMovie, setShowModalDetailMovie] = useState(false);
   const [selectedId, setSelectedId] = useState(0);
   const [order, setOrder] = useState({});
+  console.log("order: ", order);
   const [detailSeats, setDetailSeats] = useState([]);
+  console.log("detailSeats: ", detailSeats);
   const [detailProducts, setDetailProducts] = useState([]);
   const [form] = Form.useForm();
 
@@ -236,7 +238,7 @@ const TableFilms = ({ start_date, end_date, idScan }) => {
       note: text,
     };
     try {
-      const res = await orderApi.refund(order?.id, payload);
+      const res = await orderApi.refund(order?.id, payload, detailSeats);
       console.log(res);
       if (res) {
         message.success("Đổi trả thành công");

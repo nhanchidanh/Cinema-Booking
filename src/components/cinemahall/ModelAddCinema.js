@@ -149,7 +149,7 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
 
     const payload = {
       name: val.name,
-      codeCinema: val.codeCinema,
+      codeCinema: val.codeCinema || "",
       city_id: val.province.value,
       district_id: val.district.value,
       ward_id: val.ward.value,
@@ -218,7 +218,7 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
           form={form}
         >
           <Row gutter={16}>
-            <Col span={12}>
+            {/* <Col span={12}>
               <Form.Item
                 name="codeCinema"
                 label="Mã rạp"
@@ -244,8 +244,8 @@ const ModelAddCinema = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   }}
                 />
               </Form.Item>
-            </Col>
-            <Col span={12}>
+            </Col> */}
+            <Col span={24}>
               <Form.Item
                 name="name"
                 label="Tên rạp"

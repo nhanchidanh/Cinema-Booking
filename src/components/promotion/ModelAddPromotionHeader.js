@@ -80,7 +80,7 @@ const ModelAddPromotionHeader = ({
                 <Input placeholder="Hãy nhập tên CT khuyến mãi..." />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            {/* <Col span={12}>
               <Form.Item
                 name="promotionCode"
                 label="Mã CT Khuyến mãi tối đa 5 ký tự"
@@ -105,6 +105,26 @@ const ModelAddPromotionHeader = ({
                     }
                   }}
                 />
+              </Form.Item>
+            </Col> */}
+            <Col span={12}>
+              <Form.Item
+                name="image"
+                label="Hình ảnh"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                extra="Chỉ chấp nhận file ảnh có dạng .jpg, .jpeg, .png"
+                type="file"
+              >
+                <Upload
+                  name="logo"
+                  customRequest={dummyRequest}
+                  listType="picture"
+                  maxCount={1}
+                  accept=".jpg,.jpeg,.png"
+                >
+                  <Button icon={<UploadOutlined />}>Click to upload</Button>
+                </Upload>
               </Form.Item>
             </Col>
           </Row>
@@ -145,7 +165,7 @@ const ModelAddPromotionHeader = ({
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
+          {/* <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="image"
@@ -166,7 +186,7 @@ const ModelAddPromotionHeader = ({
                 </Upload>
               </Form.Item>
             </Col>
-          </Row>
+          </Row> */}
           <Row>
             <Col span={24}>
               <Form.Item name="desc" label="Mô tả">

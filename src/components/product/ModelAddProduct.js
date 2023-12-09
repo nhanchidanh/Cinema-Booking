@@ -13,7 +13,7 @@ import {
   Space,
   Upload,
   Table,
-  InputNumber
+  InputNumber,
 } from "antd";
 
 import productApi from "../../api/productApi";
@@ -23,10 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const { Option } = Select;
 
-const ModelAddProduct = ({
-  showModalAddProduct,
-  setShowModalAddProduct,
-}) => {
+const ModelAddProduct = ({ showModalAddProduct, setShowModalAddProduct }) => {
   const depatch = useDispatch();
   const reload = useSelector((state) => state.reload);
 
@@ -47,7 +44,7 @@ const ModelAddProduct = ({
     {
       title: "Số lượng",
       dataIndex: "qty",
-    }
+    },
   ];
 
   const normFile = (e) => {
@@ -61,16 +58,16 @@ const ModelAddProduct = ({
   const onChangeType = (value) => {
     setType(value);
     setTypeHall("");
-    if(type){
+    if (type) {
       form.setFieldsValue({
         typeHall: "",
       });
     }
   };
 
-  const onChangeHall  = (value) => {
+  const onChangeHall = (value) => {
     setTypeHall(value);
-    if(type === "SP"){
+    if (type === "SP") {
       form.setFieldsValue({
         typeHall: "",
       });
@@ -83,17 +80,19 @@ const ModelAddProduct = ({
 
   const handleSubmit = async (val) => {
     console.log("submit", val);
-    const { productName, productCode, type, typeHall,desc,image } = val;
-    console.log("name", productCode.valueAsNumber);
+    const { productName, productCode, typeHall, desc, image } = val;
 
     const data = new FormData();
     data.append("type", "SP");
-    data.append("productCode", productCode? productCode : "");
+    data.append("productCode", productCode ? productCode : "");
     data.append("productName", productName ? productName : "");
-    data.append("typeHall", typeHall ? typeHall : "");
+    // data.append("typeHall", typeHall ? typeHall : "");
     data.append("desc", desc ? desc : "");
     if (image) {
-      data.append("image", image[0].originFileObj ? image[0].originFileObj : "");
+      data.append(
+        "image",
+        image[0].originFileObj ? image[0].originFileObj : ""
+      );
     }
     try {
       const response = await productApi.createProduct(data);
@@ -102,16 +101,13 @@ const ModelAddProduct = ({
         onClose();
         depatch(setReload(!reload));
         form.resetFields();
-          message.success("Thêm sản phẩm thành công!");
+        message.success("Thêm sản phẩm thành công!");
       }
     } catch (error) {
       console.log(error);
-      message.error("Mã sản phẩm đã tồn tại!");
+      message.error("Sản phẩm đã tồn tại!");
     }
   };
-
-
-
 
   const dummyRequest = ({ file, onSuccess }) => {
     setImage(file);
@@ -119,7 +115,6 @@ const ModelAddProduct = ({
       onSuccess("ok");
     }, 0);
   };
-  
 
   return (
     <>
@@ -142,7 +137,7 @@ const ModelAddProduct = ({
       >
         <Form form={form} onFinish={handleSubmit} id="myForm" layout="vertical">
           <Row gutter={16}>
-            <Col span={12}>
+            {/* <Col span={12}>
               <Form.Item name="productCode" label="Mã sản phẩm"
                 rules={[
                   {
@@ -164,9 +159,11 @@ const ModelAddProduct = ({
                   }}
                 />
               </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="productName" label="Tên sản phẩm"
+            </Col> */}
+            <Col span={24}>
+              <Form.Item
+                name="productName"
+                label="Tên sản phẩm"
                 rules={[
                   {
                     required: true,
@@ -179,9 +176,8 @@ const ModelAddProduct = ({
             </Col>
           </Row>
           <Row gutter={16}>
-            
             <Col span={12}>
-            <Form.Item
+              <Form.Item
                 name="image"
                 label="Hình ảnh"
                 valuePropName="fileList"
@@ -201,14 +197,13 @@ const ModelAddProduct = ({
               </Form.Item>
             </Col>
           </Row>
-          <Row  gutter={16}>
+          <Row gutter={16}>
             <Col span={24}>
               <Form.Item name="desc" label="Mô tả">
                 <Input.TextArea rows={4} placeholder="Nhập mô tả..." />
               </Form.Item>
             </Col>
           </Row>
-          
         </Form>
       </Drawer>
     </>

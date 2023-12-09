@@ -1,4 +1,4 @@
-import { Col, Row, Typography } from "antd";
+import { Col, Divider, Row, Typography } from "antd";
 import React from "react";
 import statitisApi from "../../api/statitisApi";
 import ColumnChart from "../chart/ColunmChart";
@@ -156,10 +156,12 @@ const IndexDashboard = () => {
       >
         <Col span={11}>
           <ColumnChart data={data} />
+          <Divider>Doanh thu trong tuần</Divider>
         </Col>
         <Col span={2}></Col>
         <Col span={11}>
           <PieChart data={dataPie} />
+          <Divider>Tỉ lệ khách hàng Online và Offline</Divider>
         </Col>
       </Row>
 
