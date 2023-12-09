@@ -278,19 +278,12 @@ const ModelDetailMovie = ({
               <span>
                 Chiết khấu:
                 <span>
-                  {" "}
                   {order?.totalDiscount
                     ?.toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "đ"}
                 </span>
               </span>
             </Col>
-            {/* <Col span={8}>
-              <span>
-                Tổng tiền hoàn trả:
-                <span> {order?.totalPrice} </span>
-              </span>
-            </Col> */}
           </Row>
           <Row gutter={16} style={{ marginBottom: "10px" }}>
             <Col span={16}>
@@ -312,18 +305,17 @@ const ModelDetailMovie = ({
             </Col>
           </Row>
           <Row gutter={16} style={{ marginBottom: "10px" }}>
-            <Col span={16}></Col>
-            <Col span={8}>
+            <Col span={16}>
               <span>
-                Tổng tiền hoàn trả:
+                Tổng tiền hoàn trả:{" "}
                 <span>
-                  {" "}
                   {order?.totalPrice
                     ?.toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "đ"}{" "}
                 </span>
               </span>
             </Col>
+            <Col span={8}></Col>
           </Row>
           <Row gutter={16} style={{ marginTop: "10px" }}>
             <Col span={12}>
@@ -333,7 +325,6 @@ const ModelDetailMovie = ({
                   fontWeight: "bold",
                 }}
               >
-                {" "}
                 Danh sách ghế mua
               </span>
             </Col>

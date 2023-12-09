@@ -51,6 +51,7 @@ const IndexLinePromotion = ({ setTab }) => {
   const [promotionHeader, setPromotionHeader] = useState(null);
   const idHeaderPromotion = useSelector((state) => state.promotionHeaderId);
   const [promotionRs, setPromotionRs] = useState([]);
+  console.log("promotionRs: ", promotionRs);
 
   const [changeImage, setChangeImage] = useState(false);
 
@@ -242,6 +243,7 @@ const IndexLinePromotion = ({ setTab }) => {
     setIsModalOpen(true);
     try {
       const response = await promotionRsApi.getByPromotionLineId(id);
+      console.log("response: ", response);
       if (response) {
         const promotionApply = response.filter((item) => item.status === 1);
         const totalMoney = promotionApply.reduce((total, item) => {
@@ -255,7 +257,8 @@ const IndexLinePromotion = ({ setTab }) => {
             desc: item.PromotionLine.desc,
             type: item.PromotionLine.type,
             dateUsed: moment(item.dateUsed).format("DD/MM/YYYY HH:mm "),
-            billCode: item.idOrder,
+            idOrder: item.idOrder,
+            billCode: item?.Order?.code,
             discount: item.moneyDiscount,
             status: item.status,
             budget: item.PromotionLine.budget,

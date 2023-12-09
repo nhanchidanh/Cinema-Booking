@@ -50,15 +50,13 @@ export function exportExcel(data, startDate, endDate, user) {
   let index_curr = 1;
   let budget = 0;
 
-  const worksheet = workbook.addWorksheet("DTBN_MV", {
+  const worksheet = workbook.addWorksheet("Thong_ke_khuyen_mai", {
     views: [{ showGridLines: false }],
     pageSetup: { paperSize: 9, orientation: "landscape" },
     properties: { defaultColWidth: 20, defaultRowHeight: 25 },
   });
   worksheet.addRow(["Hệ thống rạp chiếu phim GALAXY CINEMA"]);
-  worksheet.addRow([
-    "Toà nhà Bitexco Nam Long, 63A Võ Văn Tần, Phường 6, Quận 3, Tp. Hồ Chí Minh",
-  ]);
+  worksheet.addRow([""]);
   worksheet.addRow(["Ngày xuất báo cáo: " + new Date().toLocaleDateString()]);
   worksheet.addRow([
     "Nhân viên xuất báo cáo: " + user?.firstName + " " + user?.lastName,

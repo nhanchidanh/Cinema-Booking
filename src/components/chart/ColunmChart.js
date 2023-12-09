@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Column } from "@ant-design/plots";
 
-const ColumnChart = ({data}) => {
+const ColumnChart = ({ data }) => {
   const config = {
     data,
     xField: "date",
@@ -19,8 +19,8 @@ const ColumnChart = ({data}) => {
           return "".concat(v).replace(/\d{1,3}(?=(\d{3})+$)/g, function (s) {
             return "".concat(s, ",");
           });
-        }
-      }
+        },
+      },
     },
     meta: {
       date: {
@@ -33,8 +33,13 @@ const ColumnChart = ({data}) => {
     tooltip: {
       showMarkers: false,
       formatter: (datum) => {
-        return { name: 'Doanh thu', value: datum.revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") };
-      }
+        return {
+          name: "Doanh thu",
+          value:
+            datum.revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+            " đ",
+        };
+      },
     },
     minColumnWidth: 20,
     maxColumnWidth: 20,

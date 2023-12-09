@@ -14,6 +14,7 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
   const booking = useSelector((state) => state.booking);
   let componentRef = useRef();
   const [order, setOrder] = useState(null);
+  console.log("order: ", order);
   const [orderDetail, setOrderDetail] = useState([]);
   const [detailSeatNomal, setDetailSeatNomal] = useState([]);
   const [detailSeatVip, setDetailSeatVip] = useState([]);
@@ -31,12 +32,11 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
     const fetchOrder = async () => {
       try {
         const res = await orderApi.getById(idOrder);
-        // console.log("order", res);
         if (res) {
-          const { city_id, district_id, ward_id } = res.ShowMovie.Show.Cinema;
-          const address = { city_id, district_id, ward_id };
-          const addressCinema = await getAddress(address);
-          res.addressCinema = addressCinema;
+          // const { city_id, district_id, ward_id } = res.ShowMovie.Show.Cinema;
+          // const address = { city_id, district_id, ward_id };
+          // const addressCinema = await getAddress(address);
+          // res.addressCinema = res?.ShowMovie?.Show?.Cinema?.address;
           const { duration } = res.ShowMovie.Show.Movie;
           const { showTime } = res.ShowMovie.ShowTime;
           const startTime = moment(showTime, "HH:mm");
@@ -87,9 +87,11 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
         //   }
         // });
         const listNormal = listSeat.filter(
-          (item) => item.productCode === "PRD01"
+          (item) => item.productCode === "PRD00001"
         );
-        const listVip = listSeat.filter((item) => item.productCode === "PRD03");
+        const listVip = listSeat.filter(
+          (item) => item.productCode === "PRD00003"
+        );
         setDetailSeatNomal(listNormal);
         setDetailSeatVip(listVip);
       }
@@ -145,7 +147,7 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
                 </span>
               </div>
               <Row className="print-content">
-                <span>{orderTmp?.addressCinema}</span>
+                <span>{orderTmp?.ShowMovie?.Show?.Cinema?.address}</span>
               </Row>
               <Row className="print-content">
                 <span>{orderTmp?.createdAt}</span>
@@ -305,20 +307,10 @@ const ResultPage = ({ setCurrent, setIsSucess, idOrder }) => {
     }
   }
 
-  const contentPrintTicket = () => {
-    return (
-      <>
-        <p>Ngày đặt vé </p>
-      </>
-    );
-  };
-
   const handleReset = () => {
     setCurrent(0);
     setIsSucess(false);
   };
-
-  const handlePrint = () => {};
 
   return (
     <Result

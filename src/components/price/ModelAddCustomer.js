@@ -59,7 +59,7 @@ const ModelAddCustomer = ({
       endDate: endDatePicked,
       note: values.note,
       userCreate: user.id,
-      priceCode: values.priceCode,
+      // priceCode: values.priceCode,
     };
     try {
       const res = await priceApi.createPriceHeader(data);
@@ -112,7 +112,7 @@ const ModelAddCustomer = ({
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            {/* <Col span={12}>
               <Form.Item
                 name="priceCode"
                 label="Mã Bảng giá"
@@ -138,8 +138,8 @@ const ModelAddCustomer = ({
                   }}
                 />
               </Form.Item>
-            </Col>
-            <Col span={12}>
+            </Col> */}
+            <Col span={24}>
               <Form.Item
                 name="startDate"
                 label="Thời gian họat động"

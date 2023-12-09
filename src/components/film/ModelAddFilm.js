@@ -106,7 +106,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
     data.append("idCategoryMovie", category);
     data.append("duration", time);
     data.append("releaseDate", startDatePicker);
-    data.append("desc", description);
+    data.append("desc", description || "");
     data.append("classify", classify);
     data.append("endDate", endDatePicker);
     if (image || (image && image.length > 0)) {
@@ -121,7 +121,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
         depatch(setReload(!reload));
       }
     } catch (error) {
-      notifyError("Mã phim đã tồn tại!");
+      notifyError("Phim đã tồn tại!");
     }
   };
   useEffect(() => {
@@ -202,7 +202,7 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
       >
         <Form layout="vertical" onFinish={handleSubmit} id="myForm" form={form}>
           <Row gutter={16}>
-            <Col span={12}>
+            {/* <Col span={12}>
               <Form.Item
                 name="codeMovie"
                 label="Mã phim"
@@ -228,8 +228,8 @@ const ModelAddFilm = ({ showModalAddCustomer, setShowModalAddCustomer }) => {
                   }}
                 />
               </Form.Item>
-            </Col>
-            <Col span={12}>
+            </Col> */}
+            <Col span={24}>
               <Form.Item
                 name="name"
                 label="Tên bộ phim"
