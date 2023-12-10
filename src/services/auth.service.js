@@ -575,16 +575,21 @@ class CustomerService {
         let salt = await GenerateSalt();
         let hashPassword = await GeneratePassword(password, salt);
 
-        const updateStaff = await StaffRepository.updateCurrentPassword(
+        // const updateStaff = await StaffRepository.updateCurrentPassword(
+        //   email,
+        //   hashPassword
+        // );
+        // if (!updateStaff[0]) {
+        //   const updateCustomer = await CustomerRepository.UpdateCustomerByEmail(
+        //     email,
+        //     { password: hashPassword }
+        //   );
+        // }
+
+        const updateCustomer = await CustomerRepository.UpdateCustomerByEmail(
           email,
-          hashPassword
+          { password: hashPassword }
         );
-        if (!updateStaff[0]) {
-          const updateCustomer = await CustomerRepository.UpdateCustomerByEmail(
-            email,
-            { password: hashPassword }
-          );
-        }
 
         mailer.sendMail(
           email,

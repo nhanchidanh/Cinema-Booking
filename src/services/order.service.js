@@ -193,19 +193,35 @@ class OrderService {
           id,
           1
         );
+
         // minus point for customer
-        // if(order.Customer.id !== 36){
-        //     const currentPoint = await MemberShipRepository.getMemberShipByCustomerId(order.Customer.id);
-        //     const newPoint = Number(currentPoint.dataValues.currentPoint) - Number(orderDetailTypeSeat.length);
-        //     await MemberShipRepository.updatePoint(order.Customer.id, newPoint, { transaction: t });
-        //     if ( newPoint >=25 && newPoint < 80){
-        //         await MemberShipRepository.updateRank(order.idCustomer, 3, { transaction: t });
-        //         await customerRepository.updateRank(order.idCustomer, 3, { transaction: t });
-        //     }
-        //     if ( newPoint >=80 ){
-        //         await MemberShipRepository.updateRank(order.idCustomer, 4, { transaction: t });
-        //         await customerRepository.updateRank(order.idCustomer, 4, { transaction: t });
-        //     }
+        // if (order.Customer.id !== 36) {
+        //   const currentPoint =
+        //     await MemberShipRepository.getMemberShipByCustomerId(
+        //       order.Customer.id
+        //     );
+        //   const newPoint =
+        //     Number(currentPoint.dataValues.currentPoint) -
+        //     Number(orderDetailTypeSeat.length);
+        //   await MemberShipRepository.updatePoint(order.Customer.id, newPoint, {
+        //     transaction: t,
+        //   });
+        //   if (newPoint >= 25 && newPoint < 80) {
+        //     await MemberShipRepository.updateRank(order.idCustomer, 3, {
+        //       transaction: t,
+        //     });
+        //     await customerRepository.updateRank(order.idCustomer, 3, {
+        //       transaction: t,
+        //     });
+        //   }
+        //   if (newPoint >= 80) {
+        //     await MemberShipRepository.updateRank(order.idCustomer, 4, {
+        //       transaction: t,
+        //     });
+        //     await customerRepository.updateRank(order.idCustomer, 4, {
+        //       transaction: t,
+        //     });
+        //   }
         // }
 
         // find seat of order detail type seat

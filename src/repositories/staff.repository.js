@@ -1,3 +1,4 @@
+const Cinema = require("../models/Cinema");
 const Staff = require("../models/Staff");
 const { Op } = require("sequelize");
 
@@ -78,6 +79,9 @@ class StaffRepository {
           as: "Staffs",
           attributes: ["id", "email", "phone", "firstName", "lastName"],
         },
+        {
+          model: Cinema,
+        },
       ],
       attributes: [
         "id",
@@ -97,6 +101,7 @@ class StaffRepository {
         "status",
         "position",
         "manager_id",
+        "cinema_id",
         "city_id",
         "district_id",
         "ward_id",
