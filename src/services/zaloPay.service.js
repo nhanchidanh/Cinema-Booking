@@ -14,8 +14,10 @@ const config = {
 };
 
 const embed_data = {
-  redirecturl: NetworkUtil.getMoblieHost("r"),
+  redirecturl: NetworkUtil.getMoblieHost(process.env.ZALO_PAY_RESPONSE),
 };
+console.log("embed_data: ", embed_data);
+
 const items = [{}];
 class ZaloPayService {
   async payment({ amount }) {
@@ -30,7 +32,10 @@ class ZaloPayService {
       amount: Number(amount),
       description: `Thanh toán vé phim ${moment().format("YYMMDD")}_${transID}`,
       title: "Thanh toán vé phim",
+      // bank_code: "",
     };
+
+    console.log(`order`, order);
 
     const data =
       config.app_id +
@@ -49,15 +54,20 @@ class ZaloPayService {
 
     order.mac = CryptoJS.HmacSHA256(data, config.key1).toString();
 
+    console.log(`order 2`, order);
+
     try {
       const res = await axios.post(config.endpoint, null, { params: order });
+      console.log(`res`, res);
+
       return {
         result: res.data,
         appTransId: order.app_trans_id,
         appTime: order.app_time,
       };
     } catch (error) {
-      console.log(error);
+      console.log("payment", error);
+      throw error;
     }
   }
 
@@ -67,10 +77,13 @@ class ZaloPayService {
       app_trans_id: appTransId,
     };
 
+    console.log(playload);
+
     const data =
       config.app_id + "|" + playload.app_trans_id + "|" + config.key1;
     playload.mac = CryptoJS.HmacSHA256(data, config.key1).toString();
 
+    console.log("data: ", data);
     const postConfig = {
       method: "post",
       url: config.endpointQuery,
@@ -79,6 +92,7 @@ class ZaloPayService {
       },
       data: qs.stringify(playload),
     };
+    console.log("postConfig: ", postConfig);
 
     try {
       const check = await axios(postConfig);
