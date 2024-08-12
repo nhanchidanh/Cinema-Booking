@@ -13,7 +13,8 @@ import { getAllHalls } from "../../service/HallSeatService";
 import { createOrderMethod } from "../../service/OrderService";
 import { checkStatus, createPayZalo } from "../../service/ZaloService";
 import { Link } from "native-base";
-import { Linking, Alert } from "react-native";
+import { Alert } from "react-native";
+import * as Linking from "expo-linking";
 
 const useBookingPreviewHook = () => {
   const { state, depatch } = useContext(Contex);
@@ -208,12 +209,16 @@ const useBookingPreviewHook = () => {
       promotionApplicalbe: [...dataPromotionPayLoad],
     };
     setDataOrder(dataPayload);
-    createPayZalo(price).then((data) => {
-      setDataZalo(data);
-      setReCall(true);
-      setCount(count + 1);
-      Linking.openURL(data?.result?.order_url);
-    });
+    createPayZalo(price)
+      .then(async (data) => {
+        setDataZalo(data);
+        setReCall(true);
+        setCount(count + 1);
+        await Linking.openURL(data?.result?.order_url);
+      })
+      .catch((error) =>
+        console.log(`error order`, JSON.stringify(error, null, 4))
+      );
   };
 
   const reCallStatus = (appTransId, appTime, dataPayload) => {

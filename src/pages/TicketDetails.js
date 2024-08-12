@@ -59,7 +59,9 @@ const TicketDetails = ({ route, navigation }) => {
           >
             <View>
               <Text style={{ fontSize: 16, fontWeight: "500" }}>
-                {item?.ShowMovie?.Show?.Movie?.nameMovie}
+                {item?.status === 3
+                  ? item?.ShowMovie?.Show?.Movie?.nameMovie + " (Đã hủy)"
+                  : item?.ShowMovie?.Show?.Movie?.nameMovie}
               </Text>
               <Text
                 style={{ fontSize: 14, fontWeight: "400", marginVertical: 6 }}
@@ -163,8 +165,13 @@ const TicketDetails = ({ route, navigation }) => {
           <Text style={{ fontSize: 12, fontWeight: "400", marginVertical: 12 }}>
             Hãy đưa mã vé hoặc màn hình vé để nhận vé tại quầy giao dịch!
           </Text>
-          <View style={{ marginTop: 20, marginBottom: 20 }}>
-            <QRCode value={item?.id.toString()} />
+          <View
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+            }}
+          >
+            <QRCode size={200} value={item?.id.toString()} />
           </View>
         </View>
       </ScrollView>

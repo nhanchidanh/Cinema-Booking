@@ -12,13 +12,13 @@ const Tab = createBottomTabNavigator();
 export default function Index() {
   const url = Linking.useURL();
 
-  // Linking.openURL("exp://192.168.1.9:8081/--/r?test=param");
+  // Linking.openURL("exp://192.168.101.33:8081/--/ticket-detail");
 
   return (
     <NavigationContainer
       linking={{
         prefixes: [Linking.createURL("/")],
-        config: { screens: { Home: "r" } },
+        config: { screens: { TicketDetails: "ticket-detail" } },
       }}
     >
       {/* <DrawerNavigator /> */}
